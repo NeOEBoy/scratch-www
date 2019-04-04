@@ -64,8 +64,9 @@ module.exports.setStatus = status => ({
 module.exports.refreshSession = () => (dispatch => {
     dispatch(module.exports.setStatus(module.exports.Status.FETCHING));
     api({
-        host: '',
-        uri: '/session/'
+        // host: '',
+        uri: '/accounts/session/',
+        withCredentials: true
     }, (err, body) => {
         if (err) return dispatch(module.exports.setSessionError(err));
         if (typeof body === 'undefined') return dispatch(module.exports.setSessionError('No session content'));

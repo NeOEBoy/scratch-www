@@ -106,10 +106,11 @@ module.exports.handleLogIn = (formData, callback) => (dispatch => {
     formData.useMessages = true; // NOTE: this may or may not be being used anywhere else
     api({
         method: 'post',
-        host: '',
+        // host: '',
         uri: '/accounts/login/',
         json: formData,
-        useCsrf: true
+        useCsrf: true,
+        withCredentials: true
     }, (err, body) => {
         if (err) dispatch(module.exports.setLoginError(err.message));
         if (body) {
@@ -146,7 +147,8 @@ module.exports.handleLogOut = () => (() => {
         if (err) return log.error('Error while retrieving CSRF token', err);
         const form = document.createElement('form');
         form.setAttribute('method', 'POST');
-        form.setAttribute('action', '/accounts/logout/');
+        let logoutUrl = process.env.API_HOST + '/accounts/logout/';
+        form.setAttribute('action', logoutUrl);
         const csrfField = document.createElement('input');
         csrfField.setAttribute('type', 'hidden');
         csrfField.setAttribute('name', 'csrfmiddlewaretoken');
