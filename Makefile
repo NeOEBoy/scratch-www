@@ -1,10 +1,10 @@
 ESLINT=./node_modules/.bin/eslint
-NODE= NODE_OPTIONS=--max_old_space_size=8000 node
+NODE= cross-env NODE_OPTIONS=--max_old_space_size=8000 node
 SCRATCH_DOCKER_CONFIG=./node_modules/.bin/docker_config.sh
 S3CMD=s3cmd sync -P --delete-removed --add-header=Cache-Control:no-cache,public,max-age=3600
 TAP=./node_modules/.bin/tap
-WATCH= NODE_OPTIONS=--max_old_space_size=8000 ./node_modules/.bin/watch
-WEBPACK= NODE_OPTIONS=--max_old_space_size=8000 ./node_modules/.bin/webpack
+WATCH= cross-env NODE_OPTIONS=--max_old_space_size=8000 ./node_modules/.bin/watch
+WEBPACK= cross-env NODE_OPTIONS=--max_old_space_size=8000 ./node_modules/.bin/webpack
 
 
 # ------------------------------------
