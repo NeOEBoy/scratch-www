@@ -29,8 +29,8 @@ build:
 clean:
 	rm -rf ./build
 	rm -rf ./intl
-	mkdir -p build
-	mkdir -p intl
+	mkdir build
+	mkdir intl
 
 deploy:
 	@make build
