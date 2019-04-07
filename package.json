@@ -28,6 +28,7 @@
   "homepage": "https://github.com/llk/scratch-www#readme",
   "dependencies": {
     "@sentry/browser": "4.4.2",
+    "antd": "^3.16.1",
     "bunyan": "1.7.1",
     "clipboard-copy": "2.0.1",
     "compression": "1.6.1",
@@ -36,6 +37,7 @@
     "lodash.defaults": "4.0.1",
     "newrelic": "1.25.4",
     "react-helmet": "5.2.0",
+    "reqwest": "^2.0.5",
     "scratch-docker": "^1.0.2",
     "scratch-parser": "^5.0.0",
     "scratch-storage": "^0.5.1"

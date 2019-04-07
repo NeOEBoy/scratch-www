@@ -1,5 +1,13 @@
 [
     {
+      "name": "aaneo-mystuff",
+      "pattern": "^/mystuff/?$",
+      "routeAlias": "/mystuff/?$",
+      "view": "aaneo-mystuff/aaneo-mystuff",
+      "title": "我的作品"
+    },
+    
+    {
         "name": "about",
         "pattern": "^/about/?$",
         "routeAlias": "/about/?$",
