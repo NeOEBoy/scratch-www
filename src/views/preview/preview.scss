@@ -357,10 +357,10 @@ $stage-width: 480px;
         }
     }
 
+    // 注意guiPlayer的width和height不在这里设置，而是由代码手动设置-neo
     .guiPlayer {
         display: inline-block;
         position: relative;
-        width: $player-width;
         z-index: 1;
 
         // 测试用-neo
@@ -388,8 +388,6 @@ $stage-width: 480px;
         }
 
         @media #{$small} {
-            width: 100%;
-
             // 测试用-neo
             background-color:rgb(255, 0, 200);
         }
