@@ -56,32 +56,49 @@ class PreviewPresentation extends React.Component {
       stageDim: { width: 0, height: 0 }
     };
     bindAll(this, [
-      'handleWindowResize'
+      'updateStageSize'
     ]);
   }
   // --根据宽度动态适配大小begin -neo
-  handleWindowResize() {
+  updateStageSize() {
     const windowWidth = window.innerWidth;
-    let theHeight = 0; let theWidth = 0;
-    if (innerWidth > frameless.tabletPortrait) {
-      theWidth = 482;
-    } else if (innerWidth > frameless.mobile) {
-      theWidth = parseInt(windowWidth) - 80;
-    } else {
-      theWidth = parseInt(windowWidth) - 40;
-    }
-    theHeight = parseInt(theWidth * 2 / 3) + 84;
+    const windowHeight = window.innerHeight;
 
-    this.setState({
-      stageDim: { width: theWidth, height: theHeight }
-    });
+    const controlTitleHeight = 46;
+    let theWidth = 0; let theHeight = 0;
+    const { isFullScreen } = this.props;
+    if (isFullScreen) {
+      if (windowWidth < windowHeight) {
+        theWidth = parseInt(windowWidth) - controlTitleHeight;
+        theHeight = parseInt(theWidth * 3 / 4) + controlTitleHeight;
+      } else {
+        theHeight = parseInt(windowHeight) - controlTitleHeight;
+        theWidth = parseInt((theHeight - controlTitleHeight) * 4 / 3);
+      }
+    } else {
+      if (innerWidth > frameless.tabletPortrait) {
+        theWidth = 482;
+      } else if (innerWidth > frameless.mobile) {
+        theWidth = parseInt(windowWidth) - 80;
+      } else {
+        theWidth = parseInt(windowWidth) - controlTitleHeight;
+      }
+      theHeight = parseInt(theWidth * 3 / 4) + controlTitleHeight;
+    }
+
+    if (this.state.stageDim.width !== theWidth ||
+      this.state.stageDim.height !== theHeight) {
+      this.setState({
+        stageDim: { width: theWidth, height: theHeight }
+      });
+    }
   }
   componentDidMount() {
-    window.addEventListener('resize', this.handleWindowResize);
-    this.handleWindowResize();
+    window.addEventListener('resize', this.updateStageSize);
+    this.updateStageSize();
   }
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowResize);
+    window.removeEventListener('resize', this.updateStageSize);
   }
   // --根据宽度动态适配大小end -neo
 
@@ -242,6 +259,8 @@ class PreviewPresentation extends React.Component {
       </FlexRow>
     );
 
+    // 全屏状态变更时同步下大小-neo
+    this.updateStageSize();
 
     return (
       <div className="preview">
@@ -348,6 +367,7 @@ class PreviewPresentation extends React.Component {
                   </div>
                 </MediaQuery>
               </FlexRow>
+
               <FlexRow className="preview-row">
                 <div
                   className={classNames(

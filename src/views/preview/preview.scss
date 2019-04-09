@@ -364,7 +364,7 @@ $stage-width: 480px;
         z-index: 1;
 
         // 测试用-neo
-        background-color:rgb(255, 60, 0);
+        // background-color:rgb(255, 60, 0);
         
         $alert-bg: rgba(255, 255, 255, .85);
         .project-info-alert {
@@ -384,12 +384,12 @@ $stage-width: 480px;
 
         // 测试用-neo
         @media #{$medium-and-smaller} {
-            background-color:rgb(119, 0, 255);
+            // background-color:rgb(119, 0, 255);
         }
 
         @media #{$small} {
             // 测试用-neo
-            background-color:rgb(255, 0, 200);
+            // background-color:rgb(255, 0, 200);
         }
     }
 
