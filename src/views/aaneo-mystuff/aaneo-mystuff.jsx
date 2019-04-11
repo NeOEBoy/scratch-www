@@ -152,8 +152,8 @@ class MyStuff extends React.Component {
                         shape='square'>
                       </Avatar>
                     }
-                    title={<h3>{item.title}</h3>}
-                    description={<div>{'最后更新时间: ' + makeDateFormat(new Date(item.modified), "yyyy-MM-dd hh:mm:ss")}</div>}
+                    title={item.title}
+                    description={'最后更新: ' + makeDateFormat(new Date(item.modified), "yyyy-MM-dd hh:mm:ss")}
                   />
                   <div></div>
                 </Skeleton>

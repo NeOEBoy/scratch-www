@@ -98,9 +98,6 @@ module.exports.refreshSession = () => (dispatch => {
 
         // get the permissions from the updated session
         dispatch(permissionsActions.storePermissions(body.permissions));
-        if (typeof body.user !== 'undefined') {
-            dispatch(messageCountActions.getCount(body.user.username));
-        }
         return;
     });
 });
