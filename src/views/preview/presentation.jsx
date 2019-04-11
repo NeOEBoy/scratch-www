@@ -111,16 +111,12 @@ class PreviewPresentation extends React.Component {
       authorUsername,
       backpackHost,
       canAddToStudio,
-      canDeleteComments,
       canRemix,
       canReport,
-      canRestoreComments,
       canSave,
       canShare,
-      canToggleComments,
       canUseBackpack,
       cloudHost,
-      comments,
       editable,
       extensions,
       faved,
@@ -139,17 +135,12 @@ class PreviewPresentation extends React.Component {
       loveCount,
       loved,
       modInfo,
-      moreCommentsToLoad,
-      onAddComment,
       onAddToStudioClicked,
       onAddToStudioClosed,
       onCloseAdminPanel,
       onCopyProjectLink,
-      onDeleteComment,
       onFavoriteClicked,
       onGreenFlag,
-      onLoadMore,
-      onLoadMoreReplies,
       onLoveClicked,
       onOpenAdminPanel,
       onProjectLoaded,
@@ -157,14 +148,10 @@ class PreviewPresentation extends React.Component {
       onRemixing,
       onReportClicked,
       onReportClose,
-      onReportComment,
       onReportSubmit,
-      onRestoreComment,
-      onSeeAllComments,
       onSeeInside,
       onSetProjectThumbnailer,
       onShare,
-      onToggleComments,
       onToggleStudio,
       onUpdateProjectId,
       onUpdateProjectThumbnail,
@@ -613,90 +600,6 @@ class PreviewPresentation extends React.Component {
             <div className="project-lower-container">
               <div className="inner">
                 <FlexRow className="preview-row">
-                  <div className="comments-container">
-                    <FlexRow className="comments-header">
-                      <h4><FormattedMessage id="project.comments.header" /></h4>
-                      {canToggleComments ? (
-                        <div>
-                          {projectInfo.comments_allowed ? (
-                            <FormattedMessage id="project.comments.toggleOn" />
-                          ) : (
-                              <FormattedMessage id="project.comments.toggleOff" />
-                            )}
-                          <ToggleSlider
-                            checked={projectInfo.comments_allowed}
-                            className="comments-allowed-input"
-                            onChange={onToggleComments}
-                          />
-                        </div>
-                      ) : null}
-                    </FlexRow>
-
-                    {/* Do not show the top-level comment form in single comment mode */}
-                    {!singleCommentId && (
-                      <FlexRow className="comments-root-reply">
-                        {projectInfo.comments_allowed ? (
-                          isLoggedIn ? (
-                            isShared && <ComposeComment
-                              projectId={projectId}
-                              onAddComment={onAddComment}
-                            />
-                          ) : (
-                              /* TODO add box for signing in to leave a comment */
-                              null
-                            )
-                        ) : (
-                            <div className="comments-turned-off">
-                              <FormattedMessage id="project.comments.turnedOff" />
-                            </div>
-                          )}
-                      </FlexRow>
-                    )}
-
-                    <FlexRow className="comments-list">
-                      {comments.map(comment => (
-                        <TopLevelComment
-                          author={comment.author}
-                          canDelete={canDeleteComments}
-                          canReply={isLoggedIn && projectInfo.comments_allowed && isShared}
-                          canReport={isLoggedIn}
-                          canRestore={canRestoreComments}
-                          content={comment.content}
-                          datetimeCreated={comment.datetime_created}
-                          defaultExpanded={!!singleCommentId}
-                          highlightedCommentId={singleCommentId}
-                          id={comment.id}
-                          key={comment.id}
-                          moreRepliesToLoad={comment.moreRepliesToLoad}
-                          parentId={comment.parent_id}
-                          projectId={projectId}
-                          replies={replies && replies[comment.id] ? replies[comment.id] : []}
-                          visibility={comment.visibility}
-                          onAddComment={onAddComment}
-                          onDelete={onDeleteComment}
-                          onLoadMoreReplies={onLoadMoreReplies}
-                          onReport={onReportComment}
-                          onRestore={onRestoreComment}
-                        />
-                      ))}
-                      {moreCommentsToLoad &&
-                        <Button
-                          className="button load-more-button"
-                          onClick={onLoadMore}
-                        >
-                          <FormattedMessage id="general.loadMore" />
-                        </Button>
-                      }
-                      {!!singleCommentId &&
-                        <Button
-                          className="button load-more-button"
-                          onClick={onSeeAllComments}
-                        >
-                          <FormattedMessage id="general.seeAllComments" />
-                        </Button>
-                      }
-                    </FlexRow>
-                  </div>
                   <FlexRow className="column">
                     <RemixList
                       projectId={projectId}
@@ -725,16 +628,12 @@ PreviewPresentation.propTypes = {
   authorUsername: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   backpackHost: PropTypes.string,
   canAddToStudio: PropTypes.bool,
-  canDeleteComments: PropTypes.bool,
   canRemix: PropTypes.bool,
   canReport: PropTypes.bool,
-  canRestoreComments: PropTypes.bool,
   canSave: PropTypes.bool,
   canShare: PropTypes.bool,
-  canToggleComments: PropTypes.bool,
   canUseBackpack: PropTypes.bool,
   cloudHost: PropTypes.string,
-  comments: PropTypes.arrayOf(PropTypes.object),
   editable: PropTypes.bool,
   extensions: PropTypes.arrayOf(PropTypes.object),
   faved: PropTypes.bool,
@@ -756,7 +655,6 @@ PreviewPresentation.propTypes = {
     scriptCount: PropTypes.number,
     spriteCount: PropTypes.number
   }),
-  moreCommentsToLoad: PropTypes.bool,
   onAddComment: PropTypes.func,
   onAddToStudioClicked: PropTypes.func,
   onAddToStudioClosed: PropTypes.func,
@@ -777,11 +675,9 @@ PreviewPresentation.propTypes = {
   onReportComment: PropTypes.func.isRequired,
   onReportSubmit: PropTypes.func.isRequired,
   onRestoreComment: PropTypes.func,
-  onSeeAllComments: PropTypes.func,
   onSeeInside: PropTypes.func,
   onSetProjectThumbnailer: PropTypes.func,
   onShare: PropTypes.func,
-  onToggleComments: PropTypes.func,
   onToggleStudio: PropTypes.func,
   onUpdateProjectId: PropTypes.func,
   onUpdateProjectThumbnail: PropTypes.func,

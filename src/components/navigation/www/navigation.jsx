@@ -29,49 +29,15 @@ class Navigation extends React.Component {
             'getProfileUrl',
             'handleSearchSubmit'
         ]);
-        this.state = {
-            messageCountIntervalId: -1 // javascript method interval id for getting messsage count.
-        };
     }
     componentDidMount () {
-        if (this.props.user) {
-            const intervalId = setInterval(() => {
-                this.props.getMessageCount(this.props.user.username);
-            }, 120000); // check for new messages every 2 mins.
-            this.setState({ // eslint-disable-line react/no-did-mount-set-state
-                messageCountIntervalId: intervalId
-            });
-        }
     }
     componentDidUpdate (prevProps) {
         if (prevProps.user !== this.props.user) {
             this.props.closeAccountMenus();
-            if (this.props.user) {
-                const intervalId = setInterval(() => {
-                    this.props.getMessageCount(this.props.user.username);
-                }, 120000); // check for new messages every 2 mins.
-                this.setState({ // eslint-disable-line react/no-did-update-set-state
-                    messageCountIntervalId: intervalId
-                });
-            } else {
-                // clear message count check, and set to default id.
-                clearInterval(this.state.messageCountIntervalId);
-                this.props.setMessageCount(0);
-                this.setState({ // eslint-disable-line react/no-did-update-set-state
-                    messageCountIntervalId: -1
-                });
-            }
         }
     }
     componentWillUnmount () {
-        // clear message interval if it exists
-        if (this.state.messageCountIntervalId !== -1) {
-            clearInterval(this.state.messageCountIntervalId);
-            this.props.setMessageCount(0);
-            this.setState({
-                messageCountIntervalId: -1
-            });
-        }
     }
     getProfileUrl () {
         if (!this.props.user) return;
@@ -134,23 +100,6 @@ class Navigation extends React.Component {
                     </li>
                     {this.props.session.status === sessionActions.Status.FETCHED ? (
                         this.props.user ? [
-                            <li
-                                className="link right messages"
-                                key="messages"
-                            >
-                                <a
-                                    href="/messages/"
-                                    title={this.props.intl.formatMessage({id: 'general.messages'})}
-                                >
-                                    <span
-                                        className={classNames({
-                                            'message-count': true,
-                                            'show': this.props.unreadMessageCount > 0
-                                        })}
-                                    >{this.props.unreadMessageCount} </span>
-                                    <FormattedMessage id="general.messages" />
-                                </a>
-                            </li>,
                             <li
                                 className="link right mystuff"
                                 key="mystuff"
@@ -221,7 +170,6 @@ class Navigation extends React.Component {
 Navigation.propTypes = {
     accountNavOpen: PropTypes.bool,
     closeAccountMenus: PropTypes.func,
-    getMessageCount: PropTypes.func,
     handleCloseAccountNav: PropTypes.func,
     handleLogOut: PropTypes.func,
     handleOpenRegistration: PropTypes.func,
@@ -239,7 +187,6 @@ Navigation.propTypes = {
     session: PropTypes.shape({
         status: PropTypes.string
     }),
-    setMessageCount: PropTypes.func,
     unreadMessageCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     user: PropTypes.shape({
         classroomId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -267,9 +214,6 @@ const mapDispatchToProps = dispatch => ({
     closeAccountMenus: () => {
         dispatch(navigationActions.closeAccountMenus());
     },
-    getMessageCount: username => {
-        dispatch(messageCountActions.getCount(username));
-    },
     handleToggleAccountNav: event => {
         event.preventDefault();
         dispatch(navigationActions.handleToggleAccountNav());
@@ -288,9 +232,6 @@ const mapDispatchToProps = dispatch => ({
     handleToggleLoginOpen: event => {
         event.preventDefault();
         dispatch(navigationActions.toggleLoginOpen());
-    },
-    setMessageCount: newCount => {
-        dispatch(messageCountActions.setCount(newCount));
     }
 });
 

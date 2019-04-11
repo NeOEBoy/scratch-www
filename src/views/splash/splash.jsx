@@ -16,7 +16,6 @@ class Splash extends React.Component {
     constructor (props) {
         super(props);
         bindAll(this, [
-            'getNews',
             'handleRefreshHomepageCache',
             'getHomepageRefreshStatus',
             'handleShowEmailConfirmationModal',
@@ -29,7 +28,6 @@ class Splash extends React.Component {
         ]);
         this.state = {
             adminPanelOpen: false,
-            news: [], // gets news posts from the scratch Tumblr
             emailConfirmationModalOpen: false, // flag that determines whether to show banner to request email conf.
             refreshCacheStatus: 'notrequested'
         };
@@ -41,7 +39,6 @@ class Splash extends React.Component {
             this.props.getSharedByFollowing(this.props.user.username, this.props.user.token);
             this.props.getInStudiosFollowing(this.props.user.username, this.props.user.token);
             this.props.getLovedByFollowing(this.props.user.username, this.props.user.token);
-            this.getNews();
         }
     }
     componentDidUpdate (prevProps) {
@@ -51,13 +48,11 @@ class Splash extends React.Component {
                 this.props.getSharedByFollowing(this.props.user.username, this.props.user.token);
                 this.props.getInStudiosFollowing(this.props.user.username, this.props.user.token);
                 this.props.getLovedByFollowing(this.props.user.username, this.props.user.token);
-                this.getNews();
             } else {
                 this.props.setRows('shared', []);
                 this.props.setRows('loved', []);
                 this.props.setRows('studios', []);
                 this.props.setRows('activity', []);
-                this.setState({news: []}); // eslint-disable-line react/no-did-update-set-state
             }
             if (this.shouldShowEmailConfirmation()) {
                 window.addEventListener('message', this.onMessage);
@@ -66,17 +61,7 @@ class Splash extends React.Component {
             }
         }
     }
-    getNews () {
-        api({
-            uri: '/news?limit=3'
-        }, (err, body, resp) => {
-            if (resp.statusCode !== 200) {
-                return log.error(`Unexpected status code ${resp.statusCode} received from news request`);
-            }
-            if (!body) return log.error('No response body');
-            if (!err) return this.setState({news: body});
-        });
-    }
+
     handleRefreshHomepageCache () {
         api({
             host: '',
@@ -159,7 +144,6 @@ class Splash extends React.Component {
                 isAdmin={this.props.isAdmin}
                 isEducator={this.props.isEducator}
                 lovedByFollowing={this.props.loved}
-                news={this.state.news}
                 refreshCacheStatus={homepageRefreshStatus}
                 sessionStatus={this.props.sessionStatus}
                 sharedByFollowing={this.props.shared}
