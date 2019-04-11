@@ -4,6 +4,7 @@ const React = require('react');
 const render = require('../../lib/render.jsx');
 const Page = require('../../components/page/www/page.jsx');
 const bindAll = require('lodash.bindall');
+const api = require('../../lib/api');
 
 require('./aaneo-mystuff.scss');
 
@@ -39,8 +40,8 @@ class MyStuff extends React.Component {
     this.getNextPage((res) => {
       this.setState({
         initLoading: false,
-        list4Next: res.data,
-        list4source: res.data,
+        list4Next: res.data || [],
+        list4source: res.data || [],
       });
     });
   }
@@ -55,6 +56,9 @@ class MyStuff extends React.Component {
       contentType: 'application/json',
       withCredentials: true,
       success: (res) => {
+        res.data.forEach(element => {
+          element.imageData = '/svgs/mystuff/default-screenshot-icon.svg';
+        });
         callback(res);
 
         if (res && res.data.length > 0) {
@@ -107,6 +111,7 @@ class MyStuff extends React.Component {
           title="我的作品"
           extra={<a href="#">排序</a>}
         >
+
           <List
             loading={initLoading}
             itemLayout="horizontal"
@@ -117,14 +122,35 @@ class MyStuff extends React.Component {
                 [
                   <a href={'/projects/' + item.projectId}>查看</a>,
                   <a href={'/projects/' + item.projectId + '#editor'}>编辑</a>,
-                  <a>删除</a>]
+                  <a>删除</a>
+                ]
               }>
                 <Skeleton avatar title={false} loading={item.loading} active>
                   <List.Item.Meta
                     avatar=
                     {
-                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                        style={{ width: 94, height: 72 }} />
+                      <Avatar
+                        onLoad={() => {
+                          api({
+                            host: '',
+                            uri: item.image,
+                            method: 'GET',
+                            withCredentials: true,
+                          }, (err, body, res) => {
+                            if (err || res.statusCode !== 200 || !body) {
+                              return;
+                            }
+
+                            let newImageData = 'data:image/png;base64,' + body;
+                            item.imageData = newImageData;
+                            // 强制刷新下
+                            this.forceUpdate();
+                          });
+                        }}
+                        src={item.imageData}
+                        style={{ width: 200, height: 150 }}
+                        shape='square'>
+                      </Avatar>
                     }
                     title={<h3>{item.title}</h3>}
                     description={<div>{'最后更新时间: ' + makeDateFormat(new Date(item.modified), "yyyy-MM-dd hh:mm:ss")}</div>}

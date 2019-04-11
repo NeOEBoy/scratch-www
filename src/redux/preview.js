@@ -979,7 +979,9 @@ module.exports.reportProject = (id, jsonData, token) => (dispatch => {
 module.exports.updateProjectThumbnail = (id, blob) => (dispatch => {
     dispatch(module.exports.setFetchStatus('project-thumbnail', module.exports.Status.FETCHING));
     api({
-        uri: `/internalapi/project/thumbnail/${id}/set/`,
+        // 官方path使用internalapi和别的接口格式不大一致，这里统一下和project一致-neo
+        // uri: `/internalapi/project/thumbnail/${id}/set/`,
+        uri: `/images/${id}`,
         method: 'POST',
         headers: {
             'Content-Type': 'image/png'
@@ -987,7 +989,8 @@ module.exports.updateProjectThumbnail = (id, blob) => (dispatch => {
         withCredentials: true,
         useCsrf: true,
         body: blob,
-        host: '' // Not handled by the API, use existing infrastructure
+        // 官方使用根域名，这里注释掉改成Api域名使得可以统一走接口-neo
+        // host: '' // Not handled by the API, use existing infrastructure
     }, (err, body, res) => {
         if (err || res.statusCode !== 200) {
             dispatch(module.exports.setFetchStatus('project-thumbnail', module.exports.Status.ERROR));
