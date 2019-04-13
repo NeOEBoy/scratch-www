@@ -23,7 +23,7 @@ class MyStuff extends React.Component {
     super(props);
 
     this.state = {
-      initLoading: true,
+      initLoading: false,
       nextLoading: false,
       list4Next: [],
       list4source: [],
@@ -37,11 +37,18 @@ class MyStuff extends React.Component {
   }
 
   componentDidMount() {
+    console.log('MyStuff componentDidMount');
+
+    this.setState({
+      initLoading: true
+    });
     this.getNextPage((res) => {
+      console.log('MyStuff componentDidMount complete');
+
       this.setState({
         initLoading: false,
-        list4Next: res.data || [],
-        list4source: res.data || [],
+        list4Next: res && res.data || [],
+        list4source: res && res.data || [],
       });
     });
   }
@@ -66,10 +73,17 @@ class MyStuff extends React.Component {
             currentPage: this.state.currentPage + 1,
             alreadyShowAll: this.state.list4source.length >= res.totalCount
           });
+        } else {
+          this.setState({
+            alreadyShowAll: true
+          });
         }
       },
       error: () => {
-        callback(null);
+        this.setState({
+          alreadyShowAll: true
+        });
+        callback({});
       }
     });
   }
