@@ -117,6 +117,11 @@ $stage-width: 480px;
 
         @media #{$small} {
             margin-right: 0;
+
+            // 小屏幕时宽度过大导致右侧被截了，缩小点 -neo
+            .inplace-input {
+              width: calc(100% - 4.5rem);
+          }
         }
     }
 
@@ -340,8 +345,11 @@ $stage-width: 480px;
         flex-wrap: nowrap;
 
         &.force-row {
+            
             @media #{$medium-and-smaller} {
                 flex-direction: row;
+                // 禁止横向滚动 -neo
+                overflow: hidden;
             }
         }
 

@@ -56,7 +56,8 @@ class PreviewPresentation extends React.Component {
       stageDim: { width: 0, height: 0 }
     };
     bindAll(this, [
-      'updateStageSize'
+      'updateStageSize',
+      'handleOrientationChange'
     ]);
   }
   // --根据宽度动态适配大小begin -neo
@@ -69,10 +70,10 @@ class PreviewPresentation extends React.Component {
     const { isFullScreen } = this.props;
     if (isFullScreen) {
       if (windowWidth < windowHeight) {
-        theWidth = parseInt(windowWidth) - controlTitleHeight;
+        theWidth = parseInt(windowWidth) - 30;
         theHeight = parseInt(theWidth * 3 / 4) + controlTitleHeight;
       } else {
-        theHeight = parseInt(windowHeight) - controlTitleHeight;
+        theHeight = parseInt(windowHeight) - 10;
         theWidth = parseInt((theHeight - controlTitleHeight) * 4 / 3);
       }
     } else {
@@ -93,12 +94,24 @@ class PreviewPresentation extends React.Component {
       });
     }
   }
+  handleOrientationChange() {
+    // 屏幕旋转时延迟下设置大小，否则屏幕错乱 -neo
+    this._delayUpdateSizeTimer && clearTimeout(this._delayUpdateSizeTimer);
+    this._delayUpdateSizeTimer = setTimeout(() => {
+      this._delayUpdateSizeTimer = null;
+      this.updateStageSize();
+    }, 0);
+  }
   componentDidMount() {
     window.addEventListener('resize', this.updateStageSize);
+    window.addEventListener('orientationchange', this.handleOrientationChange);
+
     this.updateStageSize();
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateStageSize);
+    window.removeEventListener('orientationchange', this.handleOrientationChange);
+    this._delayUpdateSizeTimer && clearTimeout(this._delayUpdateSizeTimer);
   }
   // --根据宽度动态适配大小end -neo
 
@@ -273,88 +286,6 @@ class PreviewPresentation extends React.Component {
           <React.Fragment>
             {banner}
             <div className="inner">
-              <FlexRow className="preview-row force-row">
-                <FlexRow className="project-header">
-                  <a href={`/users/${projectInfo.author.username}`}>
-                    <Avatar
-                      alt={projectInfo.author.username}
-                      src={thumbnailUrl(projectInfo.author.id, 48)}
-                    />
-                  </a>
-                  <div className="title">
-                    {editable ?
-                      <FormsyProjectUpdater
-                        field="title"
-                        initialValue={projectInfo.title}
-                      >
-                        {(value, ref, handleUpdate) => (
-                          <Formsy
-                            ref={ref}
-                            onKeyPress={onKeyPress}
-                          >
-                            <InplaceInput
-                              className="project-title"
-                              handleUpdate={handleUpdate}
-                              name="title"
-                              validationErrors={{
-                                maxLength: intl.formatMessage({
-                                  id: 'project.titleMaxLength'
-                                })
-                              }}
-                              validations={{
-                                maxLength: 100
-                              }}
-                              value={value}
-                            />
-                          </Formsy>
-                        )}
-                      </FormsyProjectUpdater> :
-                      <React.Fragment>
-                        <div
-                          className="project-title no-edit"
-                          title={projectInfo.title}
-                        >{projectInfo.title}</div>
-                        {'by '}
-                        <a href={`/users/${projectInfo.author.username}`}>
-                          {projectInfo.author.username}
-                        </a>
-                      </React.Fragment>
-                    }
-                  </div>
-                </FlexRow>
-                <MediaQuery minWidth={frameless.mobile}>
-                  <div className="project-buttons">
-                    {canRemix &&
-                      <Button
-                        alt={intl.formatMessage({ id: 'project.remixButton.altText' })}
-                        className={classNames([
-                          'remix-button',
-                          {
-                            disabled: isRemixing || !isProjectLoaded,
-                            remixing: isRemixing
-                          }
-                        ])}
-                        disabled={isRemixing || !isProjectLoaded}
-                        title={intl.formatMessage({ id: 'project.remixButton.altText' })}
-                        onClick={onRemix}
-                      >
-                        {isRemixing ? (
-                          <FormattedMessage id="project.remixButton.remixing" />
-                        ) : (
-                            <FormattedMessage id="project.remixButton" />
-                          )}
-                      </Button>
-                    }
-                    <Button
-                      className="button see-inside-button"
-                      onClick={onSeeInside}
-                    >
-                      <FormattedMessage id="project.seeInsideButton" />
-                    </Button>
-                  </div>
-                </MediaQuery>
-              </FlexRow>
-
               <FlexRow className="preview-row">
                 <div
                   className={classNames(
@@ -432,6 +363,89 @@ class PreviewPresentation extends React.Component {
                         onToggleStudio={onToggleStudio}
                       />
                     </div>
+                  </FlexRow>
+                </MediaQuery>
+                <MediaQuery maxWidth={frameless.tabletPortrait - 1}>
+                  <FlexRow className="preview-row force-row">
+                    <FlexRow className="project-header">
+                      <a href={`/users/${projectInfo.author.username}`}>
+                        <Avatar
+                          alt={projectInfo.author.username}
+                          src={thumbnailUrl(projectInfo.author.id, 48)}
+                        />
+                      </a>
+                      <div className="title">
+                        {editable ?
+                          <FormsyProjectUpdater
+                            field="title"
+                            initialValue={projectInfo.title}
+                          >
+                            {(value, ref, handleUpdate) => (
+                              <Formsy
+                                ref={ref}
+                                onKeyPress={onKeyPress}
+                              >
+                                <InplaceInput
+                                  className="project-title"
+                                  handleUpdate={handleUpdate}
+                                  name="title"
+                                  validationErrors={{
+                                    maxLength: intl.formatMessage({
+                                      id: 'project.titleMaxLength'
+                                    })
+                                  }}
+                                  validations={{
+                                    maxLength: 100
+                                  }}
+                                  value={value}
+                                />
+                              </Formsy>
+                            )}
+                          </FormsyProjectUpdater> :
+                          <React.Fragment>
+                            <div
+                              className="project-title no-edit"
+                              title={projectInfo.title}
+                            >{projectInfo.title}</div>
+                            {'by '}
+                            <a href={`/users/${projectInfo.author.username}`}>
+                              {projectInfo.author.username}
+                            </a>
+                          </React.Fragment>
+                        }
+                      </div>
+                    </FlexRow>
+                    <MediaQuery minWidth={frameless.mobile}>
+                      <div className="project-buttons">
+                        {canRemix &&
+                          <Button
+                            alt={intl.formatMessage({ id: 'project.remixButton.altText' })}
+                            className={classNames([
+                              'remix-button',
+                              {
+                                disabled: isRemixing || !isProjectLoaded,
+                                remixing: isRemixing
+                              }
+                            ])}
+                            disabled={isRemixing || !isProjectLoaded}
+                            title={intl.formatMessage({ id: 'project.remixButton.altText' })}
+                            onClick={onRemix}
+                          >
+                            {isRemixing ? (
+                              <FormattedMessage id="project.remixButton.remixing" />
+                            ) : (
+                                <FormattedMessage id="project.remixButton" />
+                              )}
+                          </Button>
+                        }
+                        <Button
+                          className="button see-inside-button"
+                          onClick={onSeeInside}
+                        >
+                          <FormattedMessage id="project.seeInsideButton" />
+                        </Button>
+                      </div>
+                    </MediaQuery>
                   </FlexRow>
                 </MediaQuery>
                 <FlexRow className="project-notes">
@@ -577,6 +591,89 @@ class PreviewPresentation extends React.Component {
                     onReportSubmit={onReportSubmit}
                     onToggleStudio={onToggleStudio}
                   />
+                </FlexRow>
+              </MediaQuery>
+              <MediaQuery minWidth={frameless.tabletPortrait}>
+                <FlexRow className="preview-row force-row">
+                  <FlexRow className="project-header">
+                    <a href={`/users/${projectInfo.author.username}`}>
+                      <Avatar
+                        alt={projectInfo.author.username}
+                        src={thumbnailUrl(projectInfo.author.id, 48)}
+                      />
+                    </a>
+                    <div className="title">
+                      {editable ?
+                        <FormsyProjectUpdater
+                          field="title"
+                          initialValue={projectInfo.title}
+                        >
+                          {(value, ref, handleUpdate) => (
+                            <Formsy
+                              ref={ref}
+                              onKeyPress={onKeyPress}
+                            >
+                              <InplaceInput
+                                className="project-title"
+                                handleUpdate={handleUpdate}
+                                name="title"
+                                validationErrors={{
+                                  maxLength: intl.formatMessage({
+                                    id: 'project.titleMaxLength'
+                                  })
+                                }}
+                                validations={{
+                                  maxLength: 100
+                                }}
+                                value={value}
+                              />
+                            </Formsy>
+                          )}
+                        </FormsyProjectUpdater> :
+                        <React.Fragment>
+                          <div
+                            className="project-title no-edit"
+                            title={projectInfo.title}
+                          >{projectInfo.title}</div>
+                          {'by '}
+                          <a href={`/users/${projectInfo.author.username}`}>
+                            {projectInfo.author.username}
+                          </a>
+                        </React.Fragment>
+                      }
+                    </div>
+                  </FlexRow>
+                  <MediaQuery minWidth={frameless.mobile}>
+                    <div className="project-buttons">
+                      {canRemix &&
+                        <Button
+                          alt={intl.formatMessage({ id: 'project.remixButton.altText' })}
+                          className={classNames([
+                            'remix-button',
+                            {
+                              disabled: isRemixing || !isProjectLoaded,
+                              remixing: isRemixing
+                            }
+                          ])}
+                          disabled={isRemixing || !isProjectLoaded}
+                          title={intl.formatMessage({ id: 'project.remixButton.altText' })}
+                          onClick={onRemix}
+                        >
+                          {isRemixing ? (
+                            <FormattedMessage id="project.remixButton.remixing" />
+                          ) : (
+                              <FormattedMessage id="project.remixButton" />
+                            )}
+                        </Button>
+                      }
+                      <Button
+                        className="button see-inside-button"
+                        onClick={onSeeInside}
+                      >
+                        <FormattedMessage id="project.seeInsideButton" />
+                      </Button>
+                    </div>
+                  </MediaQuery>
                 </FlexRow>
               </MediaQuery>
               <MediaQuery minWidth={frameless.tabletPortrait}>
