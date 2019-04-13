@@ -16,7 +16,7 @@ import { makeFullUrlWithParams } from './http-utils'
 import { makeDateFormat } from './date-utils'
 
 const KSize = 2;
-const KDataUrl = 'http://localhost:3001/scratch-api/mystuff/page';
+const KDataUrl = 'http://192.168.31.157:3001/scratch-api/mystuff/page';
 
 class MyStuff extends React.Component {
   constructor(props) {
@@ -55,6 +55,27 @@ class MyStuff extends React.Component {
 
   getNextPage(callback) {
     let url = makeFullUrlWithParams(KDataUrl, { page: this.state.currentPage, size: KSize });
+    // api({
+    //   host: '',
+    //   uri: '/accounts/check_email/',
+    //   params: {email: formData.user.email}
+    // }, (err, res) => {
+    //     this.setState({
+    //         waiting: false
+    //     });
+
+    //     if (err) return invalidate({all: err});
+    //     res = res[0];
+    //     switch (res.msg) {
+    //     case 'valid email':
+    //         return this.props.onNextStep(formData);
+    //     default:
+    //         return invalidate({'user.email': res.msg});
+    //     }
+    // });
+
+
+
 
     reqwest({
       url: url,

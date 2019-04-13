@@ -130,20 +130,6 @@ class Navigation extends React.Component {
                             </li>
                         ] : [
                             <li
-                                className="link right join"
-                                key="join"
-                            >
-                                <a
-                                    href="#"
-                                    onClick={this.props.handleOpenRegistration}
-                                >
-                                    <FormattedMessage id="general.joinScratch" />
-                                </a>
-                            </li>,
-                            <Registration
-                                key="registration"
-                            />,
-                            <li
                                 className="link right login-item"
                                 key="login"
                             >
