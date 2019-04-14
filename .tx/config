@@ -14,12 +14,6 @@ source_file = src/l10n.json
 source_lang = en
 type = KEYVALUEJSON
 
-[scratch-website.teacherregistration-l10njson]
-file_filter = localizations/teacherregistration/<lang>.json
-source_file = src/views/teacherregistration/l10n.json
-source_lang = en
-type = KEYVALUEJSON
-
 [scratch-website.dmca-l10njson]
 file_filter = localizations/dmca/<lang>.json
 source_file = src/views/dmca/l10n.json
@@ -44,12 +38,6 @@ source_file = src/views/about/l10n.json
 source_lang = en
 type = KEYVALUEJSON
 
-[scratch-website.teacher-faq-l10njson]
-file_filter = localizations/teacher-faq/<lang>.json
-source_file = src/views/teachers/faq/l10n.json
-source_lang = en
-type = KEYVALUEJSON
-
 [scratch-website.developers-l10njson]
 file_filter = localizations/developers/<lang>.json
 source_file = src/views/developers/l10n.json
@@ -59,12 +47,6 @@ type = KEYVALUEJSON
 [scratch-website.guidelines-l10njson]
 file_filter = localizations/guidelines/<lang>.json
 source_file = src/views/guidelines/l10n.json
-source_lang = en
-type = KEYVALUEJSON
-
-[scratch-website.educator-landing-l10njson]
-file_filter = localizations/educator-landing/<lang>.json
-source_file = src/views/teachers/landing/l10n.json
 source_lang = en
 type = KEYVALUEJSON
 
@@ -86,20 +68,9 @@ source_file = src/views/messages/l10n.json
 source_lang = en
 type = KEYVALUEJSON
 
-[scratch-website.research-l10njson]
-file_filter = localizations/research/<lang>.json
-source_file = src/views/research/l10n.json
-source_lang = en
-type = KEYVALUEJSON
-
 [scratch-website.preview-l10njson]
 file_filter = localizations/preview/<lang>.json
 source_file = src/views/preview/l10n.json
-source_lang = en
-type = KEYVALUEJSON
-
-[scratch-website.microbit-l10njson]
-source_file = src/views/microbit/l10n.json
 source_lang = en
 type = KEYVALUEJSON
 
@@ -111,16 +82,5 @@ type = KEYVALUEJSON
 
 [scratch-website.parents-l10njson]
 source_file = src/views/parents/l10n.json
-source_lang = en
-type = KEYVALUEJSON
-
-
-[scratch-website.ideas-l10njson]
-source_file = src/views/ideas/l10n.json
-source_lang = en
-type = KEYVALUEJSON
-
-[scratch-website.starter-projects-l10njson]
-source_file = src/views/starter-projects/l10n.json
 source_lang = en
 type = KEYVALUEJSON

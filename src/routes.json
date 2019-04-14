@@ -33,14 +33,6 @@
         "view": "dmca/dmca",
         "title": "DMCA"
     },
-
-    {
-        "name": "educator-landing",
-        "pattern": "^/educators/?$",
-        "routeAlias": "/educators(?:/(faq|register|waiting))?/?$",
-        "view": "teachers/landing/landing",
-        "title": "Educators"
-    },
     {
         "name": "explore",
         "pattern": "^/explore/:projects(projects|studios)/:all/?$",
@@ -54,13 +46,6 @@
         "routeAlias": "/community_guidelines/?$",
         "view": "guidelines/guidelines",
         "title": "Scratch Community Guidelines"
-    },
-    {
-        "name": "ideas",
-        "pattern": "^/ideas/?(\\?.*)?$",
-        "routeAlias": "/ideas/?\\??",
-        "view": "ideas/ideas",
-        "title": "Ideas"
     },
     {
         "name": "jobs",
@@ -105,20 +90,6 @@
         "redirect": "/3faq"
     },
     {
-        "name": "privacypolicy",
-        "pattern": "^/privacy_policy/?$",
-        "routeAlias": "/privacy_policy/?$",
-        "view": "privacypolicy/privacypolicy",
-        "title": "Privacy Policy"
-    },
-    {
-        "name": "research",
-        "pattern": "^/research/?$",
-        "routeAlias": "/research",
-        "view": "research/research",
-        "title": "Research"
-    },
-    {
         "name": "search",
         "pattern": "^/search/:projects/?$",
         "routeAlias": "/search",
@@ -131,69 +102,6 @@
         "routeAlias": "/?$",
         "view": "splash/splash",
         "title": "Imagine, Program, Share"
-    },
-    {
-        "name": "starter-projects",
-        "pattern": "^/starter-projects/?$",
-        "routeAlias": "/starter-projects/?$",
-        "view": "starter-projects/starter-projects",
-        "title": "Starter Projects"
-    },
-    {
-        "name": "starter-projects-redirect",
-        "pattern": "^/starter_projects/?$",
-        "routeAlias": "/starter_projects/?$",
-        "redirect": "/starter-projects"
-    },
-    {
-        "name": "student-complete-registration",
-        "pattern": "^/classes/complete_registration",
-        "routeAlias": "/classes/(complete_registration|.+/register/.+)",
-        "view": "studentcompleteregistration/studentcompleteregistration",
-        "title": "Complete your Registration"
-    },
-    {
-        "name": "student-registration",
-        "pattern": "^/classes/:id/register/:token",
-        "routeAlias": "/classes/(complete_registration|.+/register/.+)",
-        "view": "studentregistration/studentregistration",
-        "title": "Class Registration"
-    },
-    {
-        "name": "teacher-faq",
-        "pattern": "^/educators/faq/?$",
-        "routeAlias": "/educators(?:/(faq|register|waiting))?/?$",
-        "view": "teachers/faq/faq",
-        "title": "Teacher Accounts FAQ"
-    },
-    {
-        "name": "teacherregistration",
-        "pattern": "^/educators/register/?$",
-        "routeAlias": "/educators(?:/(faq|register|waiting))?/?$",
-        "view": "teacherregistration/teacherregistration",
-        "title": "Teacher Registration"
-    },
-    {
-        "name": "teacherwaitingroom",
-        "pattern": "^/educators/waiting",
-        "routeAlias": "/educators(?:/(faq|register|waiting))?/?$",
-        "view": "teacherwaitingroom/teacherwaitingroom",
-        "title": "Thank you for requesting a Scratch Teacher Account"
-    },
-    {
-        "name": "terms",
-        "pattern": "^/terms_of_use/?$",
-        "routeAlias": "/terms_of_use/?$",
-        "view": "terms/terms",
-        "title": "Scratch Terms of Use"
-    },
-
-    {
-        "name": "microbit",
-        "pattern": "^/microbit/?$",
-        "routeAlias": "/microbit/?$",
-        "view": "microbit/microbit",
-        "title": "micro:bit"
     },
     {
         "name": "vernier",
@@ -238,41 +146,7 @@
         "routeAlias": "/explore(?!/ajax)",
         "redirect": "/explore/studios/all"
     },
-    {
-        "name": "info-cards-redirect",
-        "pattern": "^/info/cards/?$",
-        "redirect": "/ideas"
-    },
-    {
-        "name": "help-redirect",
-        "pattern": "^/help/?(\\?.*)?$",
-        "routeAlias": "/help/?(\\?.*)?$",
-        "redirect": "/ideas"
-    },
-    {
-        "name": "hoc-redirect",
-        "pattern": "^/hoc/?(\\?.*)?$",
-        "routeAlias": "/hoc/?\\??",
-        "redirect": "/ideas"
-    },
-    {
-        "name": "hoc2014-redirect",
-        "pattern": "^/hoc2014/?(\\?.*)?$",
-        "routeAlias": "/hoc2014/?\\??",
-        "redirect": "/ideas"
-    },
-    {
-        "name": "info-redirect",
-        "pattern": "^/info/?(\\?.*)?$",
-        "routeAlias": "/info/?(\\?.*)?$",
-        "redirect": "/ideas"
-    },
-    {
-        "name": "research-redirect",
-        "pattern": "^/info/research/?$",
-        "routeAlias": "/info/research",
-        "redirect": "/research"
-    },
+
     {
         "name": "search-redirect",
         "pattern": "^/search/?$",
@@ -289,12 +163,6 @@
         "pattern": "^/store/?$",
         "routeAlias": "/store",
         "redirect": "https://scratch-foundation.myshopify.com"
-    },
-    {
-        "name": "tips-redirect",
-        "pattern": "^/tips/?(\\?.*)?$",
-        "routeAlias": "/tips/?\\??",
-        "redirect": "/ideas"
     },
     {
         "name": "things-to-try-redirect",
