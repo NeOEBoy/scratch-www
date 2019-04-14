@@ -278,15 +278,6 @@ tap.test('clickScratchDayLink', options, t => {
     });
 });
 
-// SCRATCH CONFERENCE
-tap.test('clickScratchConferenceLink', options, t => {
-    const linkText = 'Scratch Conference';
-    const expectedHref = '/conference/20';
-    clickFooterLinks(linkText).then(url => {
-        t.match(url.substr(-(expectedHref.length + 2)), expectedHref);
-        t.end();
-    });
-});
 
 // SCRATCH FOUNDATION
 tap.test('clickScratchFoundationLink', options, t => {

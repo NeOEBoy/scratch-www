@@ -275,16 +275,6 @@ describe('test Scratch Family links in footer', function () {
             .should('match', /^https:\/\/day\.scratch\.mit\.edu\/?$/);
     });
 
-    it('click Scratch Conference', function (){
-        cy
-            .get('.lists :nth-child(5) :nth-child(5) :first-child :first-child')
-            .click();
-
-        cy
-            .url()
-            .should('eq', baseUrl + '/conference');
-    });
-
     it('click Scratch Foundation', function (){
         cy
             .get('.lists :nth-child(5) :nth-child(6) :first-child :first-child')

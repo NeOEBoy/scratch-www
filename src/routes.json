@@ -6,7 +6,6 @@
       "view": "aaneo-mystuff/aaneo-mystuff",
       "title": "我的作品"
     },
-    
     {
         "name": "about",
         "pattern": "^/about/?$",
@@ -15,89 +14,10 @@
         "title": "About"
     },
     {
-        "name": "camp",
-        "pattern": "^/camp/?$",
-        "routeAlias": "/camp/?$",
-        "view": "camp/camp",
-        "title": "Down Deep"
-    },
-    {
-        "name": "communityblocks-interviews",
-        "pattern": "^/info/communityblocks-interviews/?$",
-        "routeAlias": "/info/(cards|communityblocks-interviews|credits|faq|donate)/?$",
-        "view": "communityblocks-interviews/communityblocks-interviews",
-        "title": "Community Blocks Beta Tester Interviews"
-    },
-    {
-        "name": "conference-index",
-        "pattern": "^/conference/?(\\?.*)?$",
-        "routeAlias": "/conference(?!/201[4-9])",
-        "redirect": "/conference/2019"
-    },
-    {
-        "name": "conference-index-2017",
-        "pattern": "^/conference/2017/?$",
-        "routeAlias": "/conference(?!/201[4-9])",
-        "view": "conference/2017/index/index",
-        "title": "Scratch Conference",
-        "viewportWidth": "device-width"
-    },
-    {
-        "name": "conference-details-2018",
-        "pattern": "^/conference/2018/:id/details/?$",
-        "routeAlias": "/conference(?!/201[4-9])",
-        "view": "conference/2018/details/details",
-        "title": "Event Details"
-    },
-    {
-        "name": "conference-expectations-2018",
-        "pattern": "^/conference/2018/expect/?$",
-        "routeAlias": "/conference(?!/201[4-9])",
-        "view": "conference/2018/expect/expect",
-        "title": "What to Expect"
-    },
-    {
-        "name": "conference-index-2018",
-        "pattern": "^/conference/2018/?$",
-        "routeAlias": "/conference(?!/201[4-9])",
-        "view": "conference/2018/index/index",
-        "title": "Scratch Conference",
-        "viewportWidth": "device-width"
-    },
-    {
-        "name": "conference-plan-2018",
-        "pattern": "^/conference/2018/plan/?$",
-        "routeAlias": "/conference(?!/201[4-9])",
-        "view": "conference/2018/plan/plan",
-        "title": "Plan Your Visit"
-    },
-    {
-        "name": "conference-schedule-2018",
-        "pattern": "^/conference/2018/schedule/?$",
-        "routeAlias": "/conference(?!/201[4-9])",
-        "view": "conference/2018/schedule/schedule",
-        "title": "Conference Schedule"
-    },
-    {
-        "name": "conference-index-2019",
-        "pattern": "^/conference/2019/?$",
-        "routeAlias": "/conference(?!/201[4-9])",
-        "view": "conference/2019/index/index",
-        "title": "Scratch Conferences",
-        "viewportWidth": "device-width"
-    },
-    {
         "name": "connect",
         "pattern": "^/connect/?$",
         "routeAlias": "/connect/?$",
         "redirect": "https://eepurl.com/cws7_f"
-    },
-    {
-        "name": "credits",
-        "pattern": "^/credits/?$",
-        "routeAlias": "/info/(cards|communityblocks-interviews|credits|faq|donate)/?$",
-        "view": "credits/credits",
-        "title": "Credits"
     },
     {
         "name": "developers",
@@ -133,13 +53,6 @@
         "routeAlias": "/explore(?!/ajax)",
         "view": "explore/explore",
         "title": "Explore"
-    },
-    {
-        "name": "faq",
-        "pattern": "^/info/faq/?(\\?.*)?$",
-        "routeAlias": "/info/(cards|communityblocks-interviews|credits|faq)/?$",
-        "view": "faq/faq",
-        "title": "FAQ"
     },
     {
         "name": "guidelines",
@@ -321,18 +234,6 @@
         "pattern": "^/3faq/?$",
         "routeAlias": "/3faq/?$",
         "redirect": "info/faq#scratch3"
-    },
-    {
-        "name" : "credits-redirect",
-        "pattern": "^/info/credits/?$",
-        "routeAlias": "/info/(cards|communityblocks-interviews|credits|faq|donate)/?$",
-        "redirect" : "/credits"
-    },
-    {
-        "name": "donate-redirect",
-        "pattern": "^/info/donate/?",
-        "routeAlias": "/info/(cards|communityblocks-interviews|credits|faq|donate)/?$",
-        "redirect": "https://secure.donationpay.org/scratchfoundation/"
     },
     {
         "name": "donate-redirect2",
