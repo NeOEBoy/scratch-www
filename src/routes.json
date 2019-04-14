@@ -33,13 +33,7 @@
         "view": "dmca/dmca",
         "title": "DMCA"
     },
-    {
-        "name": "download",
-        "pattern": "^/download/?(\\?.*)?$",
-        "routeAlias": "/download",
-        "view": "download/download",
-        "title": "Scratch Offline Editor"
-    },
+
     {
         "name": "educator-landing",
         "pattern": "^/educators/?$",
@@ -125,20 +119,6 @@
         "title": "Research"
     },
     {
-        "name": "scratch_1.4",
-        "pattern": "^/scratch_1.4/?$",
-        "routeAlias": "/scratch_1.4",
-        "view": "scratch_1.4/scratch_1.4",
-        "title": "Scratch 1.4"
-    },
-    {
-        "name": "download-scratch2",
-        "pattern": "^/download/scratch2/?(\\?.*)?$",
-        "routeAlias": "/download/scratch2",
-        "view": "download/scratch2/download",
-        "title": "Scratch 2.0"
-    },
-    {
         "name": "search",
         "pattern": "^/search/:projects/?$",
         "routeAlias": "/search",
@@ -208,13 +188,6 @@
         "title": "Scratch Terms of Use"
     },
 
-    {
-        "name": "ev3",
-        "pattern": "^/ev3/?$",
-        "routeAlias": "/ev3/?$",
-        "view": "ev3/ev3",
-        "title": "LEGO MINDSTORMS EV3"
-    },
     {
         "name": "microbit",
         "pattern": "^/microbit/?$",

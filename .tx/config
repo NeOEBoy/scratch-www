@@ -80,18 +80,6 @@ source_file = src/views/credits/l10n.json
 source_lang = en
 type = KEYVALUEJSON
 
-[scratch-website.download-l10njson]
-file_filter = localizations/download/<lang>.json
-source_file = src/views/download/l10n.json
-source_lang = en
-type = KEYVALUEJSON
-
-[scratch-website.download-scratch2-l10njson]
-file_filter = localizations/download/scratch2/<lang>.json
-source_file = src/views/download/scratch2/l10n.json
-source_lang = en
-type = KEYVALUEJSON
-
 [scratch-website.messages-l10njson]
 file_filter = localizations/messages/<lang>.json
 source_file = src/views/messages/l10n.json
@@ -107,11 +95,6 @@ type = KEYVALUEJSON
 [scratch-website.preview-l10njson]
 file_filter = localizations/preview/<lang>.json
 source_file = src/views/preview/l10n.json
-source_lang = en
-type = KEYVALUEJSON
-
-[scratch-website.ev3-l10njson]
-source_file = src/views/ev3/l10n.json
 source_lang = en
 type = KEYVALUEJSON
 
@@ -131,10 +114,6 @@ source_file = src/views/parents/l10n.json
 source_lang = en
 type = KEYVALUEJSON
 
-[scratch-website.scratch_14-l10njson]
-source_file = src/views/scratch_1.4/l10n.json
-source_lang = en
-type = KEYVALUEJSON
 
 [scratch-website.ideas-l10njson]
 source_file = src/views/ideas/l10n.json
