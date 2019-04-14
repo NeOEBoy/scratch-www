@@ -1,9 +1,9 @@
 [
     {
-      "name": "aaneo-mystuff",
+      "name": "mystuff",
       "pattern": "^/mystuff/?$",
       "routeAlias": "/mystuff/?$",
-      "view": "aaneo-mystuff/aaneo-mystuff",
+      "view": "mystuff/mystuff",
       "title": "我的作品"
     },
     {
