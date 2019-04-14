@@ -6,12 +6,12 @@ const Page = require('../../components/page/www/page.jsx');
 const bindAll = require('lodash.bindall');
 const api = require('../../lib/api');
 
-require('./aaneo-mystuff.scss');
+require('./mystuff.scss');
 
 // 引入antd
 import { Card, List, Avatar, Button, Skeleton } from 'antd';
 import 'antd/dist/antd.css';
-import { makeDateFormat } from './date-utils'
+import { makeDateFormat } from '../../lib/date-utils'
 
 const KSize = 8;
 
