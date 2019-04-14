@@ -9,19 +9,17 @@ const LanguageChooser = require('../../languagechooser/languagechooser.jsx');
 require('./footer.scss');
 
 const Footer = props => (
-    <FooterBox>
-        <LanguageChooser locale={props.intl.locale} />
+  <FooterBox>
+    <LanguageChooser locale={props.intl.locale} />
 
-        <div className="copyright">
-            <p>
-              积木编程-小屏幕连接大世界
-            </p>
-        </div>
-    </FooterBox>
+    <div className="copyright">
+      <p>积木编程-小窗口大世界</p>
+    </div>
+  </FooterBox>
 );
 
 Footer.propTypes = {
-    intl: intlShape.isRequired
+  intl: intlShape.isRequired
 };
 
 module.exports = injectIntl(Footer);
