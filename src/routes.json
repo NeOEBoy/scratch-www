@@ -294,20 +294,7 @@
         "view": "terms/terms",
         "title": "Scratch Terms of Use"
     },
-    {
-        "name": "wedo2",
-        "pattern": "^/wedo/?$",
-        "routeAlias": "/wedo/?$",
-        "view": "wedo2/wedo2",
-        "title": "WeDo 2.0"
-    },
-    {
-        "name": "wedo2-legacy",
-        "pattern": "^/wedo-legacy/?$",
-        "routeAlias": "/wedo-legacy/?$",
-        "view": "wedo2-legacy/wedo2",
-        "title": "LEGO WeDo"
-    },
+
     {
         "name": "ev3",
         "pattern": "^/ev3/?$",

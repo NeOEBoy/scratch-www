@@ -14,12 +14,6 @@ source_file = src/l10n.json
 source_lang = en
 type = KEYVALUEJSON
 
-[scratch-website.wedo2-l10njson]
-file_filter = localizations/wedo2/<lang>.json
-source_file = src/views/wedo2/l10n.json
-source_lang = en
-type = KEYVALUEJSON
-
 [scratch-website.teacherregistration-l10njson]
 file_filter = localizations/teacherregistration/<lang>.json
 source_file = src/views/teacherregistration/l10n.json
@@ -147,11 +141,6 @@ type = KEYVALUEJSON
 [scratch-website.search-l10njson]
 file_filter = localizations/search/<lang>.json
 source_file = src/views/search/l10n.json
-source_lang = en
-type = KEYVALUEJSON
-
-[scratch-website.wedo2-legacy-l10njson]
-source_file = src/views/wedo2-legacy/l10n.json
 source_lang = en
 type = KEYVALUEJSON
 
