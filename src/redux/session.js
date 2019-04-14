@@ -2,7 +2,6 @@ const keyMirror = require('keymirror');
 const defaults = require('lodash.defaults');
 
 const api = require('../lib/api');
-const messageCountActions = require('./message-count.js');
 const permissionsActions = require('./permissions.js');
 
 const Types = keyMirror({

@@ -1,6 +1,6 @@
-const classNames = require('classnames');
-const PropTypes = require('prop-types');
-const React = require('react');
+const classNames = require('./node_modules/classnames');
+const PropTypes = require('./node_modules/prop-types');
+const React = require('./node_modules/react');
 
 require('./card.scss');
 

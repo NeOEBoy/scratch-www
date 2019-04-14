@@ -26,12 +26,6 @@ source_file = src/views/splash/l10n.json
 source_lang = en
 type = KEYVALUEJSON
 
-[scratch-website.messages-l10njson]
-file_filter = localizations/messages/<lang>.json
-source_file = src/views/messages/l10n.json
-source_lang = en
-type = KEYVALUEJSON
-
 [scratch-website.preview-l10njson]
 file_filter = localizations/preview/<lang>.json
 source_file = src/views/preview/l10n.json

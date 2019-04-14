@@ -167,15 +167,6 @@ describe('test links in nav bar while signed in', function (){
             .should('eq', baseUrl + '/search/projects?q=');
     });
 
-    it('click Messages', function (){
-        cy
-            .get('.link.right.messages')
-            .click();
-        cy
-            .url()
-            .should('eq', baseUrl + '/messages/');
-    });
-
     it('click My Stuff', function (){
         cy
             .get('.link.right.mystuff')

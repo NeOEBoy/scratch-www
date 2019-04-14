@@ -389,7 +389,6 @@ SplashPresentation.propTypes = {
   isAdmin: PropTypes.bool.isRequired,
   isEducator: PropTypes.bool.isRequired,
   lovedByFollowing: PropTypes.arrayOf(PropTypes.object),
-  news: PropTypes.arrayOf(PropTypes.object),
   onCloseAdminPanel: PropTypes.func.isRequired,
   onDismiss: PropTypes.func.isRequired,
   onHideEmailConfirmationModal: PropTypes.func.isRequired,
@@ -409,7 +408,6 @@ SplashPresentation.defaultProps = {
   featuredGlobal: {}, // global homepage rows, such as "Featured Projects"
   inStudiosFollowing: [], // "Projects in Studios I'm Following"
   lovedByFollowing: [], // "Projects Loved by Scratchers I'm Following"
-  news: [], // gets news posts from the scratch Tumblr
   sharedByFollowing: [] // "Projects by Scratchers I'm Following"
 };
 

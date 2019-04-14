@@ -7,7 +7,6 @@ const intlShape = require('react-intl').intlShape;
 const PropTypes = require('prop-types');
 const React = require('react');
 
-const messageCountActions = require('../../../redux/message-count.js');
 const navigationActions = require('../../../redux/navigation.js');
 const sessionActions = require('../../../redux/session.js');
 
@@ -168,7 +167,6 @@ Navigation.propTypes = {
     session: PropTypes.shape({
         status: PropTypes.string
     }),
-    unreadMessageCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     user: PropTypes.shape({
         classroomId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         thumbnailUrl: PropTypes.string,
@@ -178,7 +176,6 @@ Navigation.propTypes = {
 
 Navigation.defaultProps = {
     session: {},
-    unreadMessageCount: 0, // bubble number to display how many notifications someone has.
     searchTerm: ''
 };
 
@@ -187,7 +184,6 @@ const mapStateToProps = state => ({
     session: state.session,
     permissions: state.permissions,
     searchTerm: state.navigation.searchTerm,
-    unreadMessageCount: state.messageCount.messageCount,
     user: state.session && state.session.session && state.session.session.user
 });
 
