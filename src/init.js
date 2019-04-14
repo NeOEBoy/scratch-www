@@ -18,6 +18,10 @@ const jar = require('./lib/jar');
             if (['pt', 'pt-pt', 'PT', 'PT-PT'].indexOf(obj) !== -1) {
                 obj = 'pt-br'; // default Portuguese users to Brazilian Portuguese due to our user base. Added in 2.2.5.
             }
+            /// 获取到时zh-CN，需要兼容转换成小写 -neo
+            if('zh-CN' === obj) {
+              obj = 'zh-cn';
+            }
         }
         return obj;
     };

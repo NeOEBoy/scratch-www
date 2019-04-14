@@ -11,12 +11,9 @@ require('./aaneo-mystuff.scss');
 // 引入antd
 import { Card, List, Avatar, Button, Skeleton } from 'antd';
 import 'antd/dist/antd.css';
-import reqwest from 'reqwest';
-import { makeFullUrlWithParams } from './http-utils'
 import { makeDateFormat } from './date-utils'
 
-const KSize = 2;
-const KDataUrl = 'http://192.168.31.157:3001/scratch-api/mystuff/page';
+const KSize = 8;
 
 class MyStuff extends React.Component {
   constructor(props) {
@@ -53,58 +50,34 @@ class MyStuff extends React.Component {
     });
   }
 
-  getNextPage(callback) {
-    let url = makeFullUrlWithParams(KDataUrl, { page: this.state.currentPage, size: KSize });
-    // api({
-    //   host: '',
-    //   uri: '/accounts/check_email/',
-    //   params: {email: formData.user.email}
-    // }, (err, res) => {
-    //     this.setState({
-    //         waiting: false
-    //     });
-
-    //     if (err) return invalidate({all: err});
-    //     res = res[0];
-    //     switch (res.msg) {
-    //     case 'valid email':
-    //         return this.props.onNextStep(formData);
-    //     default:
-    //         return invalidate({'user.email': res.msg});
-    //     }
-    // });
-
-
-
-
-    reqwest({
-      url: url,
-      type: 'json',
-      method: 'get',
-      contentType: 'application/json',
+  getNextPage(callback) {    
+    api({
+      uri: '/mystuff/page',
+      params: { page: this.state.currentPage, size: KSize },
       withCredentials: true,
-      success: (res) => {
-        res.data.forEach(element => {
-          element.imageData = '/svgs/mystuff/default-screenshot-icon.svg';
-        });
-        callback(res);
-
-        if (res && res.data.length > 0) {
-          this.setState({
-            currentPage: this.state.currentPage + 1,
-            alreadyShowAll: this.state.list4source.length >= res.totalCount
-          });
-        } else {
-          this.setState({
-            alreadyShowAll: true
-          });
-        }
-      },
-      error: () => {
+    }, (err, res) => {
+      if(err) {
         this.setState({
           alreadyShowAll: true
         });
         callback({});
+        return;
+      }
+
+      res.data.forEach(element => {
+        element.imageData = '/images/logo_sm.png';
+      });
+      callback(res);
+
+      if (res && res.data.length > 0) {
+        this.setState({
+          currentPage: this.state.currentPage + 1,
+          alreadyShowAll: this.state.list4source.length >= res.totalCount
+        });
+      } else {
+        this.setState({
+          alreadyShowAll: true
+        });
       }
     });
   }
@@ -144,7 +117,6 @@ class MyStuff extends React.Component {
       <div className='inner mystuff'>
         <Card
           title="我的作品"
-          extra={<a href="#">排序</a>}
         >
 
           <List
@@ -157,7 +129,6 @@ class MyStuff extends React.Component {
                 [
                   <a href={'/projects/' + item.projectId}>查看</a>,
                   <a href={'/projects/' + item.projectId + '#editor'}>编辑</a>,
-                  <a>删除</a>
                 ]
               }>
                 <Skeleton avatar title={false} loading={item.loading} active>
@@ -183,7 +154,7 @@ class MyStuff extends React.Component {
                           });
                         }}
                         src={item.imageData}
-                        style={{ width: 200, height: 150 }}
+                        style={{ width: 120, height: 90 }}
                         shape='square'>
                       </Avatar>
                     }

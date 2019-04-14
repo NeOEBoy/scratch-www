@@ -1,8 +1,9 @@
 /* UI Primary Colors */
-$ui-blue: hsla(215, 100, 65, 1); // #4C97FF Motion Primary
-$ui-blue-dark: hsla(215, 65, 55, 1); // #3373CC Motion Secondary
-$ui-blue-10percent: hsla(215, 100, 65, .1);
-$ui-blue-25percent:  hsla(215, 100, 65, .25);
+// 主色调被调整，使得更深一些 -neo
+$ui-blue: rgb(27, 121, 253); // #4C97FF Motion Primary
+$ui-blue-dark: rgb(53, 102, 170); // #3373CC Motion Secondary
+$ui-blue-10percent: hsla(27, 121, 253, .1);
+$ui-blue-25percent:  hsla(27, 121, 253, .25);
 
 $ui-orange: hsla(38, 100, 55, 1); // #FFAB19 Control Primary
 $ui-orange-high-contrast: hsla(30, 100, 55, 1); // #FFAB19 Control Primary
