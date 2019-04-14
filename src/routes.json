@@ -20,46 +20,11 @@
         "redirect": "https://eepurl.com/cws7_f"
     },
     {
-        "name": "developers",
-        "pattern": "^/developers/?$",
-        "routeAlias": "/developers/?$",
-        "view": "developers/developers",
-        "title": "Developers"
-    },
-    {
-        "name": "dmca",
-        "pattern": "^/DMCA/?$",
-        "routeAlias": "/DMCA/?$",
-        "view": "dmca/dmca",
-        "title": "DMCA"
-    },
-    {
         "name": "explore",
         "pattern": "^/explore/:projects(projects|studios)/:all/?$",
         "routeAlias": "/explore(?!/ajax)",
         "view": "explore/explore",
         "title": "Explore"
-    },
-    {
-        "name": "guidelines",
-        "pattern": "^/community_guidelines/?$",
-        "routeAlias": "/community_guidelines/?$",
-        "view": "guidelines/guidelines",
-        "title": "Scratch Community Guidelines"
-    },
-    {
-        "name": "jobs",
-        "pattern": "^/jobs/?$",
-        "routeAlias": "/jobs(/moderator)?/?$",
-        "view": "jobs/jobs",
-        "title": "Jobs"
-    },
-    {
-        "name": "jobs-moderator",
-        "pattern": "^/jobs/moderator/?$",
-        "routeAlias": "/jobs(/moderator)?/?$",
-        "view": "jobs/moderator/moderator",
-        "title": "Community Moderator"
     },
     {
         "name": "messages",
@@ -77,19 +42,6 @@
         "dynamicMetaTags": true
     },
     {
-        "name": "parents",
-        "pattern": "^/parents/?(\\?.*)?$",
-        "routeAlias": "/parents/",
-        "view": "parents/parents",
-        "title": "For Parents"
-    },
-    {
-        "name": "preview-faq-redirect",
-        "pattern": "^/preview-faq/?$",
-        "routeAlias": "/preview-faq",
-        "redirect": "/3faq"
-    },
-    {
         "name": "search",
         "pattern": "^/search/:projects/?$",
         "routeAlias": "/search",
@@ -102,19 +54,6 @@
         "routeAlias": "/?$",
         "view": "splash/splash",
         "title": "Imagine, Program, Share"
-    },
-    {
-        "name": "vernier",
-        "pattern": "^/vernier/?$",
-        "routeAlias": "/vernier/?$",
-        "view": "gdxfor/gdxfor",
-        "title": "Vernier GoDirect Force and Acceleration"
-    },
-    {
-        "name":"3-faq-redirect",
-        "pattern": "^/3faq/?$",
-        "routeAlias": "/3faq/?$",
-        "redirect": "info/faq#scratch3"
     },
     {
         "name": "donate-redirect2",

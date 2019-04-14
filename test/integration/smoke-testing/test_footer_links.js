@@ -58,50 +58,10 @@ tap.test('clickAboutScratchLink', options, t => {
     });
 });
 
-// FOR PARENTS
-tap.test('clickForParentsLink', options, t => {
-    const linkText = 'For Parents';
-    const expectedHref = '/parents/';
-    clickFooterLinks(linkText).then(url => {
-        t.equal(url.substr(-expectedHref.length), expectedHref);
-        t.end();
-    });
-});
-
 // FOR EDUCATORS
 tap.test('clickForEducatorsLink', options, t => {
     const linkText = 'For Educators';
     const expectedHref = '/educators';
-    clickFooterLinks(linkText).then(url => {
-        t.equal(url.substr(-expectedHref.length), expectedHref);
-        t.end();
-    });
-});
-
-// FOR DEVELOPERS
-tap.test('clickForDevelopersScratchLink', options, t => {
-    const linkText = 'For Developers';
-    const expectedHref = '/developers';
-    clickFooterLinks(linkText).then(url => {
-        t.equal(url.substr(-expectedHref.length), expectedHref);
-        t.end();
-    });
-});
-
-// CREDITS
-tap.test('clickCreditsLink', options, t => {
-    const linkText = 'Credits';
-    const expectedHref = '/credits';
-    clickFooterLinks(linkText).then(url => {
-        t.equal(url.substr(-expectedHref.length), expectedHref);
-        t.end();
-    });
-});
-
-// JOBS
-tap.test('clickJobsLink', options, t => {
-    const linkText = 'Jobs';
-    const expectedHref = '/jobs';
     clickFooterLinks(linkText).then(url => {
         t.equal(url.substr(-expectedHref.length), expectedHref);
         t.end();

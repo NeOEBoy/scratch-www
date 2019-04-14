@@ -22,15 +22,6 @@ describe('test About links in footer', function () {
             .should('eq', baseUrl + '/about');
     });
 
-    it('click For Parents', function (){
-        cy
-            .get('.lists :first-child :nth-child(3) :first-child :first-child')
-            .click();
-        cy
-            .url()
-            .should('eq', baseUrl + '/parents/');
-    });
-
     it('click For Educators', function (){
         cy
             .get('.lists :first-child :nth-child(4) :first-child :first-child')
@@ -39,36 +30,6 @@ describe('test About links in footer', function () {
         cy
             .url()
             .should('eq', baseUrl + '/educators');
-    });
-
-    it('click For Developers', function (){
-        cy
-            .get('.lists :first-child :nth-child(5) :first-child :first-child')
-            .click();
-
-        cy
-            .url()
-            .should('eq', baseUrl + '/developers');
-    });
-
-    it('click Credits', function (){
-        cy
-            .get('.lists :first-child :nth-child(6) :first-child :first-child')
-            .click();
-
-        cy
-            .url()
-            .should('eq', baseUrl + '/info/credits');
-    });
-
-    it('click Jobs', function (){
-        cy
-            .get('.lists :first-child :nth-child(7) :first-child :first-child')
-            .click();
-
-        cy
-            .url()
-            .should('eq', baseUrl + '/jobs');
     });
 
     it('click Press', function (){
