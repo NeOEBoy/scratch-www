@@ -14,7 +14,7 @@ const Footer = props => (
 
         <div className="copyright">
             <p>
-                <FormattedMessage id="general.copyright" />
+              积木编程-小屏幕连接大世界
             </p>
         </div>
     </FooterBox>
