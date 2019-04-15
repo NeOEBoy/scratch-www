@@ -140,7 +140,8 @@ p {
     font-weight: normal;
 }
 
-::selection {
+// 被选择时
+:selection {
     background-color: $ui-blue-25percent;
 }
 

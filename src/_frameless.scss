@@ -135,4 +135,9 @@ $medium-height: "only screen and (min-height : #{$mobile}) and (max-height : #{$
     @include desktop($parent-selector, $child-selector);
 }
 
+// 响应式布局方式：
+// 1，desktop~max，使用destop宽度作为inter宽度。
+// 2，tabletPortrait~desktop，使用tabletPortrait宽度作为inter宽度。
+// 1，mobile~tabletPortrait，使用mobile宽度作为inter宽度。
+// 1，0~mobile，使用窗口宽度作为inter宽度。
 @include responsive-layout("#view", ".inner");
