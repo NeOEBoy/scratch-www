@@ -2,6 +2,7 @@
 
 const React = require('react');
 const render = require('../../lib/render.jsx');
+const connect = require('react-redux').connect;
 const Page = require('../../components/page/www/page.jsx');
 const bindAll = require('lodash.bindall');
 const api = require('../../lib/api');
@@ -28,6 +29,7 @@ class MyStuff extends React.Component {
     }
 
     bindAll(this, [
+      '_initFirstPage',
       'handleLoadMore'
     ]);
   }
@@ -35,10 +37,21 @@ class MyStuff extends React.Component {
   componentDidMount() {
     console.log('MyStuff componentDidMount');
 
+    this._initFirstPage();
+  }
+
+  
+  componentDidUpdate(prevProps) {
+    if (this.props.user.username !== prevProps.user.username) {
+      this._initFirstPage();
+    }
+  }
+
+  _initFirstPage() {
     this.setState({
       initLoading: true
     });
-    this.getNextPage((res) => {
+    this._getNextPage((res) => {
       console.log('MyStuff componentDidMount complete');
 
       this.setState({
@@ -49,13 +62,14 @@ class MyStuff extends React.Component {
     });
   }
 
-  getNextPage(callback) {    
+
+  _getNextPage(callback) {    
     api({
       uri: '/mystuff/page',
       params: { page: this.state.currentPage, size: KSize },
       withCredentials: true,
     }, (err, res) => {
-      if(err) {
+      if(err || !res) {
         this.setState({
           alreadyShowAll: true
         });
@@ -86,7 +100,7 @@ class MyStuff extends React.Component {
       nextLoading: true,
       list4source: this.state.list4Next.concat([...new Array(KSize)].map(() => ({ loading: true, title: {} }))),
     });
-    this.getNextPage((res) => {
+    this._getNextPage((res) => {
       const list4Next = this.state.list4Next.concat(res.data);
       this.setState({
         list4Next,
@@ -171,8 +185,20 @@ class MyStuff extends React.Component {
   }
 }
 
-// const MyStuff = () => (
+MyStuff.defaultProps = {
+  user: {}
+};
 
-// );
+const mapStateToProps = state => ({
+  user: state.session.session.user
+});
 
-render(<Page><MyStuff /></Page>, document.getElementById('app'));
+const mapDispatchToProps = dispatch => ({
+});
+
+const ConnectedMyStuff = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyStuff);
+
+render(<Page><ConnectedMyStuff /></Page>, document.getElementById('app'));
