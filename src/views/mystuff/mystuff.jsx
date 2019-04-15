@@ -38,7 +38,6 @@ class MyStuff extends React.Component {
     // console.log('MyStuff componentDidMount');
   }
 
-  
   componentDidUpdate(prevProps) {
     // console.log('componentDidUpdate start')
 
@@ -50,7 +49,7 @@ class MyStuff extends React.Component {
 
   _initFirstPage() {
     console.log('_initFirstPage start')
-    if(this.state.initLoading) {
+    if (this.state.initLoading) {
       return;
     }
 
@@ -68,14 +67,13 @@ class MyStuff extends React.Component {
     });
   }
 
-
-  _getNextPage(callback) {    
+  _getNextPage(callback) {
     api({
       uri: '/mystuff/page',
       params: { page: this.state.currentPage, size: KSize },
       withCredentials: true,
     }, (err, res) => {
-      if(err || !res) {
+      if (err || !res) {
         this.setState({
           alreadyShowAll: true
         });
@@ -144,12 +142,14 @@ class MyStuff extends React.Component {
             loadMore={loadMore}
             dataSource={list4source}
             renderItem={item => (
-              <List.Item actions={
-                [
-                  <a href={'/projects/' + item.projectId}>查看</a>,
-                  <a href={'/projects/' + item.projectId + '#editor'}>编辑</a>,
-                ]
-              }>
+              <List.Item
+                key={item._id}
+                actions={
+                  [
+                    <a href={'/projects/' + item.projectId}>查看</a>,
+                    <a href={'/projects/' + item.projectId + '#editor'}>编辑</a>,
+                  ]
+                }>
                 <Skeleton avatar title={false} loading={item.loading} active>
                   <List.Item.Meta
                     avatar=

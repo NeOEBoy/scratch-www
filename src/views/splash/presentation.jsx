@@ -1,31 +1,174 @@
 const bindAll = require('lodash.bindall');
 const injectIntl = require('react-intl').injectIntl;
-const intlShape = require('react-intl').intlShape;
-const MediaQuery = require('react-responsive').default;
-const PropTypes = require('prop-types');
 const React = require('react');
+const api = require('../../lib/api');
+
+import { List, Card, Button } from 'antd';
 
 // Featured Banner Components
 require('./splash.scss');
+
+const KSize = 16;
 
 // Splash page
 class SplashPresentation extends React.Component { // eslint-disable-line react/no-multi-comp
   constructor(props) {
     super(props);
+
+    this.state = {
+      initLoading: false,
+      nextLoading: false,
+      list4Next: [],
+      list4source: [],
+      currentPage: 1,
+      alreadyShowAll: false
+    }
+
     bindAll(this, [
+      '_initFirstPage',
+      'handleLoadMore'
     ]);
   }
+
   componentDidMount() {
+    this._initFirstPage();
   }
+
   componentWillUnmount() {
   }
 
-  render() {    
+  _initFirstPage() {
+    console.log('_initFirstPage start')
+    if (this.state.initLoading) {
+      return;
+    }
+
+    this.setState({
+      initLoading: true
+    });
+    this._getNextPage((res) => {
+      console.log('MyStuff componentDidMount complete');
+
+      this.setState({
+        initLoading: false,
+        list4Next: res && res.data || [],
+        list4source: res && res.data || [],
+      });
+    });
+  }
+
+  _getNextPage(callback) {
+    api({
+      uri: '/allstuff/page',
+      params: { page: this.state.currentPage, size: KSize },
+      withCredentials: true,
+    }, (err, res) => {
+      if (err || !res) {
+        this.setState({
+          alreadyShowAll: true
+        });
+        callback({});
+        return;
+      }
+
+      res.data.forEach(element => {
+        element.imageData = '/images/logo_sm.png';
+        element.aliTitle = element.title;
+      });
+      callback(res);
+
+      if (res && res.data.length > 0) {
+        this.setState({
+          currentPage: this.state.currentPage + 1,
+          alreadyShowAll: this.state.list4source.length >= res.totalCount
+        });
+      } else {
+        this.setState({
+          alreadyShowAll: true
+        });
+      }
+    });
+  }
+
+  handleLoadMore() {
+    this.setState({
+      nextLoading: true,
+      list4source: this.state.list4Next.concat([...new Array(KSize)].map(() => ({ loading: true, title: {} }))),
+    });
+    this._getNextPage((res) => {
+      const list4Next = this.state.list4Next.concat(res.data);
+      this.setState({
+        list4Next,
+        list4source: list4Next,
+        nextLoading: false,
+      }, () => {
+        // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
+        // In real scene, you can using public method of react-virtualized:
+        // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+        window.dispatchEvent(new Event('resize'));
+      });
+    });
+  }
+
+  render() {
+    const { initLoading, nextLoading, list4source, alreadyShowAll } = this.state;
+    const loadMore = !initLoading && !nextLoading && !alreadyShowAll ? (
+      <div style={{
+        textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px',
+      }}
+      >
+        <Button onClick={this.handleLoadMore}>载入更多内容</Button>
+      </div>
+    ) : null;
+
     return (
       <div className="splash">
         <div
           className="inner mod-splash"
           key="inner">
+          <Card
+            title="全部作品"
+          >
+            <List
+              loading={initLoading}
+              loadMore={loadMore}
+              grid={{
+                gutter: 16, xs: 2, sm: 2, md: 3, lg: 3, xl: 4, xxl: 4,
+              }}
+              dataSource={list4source}
+              renderItem={item => (
+                <List.Item key={item._id}>
+                  <div>
+                    <img
+                      onLoad={() => {
+                        api({
+                          host: '',
+                          uri: item.image,
+                          method: 'GET',
+                          withCredentials: true,
+                        }, (err, body, res) => {
+                          if (err || res.statusCode !== 200 || !body) {
+                            return;
+                          }
+
+                          let newImageData = 'data:image/png;base64,' + body;
+                          item.imageData = newImageData;
+                          // 强制刷新下
+                          this.forceUpdate();
+                        });
+                      }}
+
+                      src={item.imageData}
+                      style={{ width: '100%' }}>
+                    </img>
+
+                    <div>{item.aliTitle} </div>
+                    <div>{item.author} </div>
+                  </div>
+                </List.Item>
+              )}
+            />
+          </Card>
         </div>
       </div>
     );
@@ -33,42 +176,10 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
 }
 
 SplashPresentation.propTypes = {
-  activity: PropTypes.arrayOf(PropTypes.object),
-  adminPanelOpen: PropTypes.bool,
-  emailConfirmationModalOpen: PropTypes.bool.isRequired,
-  featuredGlobal: PropTypes.shape({
-    community_featured_projects: PropTypes.array,
-    community_featured_studios: PropTypes.array,
-    curator_top_projects: PropTypes.array,
-    scratch_design_studio: PropTypes.array,
-    community_most_remixed_projects: PropTypes.array,
-    community_most_loved_projects: PropTypes.array
-  }),
-  inStudiosFollowing: PropTypes.arrayOf(PropTypes.object),
-  intl: intlShape,
-  isAdmin: PropTypes.bool.isRequired,
-  isEducator: PropTypes.bool.isRequired,
-  lovedByFollowing: PropTypes.arrayOf(PropTypes.object),
-  onCloseAdminPanel: PropTypes.func.isRequired,
-  onDismiss: PropTypes.func.isRequired,
-  onHideEmailConfirmationModal: PropTypes.func.isRequired,
-  onOpenAdminPanel: PropTypes.func.isRequired,
-  onRefreshHomepageCache: PropTypes.func.isRequired,
-  onShowEmailConfirmationModal: PropTypes.func.isRequired,
-  refreshCacheStatus: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  sessionStatus: PropTypes.string.isRequired,
-  sharedByFollowing: PropTypes.arrayOf(PropTypes.object),
-  shouldShowEmailConfirmation: PropTypes.bool.isRequired,
-  shouldShowWelcome: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired // eslint-disable-line react/forbid-prop-types
+  
 };
 
 SplashPresentation.defaultProps = {
-  activity: [], // recent social actions taken by users someone is following
-  featuredGlobal: {}, // global homepage rows, such as "Featured Projects"
-  inStudiosFollowing: [], // "Projects in Studios I'm Following"
-  lovedByFollowing: [], // "Projects Loved by Scratchers I'm Following"
-  sharedByFollowing: [] // "Projects by Scratchers I'm Following"
 };
 
 module.exports = injectIntl(SplashPresentation);
