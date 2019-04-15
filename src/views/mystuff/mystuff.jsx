@@ -35,19 +35,25 @@ class MyStuff extends React.Component {
   }
 
   componentDidMount() {
-    console.log('MyStuff componentDidMount');
-
-    this._initFirstPage();
+    // console.log('MyStuff componentDidMount');
   }
 
   
   componentDidUpdate(prevProps) {
+    // console.log('componentDidUpdate start')
+
+    // update完毕后，如果user有变化则初始化页面，第一次进来页面也会走？
     if (this.props.user.username !== prevProps.user.username) {
       this._initFirstPage();
     }
   }
 
   _initFirstPage() {
+    console.log('_initFirstPage start')
+    if(this.state.initLoading) {
+      return;
+    }
+
     this.setState({
       initLoading: true
     });
