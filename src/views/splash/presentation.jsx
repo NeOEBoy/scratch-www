@@ -140,36 +140,40 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
               dataSource={list4source}
               renderItem={item => (
                 <List.Item>
-                  <div className='list-item-div' onClick={()=>{window.location.href = '/projects/' + item.projectId}}>
-                    <img
-                      onLoad={() => {
-                        if (item.imageRefreshed) {
-                          console.log('on load item.imageRefreshed');
-                          return;
-                        }
-                        item.imageRefreshed = true;
-
-                        api({
-                          host: '',
-                          uri: item.image,
-                          method: 'GET',
-                          withCredentials: true,
-                        }, (err, body, res) => {
-                          if (err || res.statusCode !== 200 || !body) {
-                            console.log('body = ' + body);
+                  <div
+                    className='list-item-div'
+                    onClick={() => { window.location.href = '/projects/' + item.projectId }}>
+                    <div className='list-item-imgdiv'>
+                      <img
+                        onLoad={() => {
+                          if (item.imageRefreshed) {
+                            console.log('on load item.imageRefreshed');
                             return;
                           }
+                          item.imageRefreshed = true;
 
-                          let newImageData = 'data:image/png;base64,' + body;
-                          item.imageData = newImageData;
-                          // 强制刷新下
-                          this.forceUpdate();
-                        });
-                      }}
+                          api({
+                            host: '',
+                            uri: item.image,
+                            method: 'GET',
+                            withCredentials: true,
+                          }, (err, body, res) => {
+                            if (err || res.statusCode !== 200 || !body) {
+                              console.log('body = ' + body);
+                              return;
+                            }
 
-                      src={item.imageData}
-                      style={{ width: '100%' }}>
-                    </img>
+                            let newImageData = 'data:image/png;base64,' + body;
+                            item.imageData = newImageData;
+                            // 强制刷新下
+                            this.forceUpdate();
+                          });
+                        }}
+
+                        src={item.imageData}
+                        style={{ width: '100%' }}>
+                      </img>
+                    </div>
 
                     <div>{item.aliTitle}</div>
                     <div>{item.author}</div>
