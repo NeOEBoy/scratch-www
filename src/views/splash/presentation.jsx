@@ -169,10 +169,8 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
                             this.forceUpdate();
                           });
                         }}
-
                         src={item.imageData}
-                        style={{ width: '100%' }}>
-                      </img>
+                        style={{ width: '99.9%' }}/>
                     </div>
 
                     <div>{item.aliTitle}</div>

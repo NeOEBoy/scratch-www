@@ -83,6 +83,7 @@ class MyStuff extends React.Component {
 
       res.data.forEach(element => {
         element.imageData = '/images/logo_sm.png';
+        element.imageRefreshed = false;
       });
       callback(res);
 
@@ -154,28 +155,35 @@ class MyStuff extends React.Component {
                   <List.Item.Meta
                     avatar=
                     {
-                      <Avatar
-                        onLoad={() => {
-                          api({
-                            host: '',
-                            uri: item.image,
-                            method: 'GET',
-                            withCredentials: true,
-                          }, (err, body, res) => {
-                            if (err || res.statusCode !== 200 || !body) {
+                      <div style={{ width: 122, height: 92, border: '1px dotted' }}>
+                        <img
+                          onLoad={() => {
+                            if (item.imageRefreshed) {
+                              console.log('on load item.imageRefreshed');
                               return;
                             }
+                            item.imageRefreshed = true;
 
-                            let newImageData = 'data:image/png;base64,' + body;
-                            item.imageData = newImageData;
-                            // 强制刷新下
-                            this.forceUpdate();
-                          });
-                        }}
-                        src={item.imageData}
-                        style={{ width: 120, height: 90 }}
-                        shape='square'>
-                      </Avatar>
+                            api({
+                              host: '',
+                              uri: item.image,
+                              method: 'GET',
+                              withCredentials: true,
+                            }, (err, body, res) => {
+                              if (err || res.statusCode !== 200 || !body) {
+                                return;
+                              }
+
+                              let newImageData = 'data:image/png;base64,' + body;
+                              item.imageData = newImageData;
+                              // 强制刷新下
+                              this.forceUpdate();
+                            });
+                          }}
+                          src={item.imageData}
+                          style={{ width: 120, height: 90 }}>
+                        </img>
+                      </div>
                     }
                     title={item.title}
                     description={'最后更新: ' + makeDateFormat(new Date(item.modified), "yyyy-MM-dd hh:mm:ss")}
