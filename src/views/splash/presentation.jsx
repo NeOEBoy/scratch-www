@@ -74,6 +74,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
       res.data.forEach(element => {
         element.imageData = '/images/logo_sm.png';
         element.aliTitle = element.title;
+        element.imageRefreshed = false;
       });
       callback(res);
 
@@ -130,17 +131,24 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
             title="全部作品"
           >
             <List
+              rowKey={record => record._id}
               loading={initLoading}
               loadMore={loadMore}
               grid={{
-                gutter: 16, xs: 2, sm: 2, md: 3, lg: 3, xl: 4, xxl: 4,
+                gutter: 12, xs: 2, sm: 2, md: 3, lg: 3, xl: 3, xxl: 4,
               }}
               dataSource={list4source}
               renderItem={item => (
-                <List.Item key={item._id}>
-                  <div>
+                <List.Item>
+                  <div className='list-item-div' onClick={()=>{window.location.href = '/projects/' + item.projectId}}>
                     <img
                       onLoad={() => {
+                        if (item.imageRefreshed) {
+                          console.log('on load item.imageRefreshed');
+                          return;
+                        }
+                        item.imageRefreshed = true;
+
                         api({
                           host: '',
                           uri: item.image,
@@ -148,6 +156,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
                           withCredentials: true,
                         }, (err, body, res) => {
                           if (err || res.statusCode !== 200 || !body) {
+                            console.log('body = ' + body);
                             return;
                           }
 
@@ -162,8 +171,8 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
                       style={{ width: '100%' }}>
                     </img>
 
-                    <div>{item.aliTitle} </div>
-                    <div>{item.author} </div>
+                    <div>{item.aliTitle}</div>
+                    <div>{item.author}</div>
                   </div>
                 </List.Item>
               )}
@@ -176,7 +185,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
 }
 
 SplashPresentation.propTypes = {
-  
+
 };
 
 SplashPresentation.defaultProps = {

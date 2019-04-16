@@ -137,13 +137,13 @@ class MyStuff extends React.Component {
         >
 
           <List
+            rowKey={record => record._id}
             loading={initLoading}
             itemLayout="horizontal"
             loadMore={loadMore}
             dataSource={list4source}
             renderItem={item => (
               <List.Item
-                key={item._id}
                 actions={
                   [
                     <a href={'/projects/' + item.projectId}>查看</a>,

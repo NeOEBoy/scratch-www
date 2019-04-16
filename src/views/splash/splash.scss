@@ -122,6 +122,10 @@
     font-size: .65rem;
 }
 
+.list-item-div {
+  cursor: pointer;
+}
+
 //4 columns
 @media #{$small} {
     .splash {
