@@ -48,7 +48,7 @@ class Navigation extends React.Component {
   render() {
     const createLink = this.props.user ? '/projects/editor/' : '/projects/editor/?tutorial=getStarted';
     return (
-      <NavigationBox className={classNames({'':true})}>
+      <NavigationBox className={classNames({ '': true })}>
         <ul>
           <li className="logo">
             <a

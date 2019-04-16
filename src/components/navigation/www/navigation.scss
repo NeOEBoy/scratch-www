@@ -119,9 +119,9 @@
             background-repeat: no-repeat;
             background-position: center center;
             background-size: 45%;
-            padding-right: 10px;
-            padding-left: 10px;
-            width: 30px;
+            // padding和antd冲突，这里设置为0
+            padding: 0;
+            width: 50px;
             overflow: hidden;
             text-indent: 50px;
             white-space: nowrap;

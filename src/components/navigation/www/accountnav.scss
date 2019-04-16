@@ -3,10 +3,13 @@
 
 .account-nav {
     .user-info {
-        display: inline-block;
-        padding: 14px 15px 4px 15px;
+        display: flex;
+        flex-direction:row;
+        justify-content:center;
+        align-items: center;
+        padding: 0px 15px 0px 15px;
         max-width: 260px;
-        height: 33px;
+        height: 50px;
         overflow: hidden;
         text-decoration: none;
         text-overflow: ellipsis;
