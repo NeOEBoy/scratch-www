@@ -16,7 +16,7 @@ Avatar.propTypes = {
 };
 
 Avatar.defaultProps = {
-    src: '//cdn2.scratch.mit.edu/get_image/user/2584924_24x24.png?v=1438702210.96'
+    src: '/images/default_avator_fox.png'
 };
 
 module.exports = Avatar;
