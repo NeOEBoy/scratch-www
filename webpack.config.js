@@ -189,10 +189,13 @@ module.exports = {
       // 定义全局变量，可以定义开发环境或者生产环，还可以定义Host
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"' + (process.env.NODE_ENV || 'development') + '"',
+        //https://api.scratch.mit.edu
         'process.env.API_HOST': '"' + (process.env.API_HOST || 'http://192.168.31.157:3001/scratch-api') + '"',
-        'process.env.ASSET_HOST': '"' + (process.env.ASSET_HOST || 'https://assets.scratch.mit.edu') + '"',
+        //https://assets.scratch.mit.edu
+        'process.env.ASSET_HOST': '"' + (process.env.ASSET_HOST || 'http://192.168.31.157:3001/scratch-assets') + '"',
         'process.env.BACKPACK_HOST': '"' + (process.env.BACKPACK_HOST || 'https://backpack.scratch.mit.edu') + '"',
         'process.env.CLOUDDATA_HOST': '"' + (process.env.CLOUDDATA_HOST || 'clouddata.scratch.mit.edu') + '"',
+        //https://projects.scratch.mit.edu
         'process.env.PROJECT_HOST': '"' + (process.env.PROJECT_HOST || 'http://192.168.31.157:3001/scratch-projects') + '"',
         'process.env.STATIC_HOST': '"' + (process.env.STATIC_HOST || 'https://cdn2.scratch.mit.edu') + '"',
         'process.env.SCRATCH_ENV': '"' + (process.env.SCRATCH_ENV || 'development') + '"',

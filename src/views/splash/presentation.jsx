@@ -74,7 +74,6 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
       res.data.forEach(element => {
         element.imageData = '/images/logo_sm.png';
         element.aliTitle = element.title;
-        element.imageRefreshed = false;
       });
       callback(res);
 
@@ -145,31 +144,8 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
                     onClick={() => { window.location.href = '/projects/' + item.projectId }}>
                     <div className='list-item-imgdiv'>
                       <img
-                        onLoad={() => {
-                          if (item.imageRefreshed) {
-                            console.log('on load item.imageRefreshed');
-                            return;
-                          }
-                          item.imageRefreshed = true;
-
-                          api({
-                            host: '',
-                            uri: item.image,
-                            method: 'GET',
-                            withCredentials: true,
-                          }, (err, body, res) => {
-                            if (err || res.statusCode !== 200 || !body) {
-                              console.log('body = ' + body);
-                              return;
-                            }
-
-                            let newImageData = 'data:image/png;base64,' + body;
-                            item.imageData = newImageData;
-                            // 强制刷新下
-                            this.forceUpdate();
-                          });
-                        }}
-                        src={item.imageData}
+                        src={item.image}
+                        alt={item.aliTitle}
                         style={{ width: '99.9%' }}/>
                     </div>
 

@@ -83,7 +83,6 @@ class MyStuff extends React.Component {
 
       res.data.forEach(element => {
         element.imageData = '/images/logo_sm.png';
-        element.imageRefreshed = false;
       });
       callback(res);
 
@@ -157,30 +156,8 @@ class MyStuff extends React.Component {
                     {
                       <div style={{ width: 122, height: 92, border: '1px dotted' }}>
                         <img
-                          onLoad={() => {
-                            if (item.imageRefreshed) {
-                              console.log('on load item.imageRefreshed');
-                              return;
-                            }
-                            item.imageRefreshed = true;
-
-                            api({
-                              host: '',
-                              uri: item.image,
-                              method: 'GET',
-                              withCredentials: true,
-                            }, (err, body, res) => {
-                              if (err || res.statusCode !== 200 || !body) {
-                                return;
-                              }
-
-                              let newImageData = 'data:image/png;base64,' + body;
-                              item.imageData = newImageData;
-                              // 强制刷新下
-                              this.forceUpdate();
-                            });
-                          }}
-                          src={item.imageData}
+                          src={item.image}
+                          alt={item.title}
                           style={{ width: 120, height: 90 }}>
                         </img>
                       </div>
