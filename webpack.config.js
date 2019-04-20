@@ -177,6 +177,10 @@ module.exports = {
     new CopyWebpackPlugin([{
       from: 'node_modules/scratch-gui/dist/static/assets',
       to: 'static/assets'
+    }]),
+    new CopyWebpackPlugin([{
+      from: 'node_modules/scratch-gui/dist/static/libraries-assets',
+      to: 'static/libraries-assets'
     }])
   ])
     .concat(process.env.NODE_ENV === 'production' ? [
