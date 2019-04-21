@@ -936,7 +936,7 @@ module.exports.restoreComment = (projectId, commentId, topLevelCommentId, token)
 module.exports.shareProject = (projectId, token) => (dispatch => {
     dispatch(module.exports.setFetchStatus('project', module.exports.Status.FETCHING));
     api({
-        uri: `/proxy/projects/${projectId}/share`,
+        uri: `/projects/${projectId}/share`,
         authentication: token,
         withCredentials: true,
         method: 'PUT',
