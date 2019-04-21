@@ -150,7 +150,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
                     </div>
 
                     <div>{item.aliTitle}</div>
-                    <div>{item.author}</div>
+                    <div>{item.author.name}</div>
                   </div>
                 </List.Item>
               )}
