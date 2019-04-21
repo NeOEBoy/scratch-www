@@ -74,7 +74,7 @@ class Navigation extends React.Component {
           </li>
 
           <li className="search">
-            <Form onSubmit={this.handleSearchSubmit}>
+            {/* <Form onSubmit={this.handleSearchSubmit}>
               <Button
                 className="btn-search"
                 type="submit"
@@ -86,7 +86,7 @@ class Navigation extends React.Component {
                 type="text"
                 value={this.props.searchTerm}
               />
-            </Form>
+            </Form> */}
           </li>
           {this.props.session.status === sessionActions.Status.FETCHED ? (
             this.props.user ? [
