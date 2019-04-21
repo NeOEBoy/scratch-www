@@ -62,11 +62,11 @@ class Navigation extends React.Component {
               开始创作
             </a>
           </li>
-          <li className="link explore">
+          {/* <li className="link explore">
             <a href="/explore/projects/all">
               发现作品
             </a>
-          </li>
+          </li> */}
           <li className="link about">
             <a href="/about">
               关于我们
@@ -80,9 +80,9 @@ class Navigation extends React.Component {
                 type="submit"
               />
               <Input
-                aria-label={this.props.intl.formatMessage({ id: 'general.search' })}
+                aria-label='搜索'
                 name="q"
-                placeholder={this.props.intl.formatMessage({ id: 'general.search' })}
+                placeholder='搜索'
                 type="text"
                 value={this.props.searchTerm}
               />
@@ -96,9 +96,9 @@ class Navigation extends React.Component {
               >
                 <a
                   href="/mystuff/"
-                  title={this.props.intl.formatMessage({ id: 'general.myStuff' })}
+                  title='我的作品'
                 >
-                  <FormattedMessage id="general.myStuff" />
+                  我的作品
                 </a>
               </li>,
               <li
