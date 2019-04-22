@@ -368,10 +368,11 @@ class PreviewPresentation extends React.Component {
                 <MediaQuery maxWidth={frameless.tabletPortrait - 1}>
                   <FlexRow className="preview-row force-row">
                     <FlexRow className="project-header">
-                      <a href={`/users/${projectInfo.author.username}`}>
+                      {/* <a href={`/users/${projectInfo.author.username}`}> */}
+                      <a href='#'>
                         <Avatar
                           alt={projectInfo.author.username}
-                          src={thumbnailUrl(projectInfo.author.id, 48)}
+                          //src={thumbnailUrl(projectInfo.author.id, 48)}
                         />
                       </a>
                       <div className="title">
@@ -596,10 +597,11 @@ class PreviewPresentation extends React.Component {
               <MediaQuery minWidth={frameless.tabletPortrait}>
                 <FlexRow className="preview-row force-row">
                   <FlexRow className="project-header">
-                    <a href={`/users/${projectInfo.author.username}`}>
+                    {/* <a href={`/users/${projectInfo.author.username}`}> */}
+                    <a href='#'>
                       <Avatar
                         alt={projectInfo.author.username}
-                        src={thumbnailUrl(projectInfo.author.id, 48)}
+                        //src={thumbnailUrl(projectInfo.author.id, 48)}
                       />
                     </a>
                     <div className="title">

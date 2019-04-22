@@ -2,6 +2,7 @@ const bindAll = require('lodash.bindall');
 const injectIntl = require('react-intl').injectIntl;
 const React = require('react');
 const api = require('../../lib/api');
+import { makeDateFormat } from '../../lib/date-utils'
 
 import { List, Card, Button } from 'antd';
 
@@ -149,8 +150,9 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
                         style={{ width: '99.9%' }}/>
                     </div>
 
-                    <div>{item.aliTitle}</div>
-                    <div>{item.author.name}</div>
+                    <div className='list-item-title'>{item.aliTitle}</div>
+                    <div className='list-item-name'>{item.author.name}</div>
+                    <div className='list-item-modified'>{makeDateFormat(new Date(item.modified), "yyyy-MM-dd hh:mm:ss")}</div>
                   </div>
                 </List.Item>
               )}

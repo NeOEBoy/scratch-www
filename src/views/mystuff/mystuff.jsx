@@ -25,7 +25,7 @@ class MyStuff extends React.Component {
       list4Next: [],
       list4source: [],
       currentPage: 1,
-      alreadyShowAll: false
+      alreadyShowAll: true
     }
 
     bindAll(this, [

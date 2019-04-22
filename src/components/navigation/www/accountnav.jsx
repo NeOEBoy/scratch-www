@@ -45,14 +45,14 @@ const AccountNav = ({
             isOpen={isOpen}
             onRequestClose={onClose}
         >
-            <li>
+            {/* <li>
                 <a href={profileUrl}>
-                    <FormattedMessage id="general.profile" />
+                    个人中心
                 </a>
-            </li>
+            </li> */}
             <li>
                 <a href="/mystuff/">
-                    <FormattedMessage id="general.myStuff" />
+                    我的作品
                 </a>
             </li>
             {isEducator ? [
@@ -69,17 +69,17 @@ const AccountNav = ({
                     </a>
                 </li>
             ] : []}
-            <li>
+            {/* <li>
                 <a href="/accounts/settings/">
-                    <FormattedMessage id="general.accountSettings" />
+                    账号设置
                 </a>
-            </li>
+            </li> */}
             <li className="divider">
                 <a
                     href="#"
                     onClick={onClickLogout}
                 >
-                    <FormattedMessage id="navigation.signOut" />
+                    退出登录
                 </a>
             </li>
         </Dropdown>
