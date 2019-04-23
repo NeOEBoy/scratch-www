@@ -178,6 +178,20 @@ class MyStuff extends React.Component {
   handleTabChange(key) {
     this._initFirstPage(key);
   }
+  handleEmptyTrash() {
+    // console.log('handleEmptyTrash')
+    
+    api({
+      uri: `/mystuff/emptytrash`,
+      method: 'post',
+      withCredentials: true,
+    }, (err, res) => {
+      if (!err) {
+        // console.log('已经清空');
+        this._initState();
+      }
+    });
+  }
 
   render() {
     const { initLoading, nextLoading, list4source, alreadyShowAll } = this.state;
@@ -247,12 +261,18 @@ class MyStuff extends React.Component {
             </Card>
           </TabPane>
 
-          <TabPane tab="回收站" key="trshbyusr" disabled={initLoading || nextLoading}>
+          <TabPane tab="回收桶" key="trshbyusr" disabled={initLoading || nextLoading}>
             <Card
-              title="回收站"
+              title="回收桶"
               bordered={false}
               headStyle={{ padding: 0 }}
               bodyStyle={{ padding: 0 }}
+              extra=
+              {
+                <Popconfirm placement="topLeft" title='确定要删除回收桶里所有的作品吗？' onConfirm={()=>this.handleEmptyTrash()} okText="清空" cancelText="取消">
+                  <a href="#">清空回收桶</a>
+                </Popconfirm>
+              }
             >
               <List
                 rowKey={record => record._id}
