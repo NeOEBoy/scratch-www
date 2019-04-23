@@ -54,7 +54,7 @@ const Subactions = props => (
             >
                 <FormattedMessage id="general.copyLink" />
             </Button>
-            {(props.canReport) &&
+            {/* {(props.canReport) &&
             <React.Fragment>
                 <Button
                     className="action-button report-button"
@@ -73,7 +73,7 @@ const Subactions = props => (
                     />
                 )}
             </React.Fragment>
-            }
+            } */}
         </FlexRow>
     </FlexRow>
 );
