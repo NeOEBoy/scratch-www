@@ -180,7 +180,7 @@ class MyStuff extends React.Component {
   }
   handleEmptyTrash() {
     // console.log('handleEmptyTrash')
-    
+
     api({
       uri: `/mystuff/emptytrash`,
       method: 'post',
@@ -204,6 +204,14 @@ class MyStuff extends React.Component {
       </div>
     ) : null;
 
+    let noData = null;
+    if (list4source.length > 0) {
+      const theFilterSource = list4source.filter((element) => element.visibility === this._tabKey);
+      const showNoData = !initLoading && !nextLoading && theFilterSource.length === 0
+      noData = showNoData ? (
+        <div style={{ textAlign: "center" }}>空空如也</div>
+      ) : null;
+    }
     return (
       <div className='inner mystuff'>
         <Tabs
@@ -224,6 +232,7 @@ class MyStuff extends React.Component {
                 itemLayout="horizontal"
                 loadMore={loadMore}
                 dataSource={list4source}
+                locale={{ emptyText: '空空如也' }}
                 renderItem={item => (
                   item.visibility === 'visible' ?
                     (
@@ -258,6 +267,7 @@ class MyStuff extends React.Component {
                       </QueueAnim>
                     ) : <QueueAnim></QueueAnim>)}
               />
+              {noData}
             </Card>
           </TabPane>
 
@@ -269,7 +279,7 @@ class MyStuff extends React.Component {
               bodyStyle={{ padding: 0 }}
               extra=
               {
-                <Popconfirm placement="topLeft" title='确定要删除回收桶里所有的作品吗？' onConfirm={()=>this.handleEmptyTrash()} okText="清空" cancelText="取消">
+                <Popconfirm placement="topLeft" title='确定要删除回收桶里所有的作品吗？' onConfirm={() => this.handleEmptyTrash()} okText="清空" cancelText="取消">
                   <a href="#">清空回收桶</a>
                 </Popconfirm>
               }
@@ -280,6 +290,7 @@ class MyStuff extends React.Component {
                 itemLayout="horizontal"
                 loadMore={loadMore}
                 dataSource={list4source}
+                locale={{ emptyText: '空空如也' }}
                 renderItem={item => (
                   item.visibility === 'trshbyusr' ?
                     (
@@ -312,6 +323,7 @@ class MyStuff extends React.Component {
                       </QueueAnim>
                     ) : <QueueAnim></QueueAnim>)}
               />
+              {noData}
             </Card>
           </TabPane>
         </Tabs>
