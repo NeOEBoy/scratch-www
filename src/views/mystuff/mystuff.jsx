@@ -12,7 +12,7 @@ require('./mystuff.scss');
 // 引入antd
 import { Card, List, Avatar, Tabs, Button, Skeleton, Popconfirm } from 'antd';
 import QueueAnim from 'rc-queue-anim';
-import { makeDateFormat } from '../../lib/date-utils'
+import { converDateBy } from '../../lib/date-utils'
 const TabPane = Tabs.TabPane;
 
 const KSize = 16;
@@ -259,7 +259,7 @@ class MyStuff extends React.Component {
                                 </div>
                               }
                               title={item.title}
-                              description={'最后更新: ' + makeDateFormat(new Date(item.modified), "yyyy-MM-dd hh:mm:ss")}
+                              description={converDateBy(item.modified)}
                             />
                             <div></div>
                           </Skeleton>
@@ -315,7 +315,7 @@ class MyStuff extends React.Component {
                                 </div>
                               }
                               title={item.title}
-                              description={'最后更新: ' + makeDateFormat(new Date(item.modified), "yyyy-MM-dd hh:mm:ss")}
+                              description={converDateBy(item.modified)}
                             />
                             <div></div>
                           </Skeleton>

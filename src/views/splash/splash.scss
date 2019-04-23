@@ -135,6 +135,8 @@
 }
 
 .list-item-title {
+  font-size: 1.2rem;
+  font-weight: bold;
   width: 100%;
   overflow: hidden;/*超出部分隐藏*/
   white-space: nowrap;/*不换行*/
@@ -142,12 +144,14 @@
 }
 
 .list-item-name {
+  font-size: 1rem;
   width: 100%;
   overflow: hidden;/*超出部分隐藏*/
   white-space: nowrap;/*不换行*/
   text-overflow:ellipsis;/*超出部分文字以...显示*/
 }
 .list-item-modified {
+  font-size: 0.8rem;
   width: 100%;
   overflow: hidden;/*超出部分隐藏*/
   white-space: nowrap;/*不换行*/

@@ -1003,7 +1003,8 @@ module.exports.updateProjectThumbnail = (id, blob) => (dispatch => {
 module.exports.logProjectView = (id, authorUsername, token) => (dispatch => {
     dispatch(module.exports.setFetchStatus('project-log-view', module.exports.Status.FETCHING));
     api({
-        uri: `/users/${authorUsername}/projects/${id}/views`,
+        // uri: `/users/${authorUsername}/projects/${id}/views`,
+        uri: `/projects/${id}/views`,
         method: 'POST',
         authentication: token,
         withCredentials: true,

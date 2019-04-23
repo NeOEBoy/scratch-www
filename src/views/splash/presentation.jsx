@@ -2,7 +2,7 @@ const bindAll = require('lodash.bindall');
 const injectIntl = require('react-intl').injectIntl;
 const React = require('react');
 const api = require('../../lib/api');
-import { makeDateFormat } from '../../lib/date-utils'
+import { converDateBy } from '../../lib/date-utils'
 
 import { List, Card, Button } from 'antd';
 import QueueAnim from 'rc-queue-anim';
@@ -134,6 +134,9 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
           </QueueAnim> */}
           <Card
             title="全部作品"
+            bordered={false}
+            headStyle={{ padding: '12' }}
+            bodyStyle={{ padding: 12 }}
           >
             <List
               rowKey={record => record._id}
@@ -159,24 +162,24 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
 
                       <div className='list-item-title'>{item.aliTitle}</div>
                       <div className='list-item-name'>{item.author && item.author.name}</div>
-                      <div className='list-item-modified'>{makeDateFormat(new Date(item.modified), "yyyy-MM-dd hh:mm:ss")}</div>
+                      <div className='list-item-modified'>{converDateBy(item.modified)}</div>
                     </div>
                   </QueueAnim>
                 </List.Item>
-              )}
-            />
+                  )}
+                />
           </Card>
         </div>
       </div>
-    );
-  }
-}
+          );
+        }
+      }
 
 SplashPresentation.propTypes = {
 
-};
+          };
 
 SplashPresentation.defaultProps = {
-};
-
-module.exports = injectIntl(SplashPresentation);
+          };
+          
+          module.exports = injectIntl(SplashPresentation);

@@ -16,7 +16,7 @@ const Stats = props => (
         >
             {Math.max(0, props.loveCount)}
         </div>
-        <div
+        {/* <div
             className={classNames('project-favorites', {favorited: props.faved})}
             key="favorites"
             onClick={props.onFavoriteClicked}
@@ -28,7 +28,7 @@ const Stats = props => (
             key="remixes"
         >
             {props.projectInfo.stats.remixes}
-        </div>
+        </div> */}
         <div
             className="project-views"
             key="views"
