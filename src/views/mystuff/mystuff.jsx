@@ -10,10 +10,12 @@ const api = require('../../lib/api');
 require('./mystuff.scss');
 
 // 引入antd
-import { Card, List, Avatar, Button, Skeleton } from 'antd';
+import { Card, List, Avatar, Tabs, Button, Skeleton, Popconfirm } from 'antd';
+import QueueAnim from 'rc-queue-anim';
 import { makeDateFormat } from '../../lib/date-utils'
+const TabPane = Tabs.TabPane;
 
-const KSize = 8;
+const KSize = 16;
 
 class MyStuff extends React.Component {
   constructor(props) {
@@ -30,7 +32,8 @@ class MyStuff extends React.Component {
 
     bindAll(this, [
       '_initFirstPage',
-      'handleLoadMore'
+      'handleLoadMore',
+      'handleTabChange'
     ]);
   }
 
@@ -47,23 +50,50 @@ class MyStuff extends React.Component {
     }
   }
 
-  _initFirstPage() {
-    console.log('_initFirstPage start')
+  _initState(stateChanged) {
+    this.setState({
+      initLoading: false,
+      nextLoading: false,
+      list4Next: [],
+      list4source: [],
+      currentPage: 1,
+      alreadyShowAll: true
+    }, stateChanged);
+  }
+
+  _initFirstPage(key) {
+    // console.log('_initFirstPage start')
     if (this.state.initLoading) {
       return;
     }
 
-    this.setState({
-      initLoading: true
-    });
-    this._getNextPage((res) => {
-      console.log('MyStuff componentDidMount complete');
+    this._tabKey = key ? key : 'visible';
+    console.log('this._tabKey = ' + this._tabKey);
 
+    this._initState(() => {
       this.setState({
-        initLoading: false,
-        list4Next: res && res.data || [],
-        list4source: res && res.data || [],
+        initLoading: true
       });
+
+      const handle = (res) => {
+        // console.log('MyStuff componentDidMount complete');
+
+        this.setState({
+          initLoading: false,
+          list4Next: res && res.data || [],
+          list4source: res && res.data || [],
+        }, () => {
+          if (res && res.data && res.data.length > 0) {
+            let filterItems = res.data.filter((item) => item.visibility === this._tabKey);
+            if (filterItems && filterItems.length === 0) {
+              setTimeout(() => {
+                this.handleLoadMore()
+              }, 0);
+            }
+          }
+        });
+      };
+      this._getNextPage(handle);
     });
   }
 
@@ -86,7 +116,7 @@ class MyStuff extends React.Component {
       });
       callback(res);
 
-      if (res && res.data.length > 0) {
+      if (res && res.data && res.data.length > 0) {
         this.setState({
           currentPage: this.state.currentPage + 1,
           alreadyShowAll: this.state.list4source.length >= res.totalCount
@@ -102,7 +132,7 @@ class MyStuff extends React.Component {
   handleLoadMore() {
     this.setState({
       nextLoading: true,
-      list4source: this.state.list4Next.concat([...new Array(KSize)].map(() => ({ loading: true, title: {} }))),
+      list4source: this.state.list4Next.concat([...new Array(3)].map(() => ({ loading: true, title: {} }))),
     });
     this._getNextPage((res) => {
       const list4Next = this.state.list4Next.concat(res.data);
@@ -114,9 +144,39 @@ class MyStuff extends React.Component {
         // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
         // In real scene, you can using public method of react-virtualized:
         // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-        window.dispatchEvent(new Event('resize'));
+        // window.dispatchEvent(new Event('resize'));
+        if (res && res.data && res.data.length > 0) {
+          let filterItems = res.data.filter((item) => item.visibility === this._tabKey);
+          if (filterItems && filterItems.length === 0) {
+            setTimeout(() => {
+              this.handleLoadMore()
+            }, 0);
+          }
+        }
       });
     });
+  }
+  handlePutToTrash(item) {
+    this._changeVisibility(item, 'trshbyusr');
+  }
+  handleRecoveFromTrash(item) {
+    this._changeVisibility(item, 'visible');
+  }
+  _changeVisibility(item, visibility) {
+    api({
+      uri: `/projects/${item.projectId}`,
+      method: 'put',
+      formData: { visibility: visibility },
+      withCredentials: true,
+    }, (err, res) => {
+      if (!err) {
+        item.visibility = visibility;
+        this.forceUpdate();
+      }
+    });
+  }
+  handleTabChange(key) {
+    this._initFirstPage(key);
   }
 
   render() {
@@ -132,45 +192,109 @@ class MyStuff extends React.Component {
 
     return (
       <div className='inner mystuff'>
-        <Card
-          title="我的作品"
+        <Tabs
+          defaultActiveKey="visible"
+          tabPosition='left'
+          onChange={this.handleTabChange}
         >
+          <TabPane tab="我的作品" key="visible" disabled={initLoading || nextLoading}>
+            <Card
+              title="我的作品"
+              bordered={false}
+              headStyle={{ padding: 0 }}
+              bodyStyle={{ padding: 0 }}
+            >
+              <List
+                rowKey={record => record._id}
+                loading={initLoading}
+                itemLayout="horizontal"
+                loadMore={loadMore}
+                dataSource={list4source}
+                renderItem={item => (
+                  item.visibility === 'visible' ?
+                    (
+                      <QueueAnim duration='800'>
+                        <List.Item
+                          key={item._id}
+                          actions={
+                            [
+                              <a href={'/projects/' + item.projectId}>查看</a>,
+                              <a href={'/projects/' + item.projectId + '#editor'}>编辑</a>,
+                              <a onClick={() => this.handlePutToTrash(item)}>删除</a>
+                            ]
+                          }>
+                          <Skeleton avatar title={false} loading={item.loading} active>
+                            <List.Item.Meta
+                              avatar=
+                              {
+                                <div style={{ width: 122, height: 92, border: '1px dotted' }}>
+                                  <img
+                                    src={item.visibility === 'visible' ? item.image : ''}
+                                    alt={item.title}
+                                    style={{ width: 120, height: 90 }}>
+                                  </img>
+                                </div>
+                              }
+                              title={item.title}
+                              description={'最后更新: ' + makeDateFormat(new Date(item.modified), "yyyy-MM-dd hh:mm:ss")}
+                            />
+                            <div></div>
+                          </Skeleton>
+                        </List.Item>
+                      </QueueAnim>
+                    ) : <QueueAnim></QueueAnim>)}
+              />
+            </Card>
+          </TabPane>
 
-          <List
-            rowKey={record => record._id}
-            loading={initLoading}
-            itemLayout="horizontal"
-            loadMore={loadMore}
-            dataSource={list4source}
-            renderItem={item => (
-              <List.Item
-                actions={
-                  [
-                    <a href={'/projects/' + item.projectId}>查看</a>,
-                    <a href={'/projects/' + item.projectId + '#editor'}>编辑</a>,
-                  ]
-                }>
-                <Skeleton avatar title={false} loading={item.loading} active>
-                  <List.Item.Meta
-                    avatar=
-                    {
-                      <div style={{ width: 122, height: 92, border: '1px dotted' }}>
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          style={{ width: 120, height: 90 }}>
-                        </img>
-                      </div>
-                    }
-                    title={item.title}
-                    description={'最后更新: ' + makeDateFormat(new Date(item.modified), "yyyy-MM-dd hh:mm:ss")}
-                  />
-                  <div></div>
-                </Skeleton>
-              </List.Item>
-            )}
-          />
-        </Card>
+          <TabPane tab="回收站" key="trshbyusr" disabled={initLoading || nextLoading}>
+            <Card
+              title="回收站"
+              bordered={false}
+              headStyle={{ padding: 0 }}
+              bodyStyle={{ padding: 0 }}
+            >
+              <List
+                rowKey={record => record._id}
+                loading={initLoading}
+                itemLayout="horizontal"
+                loadMore={loadMore}
+                dataSource={list4source}
+                renderItem={item => (
+                  item.visibility === 'trshbyusr' ?
+                    (
+                      <QueueAnim>
+                        <List.Item
+                          key={item._id}
+                          actions={
+                            [
+                              <a onClick={() => this.handleRecoveFromTrash(item)}>放回去</a>
+                            ]
+                          }>
+                          <Skeleton avatar title={false} loading={item.loading} active>
+                            <List.Item.Meta
+                              avatar=
+                              {
+                                <div style={{ width: 122, height: 92, border: '1px dotted' }}>
+                                  <img
+                                    src={item.visibility === 'trshbyusr' ? item.image : ''}
+                                    alt={item.title}
+                                    style={{ width: 120, height: 90 }}>
+                                  </img>
+                                </div>
+                              }
+                              title={item.title}
+                              description={'最后更新: ' + makeDateFormat(new Date(item.modified), "yyyy-MM-dd hh:mm:ss")}
+                            />
+                            <div></div>
+                          </Skeleton>
+                        </List.Item>
+                      </QueueAnim>
+                    ) : <QueueAnim></QueueAnim>)}
+              />
+            </Card>
+          </TabPane>
+        </Tabs>
       </div>
     );
   }

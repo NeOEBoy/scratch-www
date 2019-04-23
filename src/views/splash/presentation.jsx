@@ -5,11 +5,11 @@ const api = require('../../lib/api');
 import { makeDateFormat } from '../../lib/date-utils'
 
 import { List, Card, Button } from 'antd';
-
+import QueueAnim from 'rc-queue-anim';
 // Featured Banner Components
 require('./splash.scss');
 
-const KSize = 16;
+const KSize = 12;
 
 // Splash page
 class SplashPresentation extends React.Component { // eslint-disable-line react/no-multi-comp
@@ -106,7 +106,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
         // In real scene, you can using public method of react-virtualized:
         // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-        window.dispatchEvent(new Event('resize'));
+        // window.dispatchEvent(new Event('resize'));
       });
     });
   }
@@ -127,6 +127,11 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         <div
           className="inner mod-splash"
           key="inner">
+          {/* <QueueAnim>
+            <div key='0'>haha</div>
+            <div key='1'>haha</div>
+            <div key='2'>haha</div>
+          </QueueAnim> */}
           <Card
             title="全部作品"
           >
@@ -138,22 +143,25 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
                 gutter: 12, xs: 2, sm: 2, md: 3, lg: 3, xl: 3, xxl: 4,
               }}
               dataSource={list4source}
-              renderItem={item => (
+              renderItem={(item, index) => (
                 <List.Item>
-                  <div
-                    className='list-item-div'
-                    onClick={() => { window.location.href = '/projects/' + item.projectId }}>
-                    <div className='list-item-imgdiv'>
-                      <img
-                        src={item.image}
-                        alt={item.aliTitle}
-                        style={{ width: '99.9%' }}/>
-                    </div>
+                  <QueueAnim type={['scale']} duration='800'>
+                    <div
+                      key={index}
+                      className='list-item-div'
+                      onClick={() => { window.location.href = '/projects/' + item.projectId }}>
+                      <div key='image' className='list-item-imgdiv'>
+                        <img
+                          src={item.image}
+                          alt={item.aliTitle}
+                          style={{ width: '99.9%' }} />
+                      </div>
 
-                    <div className='list-item-title'>{item.aliTitle}</div>
-                    <div className='list-item-name'>{item.author.name}</div>
-                    <div className='list-item-modified'>{makeDateFormat(new Date(item.modified), "yyyy-MM-dd hh:mm:ss")}</div>
-                  </div>
+                      <div className='list-item-title'>{item.aliTitle}</div>
+                      <div className='list-item-name'>{item.author && item.author.name}</div>
+                      <div className='list-item-modified'>{makeDateFormat(new Date(item.modified), "yyyy-MM-dd hh:mm:ss")}</div>
+                    </div>
+                  </QueueAnim>
                 </List.Item>
               )}
             />
