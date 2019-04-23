@@ -23,16 +23,16 @@
             margin: 0 6px 0 0;
             border: 0;
 
-            background-image: url("/images/logo_sm.png");
+            background-image: url("/images/logo_fox.png");
             background-repeat: no-repeat;
             background-position: center center;
-            background-size: 95%;
+            background-size: 45%;
             width: 81px;
             height: 50px;
 
             &:hover {
                 transition: .15s ease all;
-                background-size: 100%;
+                background-size: 60%;
             }
         }
     }
@@ -160,7 +160,8 @@
 
     .mystuff {
         > a {
-            background-image: url("/images/mystuff.png");
+            // background-image: url("/images/mystuff.png");
+            background-image: url("/images/backpack.png");
         }
     }
 }
@@ -168,20 +169,20 @@
 //4 columns
 @media #{$small} {
     #navigation .inner {
-        width: $cols4;
+        // width: $cols4;
 
-        > ul > li {
-            &.login-item {
-                margin-left: 0;
-            }
-        }
+        // > ul > li {
+        //     &.login-item {
+        //         margin-left: 0;
+        //     }
+        // }
 
         .create,
         .discuss,
         .explore,
-        .search,
+        // .search,
         .help,
-        .mystuff,
+        // .mystuff,
         .profile-name {
             display: none;
         }
@@ -192,18 +193,18 @@
 //6 columns
 @media #{$medium} {
     #navigation .inner {
-        width: $cols6;
+        // width: $cols6;
 
-        > ul > li {
-            &.login-item {
-                margin-left: 0;
-            }
-        }
+        // > ul > li {
+        //     &.login-item {
+        //         margin-left: 0;
+        //     }
+        // }
 
         .discuss,
         .explore,
-        .search,
-        .mystuff,
+        // .search,
+        // .mystuff,
         .profile-name {
             display: none;
         }
@@ -214,17 +215,17 @@
 //8 columns
 @media #{$intermediate} {
     #navigation .inner {
-        width: $cols8;
+        // width: $cols8;
 
-        > ul > li {
-            &.login-item {
-                margin-left: 0;
-            }
-        }
+        // > ul > li {
+        //     &.login-item {
+        //         margin-left: 0;
+        //     }
+        // }
 
-        .explore,
-        .search,
-        .mystuff {
+        // .search,
+        // .mystuff,
+        .explore {
             display: none;
         }
     }

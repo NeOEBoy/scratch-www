@@ -59,43 +59,43 @@
 }
 
 //4 columns
-@media #{$small} {
-    .account-nav {
-        margin-left: 0;
+// @media #{$small} {
+//     .account-nav {
+//         margin-left: 0;
 
-        .user-info {
-            .avatar {
-                margin-right: 0;
-            }
+//         .user-info {
+//             .avatar {
+//                 margin-right: 0;
+//             }
 
-            &:after {
-                display: none;
-            }
-        }
-    }
-}
+//             &:after {
+//                 display: none;
+//             }
+//         }
+//     }
+// }
 
 
-//6 columns
-@media #{$medium} {
-    .account-nav {
-        margin-left: 0;
+// //6 columns
+// @media #{$medium} {
+//     .account-nav {
+//         margin-left: 0;
 
-        .user-info {
-            .avatar {
-                margin-right: 0;
-            }
+//         .user-info {
+//             .avatar {
+//                 margin-right: 0;
+//             }
 
-            &:after {
-                display: none;
-            }
-        }
-    }
-}
+//             &:after {
+//                 display: none;
+//             }
+//         }
+//     }
+// }
 
-//8 columns
-@media #{$intermediate} {
-    .account-nav {
-        margin-left: 0;
-    }
-}
+// //8 columns
+// @media #{$intermediate} {
+//     .account-nav {
+//         margin-left: 0;
+//     }
+// }

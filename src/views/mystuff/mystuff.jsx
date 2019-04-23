@@ -111,9 +111,6 @@ class MyStuff extends React.Component {
         return;
       }
 
-      res.data.forEach(element => {
-        element.imageData = '/images/logo_sm.png';
-      });
       callback(res);
 
       if (res && res.data && res.data.length > 0) {

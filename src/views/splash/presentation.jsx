@@ -72,10 +72,6 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         return;
       }
 
-      res.data.forEach(element => {
-        element.imageData = '/images/logo_sm.png';
-        element.aliTitle = element.title;
-      });
       callback(res);
 
       if (res && res.data.length > 0) {
@@ -156,11 +152,11 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
                       <div key='image' className='list-item-imgdiv'>
                         <img
                           src={item.image}
-                          alt={item.aliTitle}
+                          alt={item.title}
                           style={{ width: '99.9%' }} />
                       </div>
 
-                      <div className='list-item-title'>{item.aliTitle}</div>
+                      <div className='list-item-title'>{item.title}</div>
                       <div className='list-item-name'>{item.author && item.author.name}</div>
                       <div className='list-item-modified'>{converDateBy(item.modified)}</div>
                     </div>
