@@ -37,12 +37,11 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
 
   componentDidMount() {
     this._reloadPage();
-    window.addEventListener('hashchange', () => {
-      this._reloadPage();
-    })
+    window.addEventListener('hashchange', this._reloadPage)
   }
 
   componentWillUnmount() {
+    window.removeEventListener('hashchange', this._reloadPage)
   }
 
   componentDidUpdate(prevProps) {
