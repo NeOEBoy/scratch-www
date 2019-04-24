@@ -207,11 +207,11 @@ class Preview extends React.Component {
             const username = this.props.user.username;
             const token = this.props.user.token;
             if (this.state.singleCommentId) {
-                this.props.getCommentById(this.state.projectId, this.state.singleCommentId,
-                    this.props.isAdmin, token);
+                // this.props.getCommentById(this.state.projectId, this.state.singleCommentId,
+                //     this.props.isAdmin, token);
             } else {
-                this.props.getTopLevelComments(this.state.projectId, this.props.comments.length,
-                    this.props.isAdmin, token);
+                // this.props.getTopLevelComments(this.state.projectId, this.props.comments.length,
+                //     this.props.isAdmin, token);
             }
             this.props.getProjectInfo(this.state.projectId, token);
             // this.props.getRemixes(this.state.projectId, token);
