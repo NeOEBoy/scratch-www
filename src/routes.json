@@ -4,7 +4,7 @@
       "pattern": "^/mystuff/?$",
       "routeAlias": "/mystuff/?$",
       "view": "mystuff/mystuff",
-      "title": "我的作品"
+      "title": "作品管理"
     },
     {
         "name": "about",
