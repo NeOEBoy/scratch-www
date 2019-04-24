@@ -166,7 +166,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
     this.setState({
       activeKey: key
     })
-    this._initFirstPage(key);
+    // this._initFirstPage(key);
   }
 
   render() {
