@@ -31,7 +31,8 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
     bindAll(this, [
       '_initFirstPage',
       'handleLoadMore',
-      'handleTabChange'
+      'handleTabChange',
+      '_reloadPage'
     ]);
   }
 

@@ -89,9 +89,12 @@ class PreviewPresentation extends React.Component {
 
     if (this.state.stageDim.width !== theWidth ||
       this.state.stageDim.height !== theHeight) {
-      this.setState({
-        stageDim: { width: theWidth, height: theHeight }
-      });
+
+      setTimeout(() => {
+        this.setState({
+          stageDim: { width: theWidth, height: theHeight }
+        });
+      }, 0);
     }
   }
   handleOrientationChange() {
@@ -103,12 +106,16 @@ class PreviewPresentation extends React.Component {
     }, 0);
   }
   componentDidMount() {
+    console.log('presentation componentDidMount')
+
     window.addEventListener('resize', this.updateStageSize);
     window.addEventListener('orientationchange', this.handleOrientationChange);
 
     this.updateStageSize();
   }
   componentWillUnmount() {
+    console.log('presentation componentWillUnmount')
+
     window.removeEventListener('resize', this.updateStageSize);
     window.removeEventListener('orientationchange', this.handleOrientationChange);
     this._delayUpdateSizeTimer && clearTimeout(this._delayUpdateSizeTimer);
@@ -116,6 +123,8 @@ class PreviewPresentation extends React.Component {
   // --根据宽度动态适配大小end -neo
 
   render() {
+    console.log('presentation render')
+
     const {
       addToStudioOpen,
       adminModalOpen,
