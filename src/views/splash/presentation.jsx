@@ -161,12 +161,11 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
   }
 
   handleTabChange(key) {
-    // 触发#变化，从而刷新页面
     window.location.hash = '#' + key;
     this.setState({
       activeKey: key
     })
-    // this._initFirstPage(key);
+    this._initFirstPage(key);
   }
 
   render() {
