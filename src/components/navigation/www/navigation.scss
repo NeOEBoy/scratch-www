@@ -23,7 +23,7 @@
             margin: 0 6px 0 0;
             border: 0;
 
-            background-image: url("/images/logo_fox.png");
+            background-image: url("/images/logo-home.png");
             background-repeat: no-repeat;
             background-position: center center;
             background-size: 45%;
@@ -182,7 +182,7 @@
         .explore,
         // .search,
         .help,
-        // .mystuff,
+        .mystuff,
         .profile-name {
             display: none;
         }
@@ -204,7 +204,7 @@
         .discuss,
         .explore,
         // .search,
-        // .mystuff,
+        .mystuff,
         .profile-name {
             display: none;
         }
@@ -224,7 +224,7 @@
         // }
 
         // .search,
-        // .mystuff,
+        .mystuff,
         .explore {
             display: none;
         }

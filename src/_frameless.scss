@@ -81,7 +81,7 @@ $medium-height: "only screen and (min-height : #{$mobile}) and (max-height : #{$
 
         #{$child-selector} {
             margin: 0 auto;
-            width: 100%;
+            width: 95%;
         }
 
         @content;

@@ -30,26 +30,27 @@ export function converDateBy(stringTime) {
   var month = day * 30;
 
   var time1 = new Date().getTime();//当前的时间戳
-  console.log(time1);
+  // console.log(time1);
   var time2 = Date.parse(new Date(stringTime));//指定时间的时间戳
-  console.log(time2);
+  // console.log(time2);
   var time = time1 - time2;
 
   var result = '';
+  let pre = '';
   if (time < 0) {
-    // alert("设置的时间不能早于当前时间！");
+    // alert("设置的时间不能早于当前时间");
   } else if (time / month >= 1) {
-    result = "更新于" + parseInt(time / month) + "月前！";
+    result = pre + parseInt(time / month) + "月前";
   } else if (time / week >= 1) {
-    result = "更新于" + parseInt(time / week) + "周前！";
+    result = pre + parseInt(time / week) + "周前";
   } else if (time / day >= 1) {
-    result = "更新于" + parseInt(time / day) + "天前！";
+    result = pre + parseInt(time / day) + "天前";
   } else if (time / hour >= 1) {
-    result = "更新于" + parseInt(time / hour) + "小时前！";
+    result = pre + parseInt(time / hour) + "小时前";
   } else if (time / minute >= 1) {
-    result = "更新于" + parseInt(time / minute) + "分钟前！";
+    result = pre + parseInt(time / minute) + "分钟前";
   } else {
-    result = "刚刚更新！";
+    result = "刚刚更新";
   }
 
   return result;

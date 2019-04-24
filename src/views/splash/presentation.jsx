@@ -1,10 +1,12 @@
 const bindAll = require('lodash.bindall');
 const injectIntl = require('react-intl').injectIntl;
+const connect = require('react-redux').connect;
 const React = require('react');
 const api = require('../../lib/api');
 import { converDateBy } from '../../lib/date-utils'
 
-import { List, Card, Button } from 'antd';
+import { List, Card, Button, Tabs, Icon } from 'antd';
+const TabPane = Tabs.TabPane;
 import QueueAnim from 'rc-queue-anim';
 // Featured Banner Components
 require('./splash.scss');
@@ -22,46 +24,98 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
       list4Next: [],
       list4source: [],
       currentPage: 1,
-      alreadyShowAll: false
+      alreadyShowAll: true,
+      activeKey: 'modified'
     }
 
     bindAll(this, [
       '_initFirstPage',
-      'handleLoadMore'
+      'handleLoadMore',
+      'handleTabChange'
     ]);
   }
 
   componentDidMount() {
-    this._initFirstPage();
+    this._reloadPage();
+    window.addEventListener('hashchange', () => {
+      this._reloadPage();
+    })
   }
 
   componentWillUnmount() {
   }
 
-  _initFirstPage() {
-    console.log('_initFirstPage start')
+  componentDidUpdate(prevProps) {
+    // console.log('componentDidUpdate start')
+
+    // update完毕后，如果user有变化则初始化页面，第一次进来页面也会走？
+    if (this.props.user.username !== prevProps.user.username) {
+      this._initFirstPage(this.state.activeKey);
+    }
+  }
+
+  _reloadPage() {
+    let sortKey = 'modified';
+    if (window.location.hash.indexOf('#') !== -1) {
+      sortKey = window.location.hash.replace('#', '');
+    }
+    this.setState({
+      activeKey: sortKey
+    })
+    this._initFirstPage(sortKey);
+  }
+
+  _initFirstPage(key) {
+    // console.log('_initFirstPage start')
     if (this.state.initLoading) {
       return;
     }
 
-    this.setState({
-      initLoading: true
-    });
-    this._getNextPage((res) => {
-      console.log('MyStuff componentDidMount complete');
+    this._initState(() => {
+      if (key === 'mystuff') {
+        this._SearchArea = 'mystuff'
+        this._SortKey = 'modified';
+      } else {
+        this._SearchArea = 'allstuff'
+        this._SortKey = key ? key : 'modified'
+      }
 
       this.setState({
-        initLoading: false,
-        list4Next: res && res.data || [],
-        list4source: res && res.data || [],
+        initLoading: true,
       });
-    });
+      this._getNextPage((res) => {
+        // console.log('MyStuff componentDidMount complete');
+
+        this.setState({
+          initLoading: false,
+          list4Next: res && res.data || [],
+          list4source: res && res.data || [],
+        });
+      });
+    })
+  }
+
+  _initState(stateChanged) {
+    this.setState({
+      initLoading: false,
+      nextLoading: false,
+      list4Next: [],
+      list4source: [],
+      currentPage: 1,
+      alreadyShowAll: true,
+    }, stateChanged);
   }
 
   _getNextPage(callback) {
+    const { currentPage } = this.state;
     api({
       uri: '/allstuff/page',
-      params: { page: this.state.currentPage, size: KSize },
+      params: {
+        page: currentPage,
+        size: KSize,
+        sortArea: this._SearchArea,
+        sortKey: this._SortKey
+      },
       withCredentials: true,
     }, (err, res) => {
       if (err || !res) {
@@ -107,8 +161,17 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
     });
   }
 
+  handleTabChange(key) {
+    // 触发#变化，从而刷新页面
+    window.location.hash = '#' + key;
+    this.setState({
+      activeKey: key
+    })
+    // this._initFirstPage(key);
+  }
+
   render() {
-    const { initLoading, nextLoading, list4source, alreadyShowAll } = this.state;
+    const { initLoading, nextLoading, list4source, alreadyShowAll, activeKey } = this.state;
     const loadMore = !initLoading && !nextLoading && !alreadyShowAll ? (
       <div style={{
         textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px',
@@ -118,17 +181,71 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
       </div>
     ) : null;
 
+    const listTemplate = (
+      <List
+        rowKey={record => record._id}
+        loading={initLoading}
+        loadMore={loadMore}
+        grid={{
+          gutter: 12, xs: 2, sm: 2, md: 3, lg: 3, xl: 3, xxl: 4,
+        }}
+        dataSource={list4source}
+        renderItem={(item, index) => (
+          <List.Item>
+            <QueueAnim type={['scale']} duration='800'>
+              <div
+                key={index}
+                className='list-item-div'
+                onClick={() => { window.location.href = '/projects/' + item.projectId }}>
+                <div key='image' className='list-item-imgdiv'>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    style={{ width: '99.9%' }} />
+                </div>
+
+                <div className='list-item-title'>{item.title}</div>
+                <div className='list-item-name'>{item.author && item.author.name}</div>
+                <div className='list-item-modified'>
+                  <Icon type='like' />
+                  <span> {item.loves}&nbsp;&nbsp;</span>
+                  <Icon type='eye' />
+                  <span> {item.views}&nbsp;&nbsp;</span>
+                  <Icon type='clock-circle' />
+                  <span> {converDateBy(item.modified)}</span>
+                </div>
+              </div>
+            </QueueAnim>
+          </List.Item>
+        )}
+      />);
+
     return (
       <div className="splash">
         <div
           className="inner mod-splash"
           key="inner">
+          <Tabs type='card' onChange={this.handleTabChange}
+            activeKey={activeKey}>
+            <TabPane tab={<span><Icon type='clock-circle' />最新榜</span>} key="modified">
+              {listTemplate}
+            </TabPane>
+            <TabPane tab={<span><Icon type="like" />点赞榜</span>} key="loves">
+              {listTemplate}
+            </TabPane>
+            <TabPane tab={<span><Icon type="smile" />我的宝宝</span>} key="mystuff">
+              {listTemplate}
+            </TabPane>
+            {/* <TabPane tab={<span><Icon type="eye" />观看榜</span>} key="views">
+              {listTemplate}
+            </TabPane> */}
+          </Tabs>
           {/* <QueueAnim>
             <div key='0'>haha</div>
             <div key='1'>haha</div>
             <div key='2'>haha</div>
           </QueueAnim> */}
-          <Card
+          {/* <Card
             title="全部作品"
             bordered={false}
             headStyle={{ padding: '12' }}
@@ -162,20 +279,33 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
                     </div>
                   </QueueAnim>
                 </List.Item>
-                  )}
-                />
-          </Card>
+              )}
+            />
+          </Card> */}
         </div>
       </div>
-          );
-        }
-      }
+    );
+  }
+}
 
 SplashPresentation.propTypes = {
 
-          };
+};
 
 SplashPresentation.defaultProps = {
-          };
-          
-          module.exports = injectIntl(SplashPresentation);
+  user: {}
+};
+
+const mapStateToProps = state => ({
+  user: state.session.session.user
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+const ConnectedSplashPresentation = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SplashPresentation);
+
+module.exports = injectIntl(ConnectedSplashPresentation);
