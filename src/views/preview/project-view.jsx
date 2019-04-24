@@ -214,20 +214,20 @@ class Preview extends React.Component {
                     this.props.isAdmin, token);
             }
             this.props.getProjectInfo(this.state.projectId, token);
-            this.props.getRemixes(this.state.projectId, token);
-            this.props.getProjectStudios(this.state.projectId, token);
-            this.props.getCuratedStudios(username);
-            this.props.getFavedStatus(this.state.projectId, username, token);
+            // this.props.getRemixes(this.state.projectId, token);
+            // this.props.getProjectStudios(this.state.projectId, token);
+            // this.props.getCuratedStudios(username);
+            // this.props.getFavedStatus(this.state.projectId, username, token);
             this.props.getLovedStatus(this.state.projectId, username, token);
         } else {
             if (this.state.singleCommentId) {
-                this.props.getCommentById(this.state.projectId, this.state.singleCommentId);
+                // this.props.getCommentById(this.state.projectId, this.state.singleCommentId);
             } else {
-                this.props.getTopLevelComments(this.state.projectId, this.props.comments.length);
+                // this.props.getTopLevelComments(this.state.projectId, this.props.comments.length);
             }
             this.props.getProjectInfo(this.state.projectId);
-            this.props.getRemixes(this.state.projectId);
-            this.props.getProjectStudios(this.state.projectId);
+            // this.props.getRemixes(this.state.projectId);
+            // this.props.getProjectStudios(this.state.projectId);
         }
     }
     setScreenFromOrientation () {

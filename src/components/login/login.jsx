@@ -24,7 +24,8 @@ class Login extends React.Component {
     handleSubmit (formData) {
         this.setState({waiting: true});
         this.props.onLogIn(formData, () => {
-            this.setState({waiting: false});
+          // 登录完毕就unmout了，没必要setState -neo
+          // this.setState({waiting: false});
         });
     }
     render () {

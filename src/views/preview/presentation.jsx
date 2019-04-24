@@ -106,7 +106,7 @@ class PreviewPresentation extends React.Component {
     }, 0);
   }
   componentDidMount() {
-    console.log('presentation componentDidMount')
+    // console.log('presentation componentDidMount')
 
     window.addEventListener('resize', this.updateStageSize);
     window.addEventListener('orientationchange', this.handleOrientationChange);
@@ -114,7 +114,7 @@ class PreviewPresentation extends React.Component {
     this.updateStageSize();
   }
   componentWillUnmount() {
-    console.log('presentation componentWillUnmount')
+    // console.log('presentation componentWillUnmount')
 
     window.removeEventListener('resize', this.updateStageSize);
     window.removeEventListener('orientationchange', this.handleOrientationChange);
@@ -123,7 +123,7 @@ class PreviewPresentation extends React.Component {
   // --根据宽度动态适配大小end -neo
 
   render() {
-    console.log('presentation render')
+    // console.log('presentation render')
 
     const {
       addToStudioOpen,
