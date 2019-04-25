@@ -92,7 +92,7 @@ module.exports = (opts, callback) => {
         opts.headers['X-Token'] = opts.authentication;
     }
     if (opts.useCsrf) {
-        /// ?????????csrf????? -neo
+        /// 暂时去掉，后台没有csrf -neo
         // jar.use('scratchcsrftoken', '/csrf_token/', (err, csrftoken) => {
         //     if (err) return log.error('Error while retrieving CSRF token', err);
         //     opts.headers['X-CSRFToken'] = csrftoken;

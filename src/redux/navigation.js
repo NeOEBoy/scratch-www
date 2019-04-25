@@ -143,8 +143,10 @@ module.exports.handleLogIn = (formData, callback) => (dispatch => {
 module.exports.handleLogOut = () => (() => {
     // POST to /accounts/logout using a dummy form instead of XHR. This ensures
     // logout only happens AFTER onbeforeunload has the chance to prevent nagivation.
-    jar.use('scratchcsrftoken', '/csrf_token/', (err, csrftoken) => {
-        if (err) return log.error('Error while retrieving CSRF token', err);
+    
+    /// 暂时去掉，后台没有csrf -neo
+    // jar.use('scratchcsrftoken', '/csrf_token/', (err, csrftoken) => {
+        // if (err) return log.error('Error while retrieving CSRF token', err);
         const form = document.createElement('form');
         form.setAttribute('method', 'POST');
         let logoutUrl = process.env.API_HOST + '/accounts/logout/';
@@ -152,9 +154,9 @@ module.exports.handleLogOut = () => (() => {
         const csrfField = document.createElement('input');
         csrfField.setAttribute('type', 'hidden');
         csrfField.setAttribute('name', 'csrfmiddlewaretoken');
-        csrfField.setAttribute('value', csrftoken);
+        // csrfField.setAttribute('value', csrftoken);
         form.appendChild(csrfField);
         document.body.appendChild(form);
         form.submit();
-    });
+    // });
 });

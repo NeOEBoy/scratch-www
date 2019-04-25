@@ -48,9 +48,11 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
   componentDidUpdate(prevProps) {
     // console.log('componentDidUpdate start')
 
-    // update完毕后，如果user有变化则初始化页面，第一次进来页面也会走？
-    if (this.props.user.username !== prevProps.user.username) {
-      this._initFirstPage(this.state.activeKey);
+    let currentUserName = this.props.user.username;
+    let preUserName = prevProps.user.username;
+    /// 登录成功后，并且在我的作品的tab页面才重新刷新页面
+    if (currentUserName !== preUserName && this.state.activeKey === 'mystuff') {
+      this._reloadPage();
     }
   }
 
@@ -58,6 +60,8 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
     let sortKey = 'modified';
     if (window.location.hash.indexOf('#') !== -1) {
       sortKey = window.location.hash.replace('#', '');
+    } else if (this.state.activeKey) {
+      sortKey = this.state.activeKey;
     }
     this.setState({
       activeKey: sortKey
@@ -162,11 +166,11 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
   }
 
   handleTabChange(key) {
+    // 触发hash事件从而刷新页面
     window.location.hash = '#' + key;
     this.setState({
       activeKey: key
     })
-    // this._initFirstPage(key);
   }
 
   render() {
