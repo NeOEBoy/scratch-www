@@ -193,34 +193,50 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
           gutter: 12, xs: 2, sm: 2, md: 3, lg: 3, xl: 3, xxl: 4,
         }}
         dataSource={list4source}
-        renderItem={(item, index) => (
-          <List.Item>
-            <QueueAnim type={['scale']} duration='800'>
-              <div
-                key={index}
-                className='list-item-div'
-                onClick={() => { window.location.href = '/projects/' + item.projectId }}>
-                <div key='image' className='list-item-imgdiv'>
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    style={{ width: '99.9%' }} />
-                </div>
+        renderItem={(item, index) => {
 
-                <div className='list-item-title'>{item.title}</div>
-                <div className='list-item-name'>{item.author && item.author.name}</div>
-                <div className='list-item-modified'>
-                  <Icon type='like' />
-                  <span> {item.loves}&nbsp;&nbsp;</span>
-                  <Icon type='eye' />
-                  <span> {item.views}&nbsp;&nbsp;</span>
-                  <Icon type='clock-circle' />
-                  <span> {converDateBy(item.modified)}</span>
+          // 如果是学员，把extra信息显示一下
+          let authorArea = item.author.name;
+          if(item.author.role === 'trainee' && item.author.extra) {
+            const age = item.author.extra.age;
+            const grade = item.author.extra.grade;
+            if(age) {
+              authorArea = authorArea + '/' + age + '岁';
+            }
+            if(grade) {
+              authorArea = authorArea + '/' + grade;
+            }
+          }
+
+          return (
+            <List.Item>
+              <QueueAnim type={['scale']} duration='800'>
+                <div
+                  key={index}
+                  className='list-item-div'
+                  onClick={() => { window.location.href = '/projects/' + item.projectId }}>
+                  <div key='image' className='list-item-imgdiv'>
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      style={{ width: '99.9%' }} />
+                  </div>
+
+                  <div className='list-item-title'>{item.title}</div>
+                  <div className='list-item-author'>{authorArea}</div>
+                  <div className='list-item-modified'>
+                    <Icon type='like' />
+                    <span> {item.loves}&nbsp;&nbsp;</span>
+                    <Icon type='eye' />
+                    <span> {item.views}&nbsp;&nbsp;</span>
+                    <Icon type='clock-circle' />
+                    <span> {converDateBy(item.modified)}</span>
+                  </div>
                 </div>
-              </div>
-            </QueueAnim>
-          </List.Item>
-        )}
+              </QueueAnim>
+            </List.Item>
+          )
+        }}
       />);
 
     return (
@@ -277,7 +293,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
                       </div>
 
                       <div className='list-item-title'>{item.title}</div>
-                      <div className='list-item-name'>{item.author && item.author.name}</div>
+                      <div className='list-item-author'>{item.author && item.author.name}</div>
                       <div className='list-item-modified'>{converDateBy(item.modified)}</div>
                     </div>
                   </QueueAnim>
