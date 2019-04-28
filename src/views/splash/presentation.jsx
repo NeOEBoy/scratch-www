@@ -148,19 +148,20 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
   handleLoadMore() {
     this.setState({
       nextLoading: true,
-      list4source: this.state.list4Next.concat([...new Array(KSize)].map(() => ({ loading: true, title: {} }))),
-    });
-    this._getNextPage((res) => {
-      const list4Next = this.state.list4Next.concat(res.data);
-      this.setState({
-        list4Next,
-        list4source: list4Next,
-        nextLoading: false,
-      }, () => {
-        // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-        // In real scene, you can using public method of react-virtualized:
-        // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-        // window.dispatchEvent(new Event('resize'));
+      list4source: this.state.list4Next.concat([...new Array(KSize)].map(() => ({}))),
+    }, () => {
+      this._getNextPage((res) => {
+        const list4Next = this.state.list4Next.concat(res.data);
+        this.setState({
+          list4Next,
+          list4source: list4Next,
+          nextLoading: false,
+        }, () => {
+          // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
+          // In real scene, you can using public method of react-virtualized:
+          // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+          // window.dispatchEvent(new Event('resize'));
+        });
       });
     });
   }
@@ -196,15 +197,18 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         renderItem={(item, index) => {
 
           // 如果是学员，把extra信息显示一下
-          let authorArea = item.author.name;
-          if(item.author.role === 'trainee' && item.author.extra) {
-            const age = item.author.extra.age;
-            const grade = item.author.extra.grade;
-            if(age) {
-              authorArea = authorArea + '/' + age + '岁';
-            }
-            if(grade) {
-              authorArea = authorArea + '/' + grade;
+          let authorArea = '';
+          if (item.author) {
+            authorArea = item.author.name;
+            if (item.author.role === 'trainee' && item.author.extra) {
+              const age = item.author.extra.age;
+              const grade = item.author.extra.grade;
+              if (age) {
+                authorArea = authorArea + '/' + age + '岁';
+              }
+              if (grade) {
+                authorArea = authorArea + '/' + grade;
+              }
             }
           }
 
@@ -259,48 +263,6 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
               {listTemplate}
             </TabPane> */}
           </Tabs>
-          {/* <QueueAnim>
-            <div key='0'>haha</div>
-            <div key='1'>haha</div>
-            <div key='2'>haha</div>
-          </QueueAnim> */}
-          {/* <Card
-            title="全部作品"
-            bordered={false}
-            headStyle={{ padding: '12' }}
-            bodyStyle={{ padding: 12 }}
-          >
-            <List
-              rowKey={record => record._id}
-              loading={initLoading}
-              loadMore={loadMore}
-              grid={{
-                gutter: 12, xs: 2, sm: 2, md: 3, lg: 3, xl: 3, xxl: 4,
-              }}
-              dataSource={list4source}
-              renderItem={(item, index) => (
-                <List.Item>
-                  <QueueAnim type={['scale']} duration='800'>
-                    <div
-                      key={index}
-                      className='list-item-div'
-                      onClick={() => { window.location.href = '/projects/' + item.projectId }}>
-                      <div key='image' className='list-item-imgdiv'>
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          style={{ width: '99.9%' }} />
-                      </div>
-
-                      <div className='list-item-title'>{item.title}</div>
-                      <div className='list-item-author'>{item.author && item.author.name}</div>
-                      <div className='list-item-modified'>{converDateBy(item.modified)}</div>
-                    </div>
-                  </QueueAnim>
-                </List.Item>
-              )}
-            />
-          </Card> */}
         </div>
       </div>
     );
