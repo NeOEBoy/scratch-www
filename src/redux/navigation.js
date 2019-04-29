@@ -5,6 +5,7 @@ const api = require('../lib/api');
 const jar = require('../lib/jar');
 const log = require('../lib/log.js');
 const sessionActions = require('./session.js');
+const md5 = require('md5');
 
 const Types = keyMirror({
     SET_SEARCH_TERM: null,
@@ -104,6 +105,8 @@ module.exports.closeAccountMenus = () => (dispatch => {
 module.exports.handleLogIn = (formData, callback) => (dispatch => {
     dispatch(module.exports.setLoginError(null));
     formData.useMessages = true; // NOTE: this may or may not be being used anywhere else
+    // 密码md5后再传输，避免明文传输密码 -neo
+    formData.password = md5(formData.password);
     api({
         method: 'post',
         // host: '',
