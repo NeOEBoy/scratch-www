@@ -6,6 +6,10 @@ const jar = require('../lib/jar');
 const log = require('../lib/log.js');
 const sessionActions = require('./session.js');
 const md5 = require('md5');
+const urlParams = require('../lib/url-params');
+
+const KAppid = 'www';
+const KAppsecret = 'www-secret'
 
 const Types = keyMirror({
     SET_SEARCH_TERM: null,
@@ -153,6 +157,31 @@ module.exports.handleLogOut = () => (() => {
         const form = document.createElement('form');
         form.setAttribute('method', 'POST');
         let logoutUrl = process.env.API_HOST + '/accounts/logout/';
+
+        
+        const params = {};
+        params._timestamp = new Date().getTime();
+        params._nonce = md5(params._timestamp);
+        params._appid = KAppid;
+      
+        // 根据属性排序
+        var paramsKeys = Object.keys(params).sort();
+        var sortedParams = {};
+        for (var i = 0; i < paramsKeys.length; i++) {
+          sortedParams[paramsKeys[i]] = params[paramsKeys[i]];
+        }
+        const rawSign = urlParams(sortedParams)
+        // console.log('rawSign = ' + rawSign);
+        const rawSignWithSecret = rawSign + KAppsecret;
+        // console.log('rawSignWithSecret = ' + rawSignWithSecret)
+        const md5SignWithSecret = md5(rawSignWithSecret)
+        // console.log('md5SignWithSecret = ' + md5SignWithSecret)
+        params._sign = md5SignWithSecret;
+      
+        logoutUrl = [logoutUrl, urlParams(params)].join(logoutUrl.indexOf('?') === -1 ? '?' : '&');
+
+        // console.log('logoutUrl = ' + logoutUrl)
+
         form.setAttribute('action', logoutUrl);
         const csrfField = document.createElement('input');
         csrfField.setAttribute('type', 'hidden');
