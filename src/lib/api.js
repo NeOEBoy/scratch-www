@@ -6,8 +6,8 @@ const log = require('./log');
 const urlParams = require('./url-params');
 const md5 = require('md5')
 
-const KAppid = 'www';
-const KAppsecret = 'www-secret'
+const KAppid = 'scratch-www';
+const KAppsecret = 'scratch-www-secret'
 
 /**
  * Helper method that constructs requests to the scratch api.

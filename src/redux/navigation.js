@@ -8,8 +8,8 @@ const sessionActions = require('./session.js');
 const md5 = require('md5');
 const urlParams = require('../lib/url-params');
 
-const KAppid = 'www';
-const KAppsecret = 'www-secret'
+const KAppid = 'scratch-www';
+const KAppsecret = 'scratch-www-secret'
 
 const Types = keyMirror({
     SET_SEARCH_TERM: null,
