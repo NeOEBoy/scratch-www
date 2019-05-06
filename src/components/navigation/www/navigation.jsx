@@ -10,9 +10,6 @@ const React = require('react');
 const navigationActions = require('../../../redux/navigation.js');
 const sessionActions = require('../../../redux/session.js');
 
-const Button = require('../../forms/button.jsx');
-const Form = require('../../forms/form.jsx');
-const Input = require('../../forms/input.jsx');
 const LoginDropdown = require('../../login/login-dropdown.jsx');
 const CanceledDeletionModal = require('../../login/canceled-deletion-modal.jsx');
 const NavigationBox = require('../base/navigation.jsx');

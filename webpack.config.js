@@ -95,7 +95,7 @@ module.exports = {
       // “嘿，webpack 编译器，当你碰到「在 require()/import 语句中被解析为 '.jsx' 的路径」时，在你对它打包之前，先使用 babel-loader 转换一下。”
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
+        loader: 'babel-loader?presets[]=react,presets[]=es2015,presets[]=stage-0',
         include: [
           path.resolve(__dirname, 'src'),
           /node_modules[\\/]scratch-[^\\/]+[\\/]src/,

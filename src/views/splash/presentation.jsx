@@ -1,17 +1,14 @@
-const bindAll = require('lodash.bindall');
-const injectIntl = require('react-intl').injectIntl;
 const connect = require('react-redux').connect;
 const React = require('react');
 const api = require('../../lib/api');
-import { converDateBy } from '../../lib/date-utils'
 
-import { List, Card, Button, Tabs, Icon } from 'antd';
+import { converDateBy } from '../../lib/date-utils'
+import { List, Button, Tabs, Icon } from 'antd';
 const TabPane = Tabs.TabPane;
 import QueueAnim from 'rc-queue-anim';
-// Featured Banner Components
 require('./splash.scss');
 
-const KSize = 12;
+const KSize = 8;
 
 // Splash page
 class SplashPresentation extends React.Component { // eslint-disable-line react/no-multi-comp
@@ -27,13 +24,6 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
       alreadyShowAll: true,
       activeKey: 'modified'
     }
-
-    bindAll(this, [
-      '_initFirstPage',
-      'handleLoadMore',
-      'handleTabChange',
-      '_reloadPage'
-    ]);
   }
 
   componentDidMount() {
@@ -56,7 +46,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
     }
   }
 
-  _reloadPage() {
+  _reloadPage = () => {
     let sortKey = 'modified';
     if (window.location.hash.indexOf('#') !== -1) {
       sortKey = window.location.hash.replace('#', '');
@@ -69,7 +59,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
     this._initFirstPage(sortKey);
   }
 
-  _initFirstPage(key) {
+  _initFirstPage = (key) => {
     // console.log('_initFirstPage start')
     if (this.state.initLoading) {
       return;
@@ -145,7 +135,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
     });
   }
 
-  handleLoadMore() {
+  _handleLoadMore = () => {
     this.setState({
       nextLoading: true,
       list4source: this.state.list4Next.concat([...new Array(KSize)].map(() => ({}))),
@@ -166,7 +156,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
     });
   }
 
-  handleTabChange(key) {
+  _handleTabChange = (key) => {
     // 触发hash事件从而刷新页面
     window.location.hash = '#' + key;
     this.setState({
@@ -181,7 +171,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px',
       }}
       >
-        <Button onClick={this.handleLoadMore}>载入更多内容</Button>
+        <Button onClick={this._handleLoadMore}>载入更多内容</Button>
       </div>
     ) : null;
 
@@ -195,7 +185,6 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         }}
         dataSource={list4source}
         renderItem={(item, index) => {
-
           // 如果是学员，把extra信息显示一下
           let authorArea = '';
           if (item.author) {
@@ -244,33 +233,27 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
       />);
 
     return (
-      <div className="splash">
-        <div
-          className="inner mod-splash"
-          key="inner">
-          <Tabs type='card' onChange={this.handleTabChange}
-            activeKey={activeKey}>
-            <TabPane tab={<span><Icon type='clock-circle' />最新榜</span>} key="modified">
-              {listTemplate}
-            </TabPane>
-            <TabPane tab={<span><Icon type="like" />点赞榜</span>} key="loves">
-              {listTemplate}
-            </TabPane>
-            <TabPane tab={<span><Icon type="smile" />我的宝宝</span>} key="mystuff">
-              {listTemplate}
-            </TabPane>
-            {/* <TabPane tab={<span><Icon type="eye" />观看榜</span>} key="views">
-              {listTemplate}
-            </TabPane> */}
-          </Tabs>
-        </div>
+      <div
+        className="inner"
+        key="inner">
+        <Tabs type='card' onChange={this._handleTabChange}
+          activeKey={activeKey}>
+          <TabPane tab={<span><Icon type='clock-circle' />最新榜</span>} key="modified">
+            {listTemplate}
+          </TabPane>
+          <TabPane tab={<span><Icon type="like" />点赞榜</span>} key="loves">
+            {listTemplate}
+          </TabPane>
+          <TabPane tab={<span><Icon type="smile" />我的宝宝</span>} key="mystuff">
+            {listTemplate}
+          </TabPane>
+        </Tabs>
       </div>
     );
   }
 }
 
 SplashPresentation.propTypes = {
-
 };
 
 SplashPresentation.defaultProps = {
@@ -289,4 +272,4 @@ const ConnectedSplashPresentation = connect(
   mapDispatchToProps
 )(SplashPresentation);
 
-module.exports = injectIntl(ConnectedSplashPresentation);
+module.exports = ConnectedSplashPresentation;

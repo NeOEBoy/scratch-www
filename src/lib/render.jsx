@@ -21,54 +21,54 @@ require('../main.scss');
  * @param  {bool}   enhancer  whether or not to apply redux-throttle middleware
  */
 const render = (jsx, element, reducers, initialState, enhancer) => {
-    // Get locale and messages from global namespace (see "init.js")
-    let locale = window._locale || 'en';
-    let messages = {};
-    if (typeof window._messages !== 'undefined') {
-        if (typeof window._messages[locale] === 'undefined') {
-            // Fall back on the split
-            locale = locale.split('-')[0];
-        }
-        if (typeof window._messages[locale] === 'undefined') {
-            // Language appears to not be supported – fall back to 'en'
-            locale = 'en';
-        }
-        messages = window._messages[locale];
+  // Get locale and messages from global namespace (see "init.js")
+  let locale = window._locale || 'en';
+  let messages = {};
+  if (typeof window._messages !== 'undefined') {
+    if (typeof window._messages[locale] === 'undefined') {
+      // Fall back on the split
+      locale = locale.split('-')[0];
     }
+    if (typeof window._messages[locale] === 'undefined') {
+      // Language appears to not be supported – fall back to 'en'
+      locale = 'en';
+    }
+    messages = window._messages[locale];
+  }
 
-    const allReducers = reducer(reducers);
+  const allReducers = reducer(reducers);
 
-    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux.compose;
-    const enhancers = enhancer ?
-        composeEnhancers(
-            redux.applyMiddleware(thunk),
-            enhancer
-        ) :
-        composeEnhancers(
-            redux.applyMiddleware(thunk)
-        );
-    const store = redux.createStore(
-        allReducers,
-        initialState || {},
-        enhancers
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux.compose;
+  const enhancers = enhancer ?
+    composeEnhancers(
+      redux.applyMiddleware(thunk),
+      enhancer
+    ) :
+    composeEnhancers(
+      redux.applyMiddleware(thunk)
     );
+  const store = redux.createStore(
+    allReducers,
+    initialState || {},
+    enhancers
+  );
 
-    // Render view component
-    ReactDOM.render(
-        <StoreProvider store={store}>
-            <IntlProvider
-                locale={locale}
-                messages={messages}
-            >
-                {jsx}
-            </IntlProvider>
-        </StoreProvider>,
-        element
-    );
+  // Render view component
+  ReactDOM.render(
+    <StoreProvider store={store}>
+      <IntlProvider
+        locale={locale}
+        messages={messages}
+      >
+        {jsx}
+      </IntlProvider>
+    </StoreProvider>,
+    element
+  );
 
-    // Get initial session & permissions
-    store.dispatch(permissionsActions.getPermissions());
-    store.dispatch(sessionActions.refreshSession());
+  // Get initial session & permissions
+  store.dispatch(permissionsActions.getPermissions());
+  store.dispatch(sessionActions.refreshSession());
 };
 
 module.exports = render;

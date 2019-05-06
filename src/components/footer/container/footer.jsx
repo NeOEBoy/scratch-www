@@ -4,13 +4,13 @@ const React = require('react');
 require('./footer.scss');
 
 const FooterBox = props => (
-    <div className="inner">
-        {props.children}
-    </div>
+  <div className="inner">
+    {props.children}
+  </div>
 );
 
 FooterBox.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node
 };
 
 module.exports = FooterBox;

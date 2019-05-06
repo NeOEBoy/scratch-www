@@ -5,7 +5,8 @@
           "libraryName": "antd",
           "libraryDirectory": "es",
           "style": "css" // `style: true` 会加载 less 文件
-        }]
+        }],
+        "transform-class-properties"
     ],
-    "presets": ["es2015", "react"],
+    "presets": ["react", "es2015", "stage-0"],
 }
