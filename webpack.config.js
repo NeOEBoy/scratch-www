@@ -12,6 +12,14 @@ const templateConfig = require('./src/template-config.js'); // eslint-disable-li
 
 if (process.env.NODE_ENV !== 'production') {
   routes = routes.concat(require('./src/routes-dev.json')); // eslint-disable-line global-require
+
+  process.env.API_HOST = process.env.API_HOST || 'http://192.168.31.157:3001/scratch/scratch-api'
+  process.env.ASSET_HOST = process.env.ASSET_HOST || 'http://192.168.31.157:3001/scratch/scratch-assets'
+  process.env.PROJECT_HOST = process.env.PROJECT_HOST || 'http://192.168.31.157:3001/scratch/scratch-projects'
+} else {
+  process.env.API_HOST = process.env.API_HOST || 'http://123.207.119.232:3001/scratch/scratch-api'
+  process.env.ASSET_HOST = process.env.ASSET_HOST || 'http://123.207.119.232:3001/scratch/scratch-assets'
+  process.env.PROJECT_HOST = process.env.PROJECT_HOST || 'http://123.207.119.232:3001/scratch/scratch-projects'
 }
 // 不指定env.VIEW则使用全部，指定env.VIEW则只留下指定的VIEW
 routes = routes.filter(route => !process.env.VIEW || process.env.VIEW === route.view);
@@ -194,13 +202,13 @@ module.exports = {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"' + (process.env.NODE_ENV || 'development') + '"',
         //https://api.scratch.mit.edu
-        'process.env.API_HOST': '"' + (process.env.API_HOST || 'http://192.168.31.157:3001/scratch/scratch-api') + '"',
+        'process.env.API_HOST': '"' + (process.env.API_HOST || 'https://api.scratch.mit.edu') + '"',
         //https://assets.scratch.mit.edu
-        'process.env.ASSET_HOST': '"' + (process.env.ASSET_HOST || 'http://192.168.31.157:3001/scratch/scratch-assets') + '"',
+        'process.env.ASSET_HOST': '"' + (process.env.ASSET_HOST || 'https://assets.scratch.mit.edu') + '"',
         'process.env.BACKPACK_HOST': '"' + (process.env.BACKPACK_HOST || 'https://backpack.scratch.mit.edu') + '"',
         'process.env.CLOUDDATA_HOST': '"' + (process.env.CLOUDDATA_HOST || 'clouddata.scratch.mit.edu') + '"',
         //https://projects.scratch.mit.edu
-        'process.env.PROJECT_HOST': '"' + (process.env.PROJECT_HOST || 'http://192.168.31.157:3001/scratch/scratch-projects') + '"',
+        'process.env.PROJECT_HOST': '"' + (process.env.PROJECT_HOST || 'https://projects.scratch.mit.edu') + '"',
         'process.env.STATIC_HOST': '"' + (process.env.STATIC_HOST || 'https://cdn2.scratch.mit.edu') + '"',
         'process.env.SCRATCH_ENV': '"' + (process.env.SCRATCH_ENV || 'development') + '"',
         'process.env.SENTRY_DSN': '"' + (process.env.SENTRY_DSN || '') + '"'

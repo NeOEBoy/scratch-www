@@ -4,7 +4,7 @@ SCRATCH_DOCKER_CONFIG=./node_modules/.bin/docker_config.sh
 S3CMD=s3cmd sync -P --delete-removed --add-header=Cache-Control:no-cache,public,max-age=3600
 TAP=./node_modules/.bin/tap
 WATCH= cross-env NODE_OPTIONS=--max_old_space_size=8000 ./node_modules/.bin/watch
-WEBPACK= cross-env NODE_OPTIONS=--max_old_space_size=8000 ./node_modules/.bin/webpack
+WEBPACK= cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=8000 ./node_modules/.bin/webpack
 
 
 # ------------------------------------

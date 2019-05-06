@@ -28,7 +28,7 @@
   "homepage": "https://github.com/llk/scratch-www#readme",
   "dependencies": {
     "@sentry/browser": "4.4.2",
-    "antd": "^3.16.1",
+    "antd": "^3.16.6",
     "bunyan": "1.7.1",
     "clipboard-copy": "2.0.1",
     "compression": "1.6.1",
@@ -111,7 +111,7 @@
     "redux": "3.5.2",
     "redux-thunk": "2.0.1",
     "sass-loader": "6.0.6",
-    "scratch-l10n": "latest",
+    "scratch-l10n": "^3.2.20190501144004",
     "slick-carousel": "1.6.0",
     "source-map-support": "0.3.2",
     "style-loader": "0.12.3",
