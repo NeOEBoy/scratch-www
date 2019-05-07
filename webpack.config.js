@@ -189,12 +189,25 @@ module.exports = {
     new CopyWebpackPlugin([{
       from: 'node_modules/scratch-gui/dist/static/libraries-assets',
       to: 'static/libraries-assets'
+    }]),
+    new CopyWebpackPlugin([{
+      from: 'node_modules/scratch-gui/dist/static/extensions',
+      to: 'static/extensions'
     }])
   ])
     .concat(process.env.NODE_ENV === 'production' ? [
       // 用于压缩js文件，从而减少js文件大小，加速加载js速度，但会导致编译时间较长，开发阶段默认关闭，发布时打开
       new webpack.optimize.UglifyJsPlugin({
-        sourceMap: true
+        sourceMap: true,
+        mangle: {
+          except: ['$super', '$', 'exports', 'require', 'module', '_']
+        },
+        compress: {
+          warnings: false
+        },
+        output: {
+          comments: false,
+        }
       })
     ] : [])
     .concat([
