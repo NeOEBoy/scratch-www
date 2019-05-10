@@ -10,7 +10,7 @@ const api = require('../../lib/api');
 require('./mystuff.scss');
 
 // 引入antd
-import { Card, List, Avatar, Tabs, Button, Skeleton, Popconfirm } from 'antd';
+import { Card, List, message, Tabs, Button, Skeleton, Popconfirm } from 'antd';
 import QueueAnim from 'rc-queue-anim';
 import { converDateBy } from '../../lib/date-utils'
 const TabPane = Tabs.TabPane;
@@ -169,6 +169,10 @@ class MyStuff extends React.Component {
       if (!err) {
         item.visibility = visibility;
         this.forceUpdate();
+
+        message.success(visibility === 'visible' ? '已从回收桶恢复' : '已放入回收桶');
+      } else {
+        message.error(visibility === 'visible' ? '无法从回收桶恢复' : '无法放入回收桶');
       }
     });
   }
@@ -186,6 +190,9 @@ class MyStuff extends React.Component {
       if (!err) {
         // console.log('已经清空');
         this._initState();
+        message.success('已清空回收桶');
+      } else {
+        message.error('无法清空回收桶');
       }
     });
   }
