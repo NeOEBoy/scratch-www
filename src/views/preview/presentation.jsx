@@ -80,9 +80,9 @@ class PreviewPresentation extends React.Component {
       if (innerWidth > frameless.tabletPortrait) {
         theWidth = 482;
       } else if (innerWidth > frameless.mobile) {
-        theWidth = parseInt(windowWidth) - 80;
+        theWidth = parseInt(windowWidth) - 40;
       } else {
-        theWidth = parseInt(windowWidth) - controlTitleHeight;
+        theWidth = parseInt(windowWidth) - 30;
       }
       theHeight = parseInt(theWidth * 3 / 4) + controlTitleHeight;
     }

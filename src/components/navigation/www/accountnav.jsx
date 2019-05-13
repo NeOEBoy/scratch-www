@@ -50,11 +50,11 @@ const AccountNav = ({
                     个人中心
                 </a>
             </li> */}
-        <li>
+        {/* <li>
           <a href="/mystuff/">
             作品管理
                 </a>
-        </li>
+        </li> */}
         {isEducator ? [
           <li key="my-classes-li">
             <a href="/educators/classes/">
