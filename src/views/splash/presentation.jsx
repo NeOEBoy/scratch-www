@@ -10,6 +10,7 @@ require('./splash.scss');
 
 const KSize = 8;
 
+
 // Splash page
 class SplashPresentation extends React.Component { // eslint-disable-line react/no-multi-comp
   constructor(props) {

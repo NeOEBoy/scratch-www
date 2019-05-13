@@ -17,10 +17,12 @@ if (process.env.NODE_ENV !== 'production') {
   process.env.ASSET_HOST = process.env.ASSET_HOST || 'http://192.168.31.157:3001/scratch/scratch-assets'
   process.env.PROJECT_HOST = process.env.PROJECT_HOST || 'http://192.168.31.157:3001/scratch/scratch-projects'
 } else {
+  // http://123.207.119.232/apis 通过nginx代理为 http://123.207.119.232:3001
   process.env.API_HOST = process.env.API_HOST || 'http://123.207.119.232/apis/scratch/scratch-api'
   process.env.ASSET_HOST = process.env.ASSET_HOST || 'http://123.207.119.232/apis/scratch/scratch-assets'
   process.env.PROJECT_HOST = process.env.PROJECT_HOST || 'http://123.207.119.232/apis/scratch/scratch-projects'
 }
+
 // 不指定env.VIEW则使用全部，指定env.VIEW则只留下指定的VIEW
 routes = routes.filter(route => !process.env.VIEW || process.env.VIEW === route.view);
 

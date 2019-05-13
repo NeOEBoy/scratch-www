@@ -35,19 +35,19 @@ module.exports = (opts, callback) => {
   }
 
   opts.uri = opts.host + opts.uri;
-  
+
+  if (!opts.params) opts.params = {};
+  opts.params._timestamp = new Date().getTime();
+  opts.params._appid = KAppid;
+
   // console.log('opts.method = ' + opts.method);
   let methodUpper = opts.method ? opts.method.toUpperCase() : 'GET';
   if (methodUpper === 'POST' ||
     methodUpper === 'PUT' ||
     methodUpper === 'DELETE') {
-    if (!opts.params) opts.params = {};
-    opts.params._timestamp = new Date().getTime();
     let tsString = opts.params._timestamp + '';
     let rdString = Math.floor(Math.random() * 1000) + '';// 0-999
     opts.params._nonce = md5(tsString + rdString);
-    opts.params._appid = KAppid;
-
     // 根据属性排序
     var paramsKeys = Object.keys(opts.params).sort();
     var sortedParams = {};
