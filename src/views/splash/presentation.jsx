@@ -8,7 +8,7 @@ const TabPane = Tabs.TabPane;
 import QueueAnim from 'rc-queue-anim';
 require('./splash.scss');
 
-const KSize = 8;
+const KSize = 12;
 
 
 // Splash page

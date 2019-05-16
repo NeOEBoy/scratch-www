@@ -10,12 +10,16 @@ const api = require('../../lib/api');
 require('./mystuff.scss');
 
 // 引入antd
-import { Card, List, message, Tabs, Button, Skeleton, Popconfirm } from 'antd';
+import {
+  Card, List, message, Tabs,
+  Button, Skeleton, Popconfirm, Select
+} from 'antd';
 import QueueAnim from 'rc-queue-anim';
 import { converDateBy } from '../../lib/date-utils'
 const TabPane = Tabs.TabPane;
+const Option = Select.Option;
 
-const KSize = 16;
+const KSize = 40;
 
 class MyStuff extends React.Component {
   constructor(props) {
@@ -61,14 +65,15 @@ class MyStuff extends React.Component {
     }, stateChanged);
   }
 
-  _initFirstPage(key) {
+  _initFirstPage(key, sortMode) {
     // console.log('_initFirstPage start')
     if (this.state.initLoading) {
       return;
     }
 
     this._tabKey = key ? key : 'visible';
-    console.log('this._tabKey = ' + this._tabKey);
+    // console.log('this._tabKey = ' + this._tabKey);
+    this._sortMode = sortMode ? sortMode : 'byModified';
 
     this._initState(() => {
       this.setState({
@@ -100,7 +105,7 @@ class MyStuff extends React.Component {
   _getNextPage(callback) {
     api({
       uri: '/mystuff/page',
-      params: { page: this.state.currentPage, size: KSize },
+      params: { page: this.state.currentPage, size: KSize, sortMode: this._sortMode },
       withCredentials: true,
     }, (err, res) => {
       if (err || !res) {
@@ -217,6 +222,21 @@ class MyStuff extends React.Component {
     });
   }
 
+  handleChange = (value)=> {
+    // console.log(`selected ${value}`);
+
+    let sortMode = 'byModified';
+    if(value === 'byModified') {
+      sortMode = 'byModified';
+    } else if(value == 'byAZ') {
+      sortMode = 'byAZ';
+    } else if(value === 'byZA') {
+      sortMode = 'byZA';
+    }
+
+    this._initFirstPage('visible', sortMode);
+  }
+
   render() {
     const { initLoading, nextLoading, list4source, alreadyShowAll } = this.state;
     const loadMore = !initLoading && !nextLoading && !alreadyShowAll ? (
@@ -249,6 +269,14 @@ class MyStuff extends React.Component {
               bordered={false}
               headStyle={{ padding: 0 }}
               bodyStyle={{ padding: 0 }}
+              extra=
+              {
+                <Select defaultValue="byModified" style={{ width: 120 }} onChange={this.handleChange}>
+                  <Option value="byModified">最后更新</Option>
+                  <Option value="byAZ">A-Z</Option>
+                  <Option value="byZA">Z-A</Option>
+                </Select>
+              }
             >
               <List
                 rowKey={record => record._id}
