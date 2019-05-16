@@ -153,6 +153,9 @@ class MyStuff extends React.Component {
       });
     });
   }
+  handleUnShare(item) {
+    this._changePublic(item, false);
+  }
   handlePutToTrash(item) {
     this._changeVisibility(item, 'trshbyusr');
   }
@@ -173,6 +176,23 @@ class MyStuff extends React.Component {
         message.success(visibility === 'visible' ? '已从回收桶恢复' : '已放入回收桶');
       } else {
         message.error(visibility === 'visible' ? '无法从回收桶恢复' : '无法放入回收桶');
+      }
+    });
+  }
+  _changePublic(item, isPublished) {
+    api({
+      uri: `/projects/${item.projectId}`,
+      method: 'put',
+      formData: { isPublished: isPublished },
+      withCredentials: true,
+    }, (err, res) => {
+      if (!err) {
+        item.is_published = isPublished;
+        this.forceUpdate();
+
+        message.success(isPublished ? '已分享' : '已取消分享');
+      } else {
+        message.error(isPublished ? '暂时无法取消分享' : '暂时无法分享');
       }
     });
   }
@@ -244,11 +264,18 @@ class MyStuff extends React.Component {
                         <List.Item
                           key={item._id}
                           actions={
-                            [
-                              <a href={'/projects/' + item.projectId}>查看</a>,
-                              <a href={'/projects/' + item.projectId + '#editor'}>编辑</a>,
-                              <a onClick={() => this.handlePutToTrash(item)}>删除</a>
-                            ]
+                            item.is_published ?
+                              [
+                                <a href={'/projects/' + item.projectId}>查看</a>,
+                                <a href={'/projects/' + item.projectId + '#editor'}>编辑</a>,
+                                <a onClick={() => this.handleUnShare(item)}>取消分享</a>
+                              ]
+                              :
+                              [
+                                <a href={'/projects/' + item.projectId}>查看</a>,
+                                <a href={'/projects/' + item.projectId + '#editor'}>编辑</a>,
+                                <a onClick={() => this.handlePutToTrash(item)}>删除</a>
+                              ]
                           }>
                           <Skeleton avatar title={false} loading={item.loading} active>
                             <List.Item.Meta
