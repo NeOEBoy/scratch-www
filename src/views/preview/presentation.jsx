@@ -70,7 +70,7 @@ class PreviewPresentation extends React.Component {
     const { isFullScreen } = this.props;
     if (isFullScreen) {
       if (windowWidth < windowHeight) {
-        theWidth = parseInt(windowWidth) - 30;
+        theWidth = parseInt(windowWidth) - 10;
         theHeight = parseInt(theWidth * 3 / 4) + controlTitleHeight;
       } else {
         theHeight = parseInt(windowHeight) - 10;
@@ -80,9 +80,9 @@ class PreviewPresentation extends React.Component {
       if (innerWidth > frameless.tabletPortrait) {
         theWidth = 482;
       } else if (innerWidth > frameless.mobile) {
-        theWidth = parseInt(windowWidth) - 40;
-      } else {
         theWidth = parseInt(windowWidth) - 30;
+      } else {
+        theWidth = parseInt(windowWidth) - 10;
       }
       theHeight = parseInt(theWidth * 3 / 4) + controlTitleHeight;
     }
@@ -103,7 +103,7 @@ class PreviewPresentation extends React.Component {
     this._delayUpdateSizeTimer = setTimeout(() => {
       this._delayUpdateSizeTimer = null;
       this.updateStageSize();
-    }, 0);
+    }, 100);
   }
   componentDidMount() {
     // console.log('presentation componentDidMount')
