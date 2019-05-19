@@ -192,6 +192,11 @@ module.exports = {
       from: 'node_modules/scratch-gui/dist/static/libraries-assets',
       to: 'static/libraries-assets'
     }]),
+    /// 拷贝libraries json到static目录
+    new CopyWebpackPlugin([{
+      from: 'node_modules/scratch-gui/dist/static/libraries-json',
+      to: 'static/libraries-json'
+    }]),
     /// 拷贝svg-renderer的static资源到static目录
     new CopyWebpackPlugin([{
       from: 'node_modules/scratch-gui/dist/static/svg-fonts',
