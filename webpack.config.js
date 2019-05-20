@@ -16,11 +16,14 @@ if (process.env.NODE_ENV !== 'production') {
   process.env.API_HOST = process.env.API_HOST || 'http://192.168.31.157:3001/scratch/scratch-api'
   process.env.ASSET_HOST = process.env.ASSET_HOST || 'http://192.168.31.157:3001/scratch/scratch-assets'
   process.env.PROJECT_HOST = process.env.PROJECT_HOST || 'http://192.168.31.157:3001/scratch/scratch-projects'
+  process.env.BACKPACK_HOST = process.env.BACKPACK_HOST || 'http://192.168.31.157:3001/scratch/scratch-backpack'
+
 } else {
   // http://scratch.ruyue.xyz/apis 通过nginx代理为 http://127.0.0.1:3001
   process.env.API_HOST = process.env.API_HOST || 'http://scratch.ruyue.xyz/apis/scratch/scratch-api'
   process.env.ASSET_HOST = process.env.ASSET_HOST || 'http://scratch.ruyue.xyz/apis/scratch/scratch-assets'
   process.env.PROJECT_HOST = process.env.PROJECT_HOST || 'http://scratch.ruyue.xyz/apis/scratch/scratch-projects'
+  process.env.BACKPACK_HOST = process.env.BACKPACK_HOST || 'http://scratch.ruyue.xyz/apis/scratch/scratch-backpack'
 }
 
 // 不指定env.VIEW则使用全部，指定env.VIEW则只留下指定的VIEW
