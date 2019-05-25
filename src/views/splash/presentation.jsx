@@ -181,6 +181,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         rowKey={record => record._id}
         loading={initLoading}
         loadMore={loadMore}
+        locale={{emptyText: '空空如也'}}
         grid={{
           gutter: 12, xs: 2, sm: 2, md: 3, lg: 3, xl: 3, xxl: 4,
         }}
