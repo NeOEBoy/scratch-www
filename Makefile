@@ -41,8 +41,8 @@ translations:
 	./bin/build-locales node_modules/scratch-l10n/www intl
 
 webpack:
-	$(WEBPACK) --bail
-
+	$(WEBPACK) --progress --colors --bail
+	
 sync-s3:
 	$(S3CMD) --exclude '.DS_Store' --exclude '*.svg' --exclude '*.js' ./build/ s3://$(S3_BUCKET_NAME)/
 	$(S3CMD) --exclude '*' --include '*.svg' --mime-type 'image/svg+xml' ./build/ s3://$(S3_BUCKET_NAME)/
