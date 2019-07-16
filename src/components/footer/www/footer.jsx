@@ -7,7 +7,7 @@ require('./footer.scss');
 const Footer = () => (
   <FooterBox>
     <div className="copyright">
-      <p>积木编程-小窗口大世界</p>
+      <p>儒越编程 地址: 夏商·书香名苑</p>
     </div>
   </FooterBox>
 );

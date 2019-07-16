@@ -9,11 +9,11 @@ require('./about.scss');
 
 const About = () => (
   <div className="inner about">
-    <h1 style={{ padding: 10 }}>关于积木编程</h1>
+    <h1 style={{ padding: 10 }}>关于</h1>
 
     <div>
       <div style={{ padding: 10 }}>
-        <p>小窗口连接大世界，我们支持你通过Scratch创作工具，创建你自己的窗口，连接到广阔的世界。</p>
+        <p>儒越编程致力于少儿编程教育的推广，为少儿编程爱好者提供一个良好的社区平台。</p>
       </div>
     </div>
   </div>
