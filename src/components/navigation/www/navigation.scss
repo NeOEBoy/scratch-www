@@ -20,19 +20,19 @@
         a {
             display: block;
             transition: .15s ease all;
-            margin: 0 6px 0 0;
+            margin: 0 0 0 0;
             border: 0;
 
-            background-image: url("/images/logo-home.png");
+            background-image: url("/images/logo-sm5.png");
             background-repeat: no-repeat;
             background-position: center center;
-            background-size: 45%;
-            width: 81px;
-            height: 50px;
+            background-size: 60%;
+            width: 162px;
+            height: 60px;
 
             &:hover {
                 transition: .15s ease all;
-                background-size: 60%;
+                background-size: 90%;
             }
         }
     }
