@@ -13,17 +13,19 @@ const templateConfig = require('./src/template-config.js'); // eslint-disable-li
 if (process.env.NODE_ENV !== 'production') {
   routes = routes.concat(require('./src/routes-dev.json')); // eslint-disable-line global-require
 
-  process.env.API_HOST = process.env.API_HOST || 'http://192.168.31.157:3001/scratch/scratch-api'
-  process.env.ASSET_HOST = process.env.ASSET_HOST || 'http://192.168.31.157:3001/scratch/scratch-assets'
-  process.env.PROJECT_HOST = process.env.PROJECT_HOST || 'http://192.168.31.157:3001/scratch/scratch-projects'
-  process.env.BACKPACK_HOST = process.env.BACKPACK_HOST || 'http://192.168.31.157:3001/scratch/scratch-backpack'
+  let www = 'http://192.168.81.1:3001';
+  process.env.API_HOST = process.env.API_HOST || www + '/scratch/scratch-api'
+  process.env.ASSET_HOST = process.env.ASSET_HOST || www + '/scratch/scratch-assets'
+  process.env.PROJECT_HOST = process.env.PROJECT_HOST || www + '/scratch/scratch-projects'
+  process.env.BACKPACK_HOST = process.env.BACKPACK_HOST || www + '/scratch/scratch-backpack'
 
 } else {
+  let www = 'http://123.207.119.232';
   // http://scratch.ruyue.xyz/apis 通过nginx代理为 http://127.0.0.1:3001
-  process.env.API_HOST = process.env.API_HOST || 'http://123.207.119.232/apis/scratch/scratch-api'
-  process.env.ASSET_HOST = process.env.ASSET_HOST || 'http://123.207.119.232/apis/scratch/scratch-assets'
-  process.env.PROJECT_HOST = process.env.PROJECT_HOST || 'http://123.207.119.232/apis/scratch/scratch-projects'
-  process.env.BACKPACK_HOST = process.env.BACKPACK_HOST || 'http://123.207.119.232/apis/scratch/scratch-backpack'
+  process.env.API_HOST = process.env.API_HOST || www + '/apis/scratch/scratch-api'
+  process.env.ASSET_HOST = process.env.ASSET_HOST || www + '/apis/scratch/scratch-assets'
+  process.env.PROJECT_HOST = process.env.PROJECT_HOST || www + '/apis/scratch/scratch-projects'
+  process.env.BACKPACK_HOST = process.env.BACKPACK_HOST || www + '/apis/scratch/scratch-backpack'
 }
 
 // 不指定env.VIEW则使用全部，指定env.VIEW则只留下指定的VIEW

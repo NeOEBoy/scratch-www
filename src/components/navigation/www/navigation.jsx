@@ -64,11 +64,11 @@ class Navigation extends React.Component {
               发现作品
             </a>
           </li> */}
-          <li className="link about">
+          {/* <li className="link about">
             <a href="/about">
               关于我们
             </a>
-          </li>
+          </li> */}
 
           <li className="search">
             {/* <Form onSubmit={this.handleSearchSubmit}>

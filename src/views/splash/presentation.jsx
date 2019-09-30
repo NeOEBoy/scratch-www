@@ -28,7 +28,9 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
   }
 
   componentDidMount() {
-    this._reloadPage();
+    setTimeout(() => {
+      this._reloadPage();      
+    }, 100);
     window.addEventListener('hashchange', this._reloadPage)
   }
 
@@ -158,6 +160,8 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
   }
 
   _handleTabChange = (key) => {
+    if(!key) return;
+
     // 触发hash事件从而刷新页面
     window.location.hash = '#' + key;
     this.setState({
