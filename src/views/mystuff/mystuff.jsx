@@ -1,5 +1,4 @@
 
-
 const React = require('react');
 const render = require('../../lib/render.jsx');
 const connect = require('react-redux').connect;
