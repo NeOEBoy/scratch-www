@@ -11,7 +11,7 @@ require('./mystuff.scss');
 
 // 引入antd
 import {
-  Card, List, message, Tabs,
+  Card, List, message, Tabs, BackTop,
   Button, Skeleton, Popconfirm, Select
 } from 'antd';
 import QueueAnim from 'rc-queue-anim';
@@ -258,6 +258,8 @@ class MyStuff extends React.Component {
     }
     return (
       <div className='inner mystuff'>
+        <BackTop visibilityHeight={0}/>
+
         <Tabs
           defaultActiveKey="visible"
           tabPosition='left'

@@ -3,7 +3,7 @@ const React = require('react');
 const api = require('../../lib/api');
 
 import { converDateBy } from '../../lib/date-utils'
-import { List, Button, Tabs, Icon } from 'antd';
+import { List, Button, Tabs, Icon, BackTop } from 'antd';
 const TabPane = Tabs.TabPane;
 import QueueAnim from 'rc-queue-anim';
 require('./splash.scss');
@@ -242,6 +242,8 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
       <div
         className="inner"
         key="inner">
+        <BackTop visibilityHeight={0}/>
+
         <Tabs type='card' onChange={this._handleTabChange}
           activeKey={activeKey}>
           <TabPane tab={<span><Icon type='clock-circle' />最新榜</span>} key="modified">
