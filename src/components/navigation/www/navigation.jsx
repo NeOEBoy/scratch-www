@@ -43,7 +43,11 @@ class Navigation extends React.Component {
   }
 
   render() {
-    const createLink = this.props.user ? '/projects/editor/' : '/projects/editor/?tutorial=getStarted';
+    // 为了提高进入页面速度，不管是否登录均使用空白页面，不加入门视频 -neo begin-
+    // const createLink = this.props.user ? '/projects/editor/' : '/projects/editor/?tutorial=getStarted';
+    const createLink = '/projects/editor/';
+    // 为了提高进入页面速度，不管是否登录均使用空白页面，不加入门视频 -neo end-
+
     return (
       <NavigationBox className={classNames({ '': true })}>
         <ul>
