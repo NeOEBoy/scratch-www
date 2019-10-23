@@ -20,7 +20,8 @@ if (process.env.NODE_ENV !== 'production') {
   process.env.BACKPACK_HOST = process.env.BACKPACK_HOST || www + '/scratch/scratch-backpack'
 
 } else {
-  let www = 'http://123.207.119.232';
+  // let www = 'http://123.207.119.232';
+  let www = 'http://scratch.ruyue.xyz';
   // http://scratch.ruyue.xyz/apis 通过nginx代理为 http://127.0.0.1:3001
   process.env.API_HOST = process.env.API_HOST || www + '/apis/scratch/scratch-api'
   process.env.ASSET_HOST = process.env.ASSET_HOST || www + '/apis/scratch/scratch-assets'

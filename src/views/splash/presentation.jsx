@@ -245,7 +245,8 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         <BackTop visibilityHeight={0}/>
 
         <div className='goLearning'>
-          <a href='http://123.207.119.232:3200/'>
+          {/* <a href='http://123.207.119.232:3200/'> */}
+          <a href='http://landing.ruyue.xyz/'>
             <img src={require('../../../static/images/goLearning.png')}></img>
           </a>
         </div>

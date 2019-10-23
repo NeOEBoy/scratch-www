@@ -274,7 +274,8 @@ class PreviewPresentation extends React.Component {
     return (
       <div className="preview">
         <div className='goLearning'>
-          <a href='http://123.207.119.232:3200/'>
+          {/* <a href='http://123.207.119.232:3200/'> */}
+          <a href='http://landing.ruyue.xyz/'>
             <img src={require('../../../static/images/goLearning.png')}></img>
           </a>
         </div>
