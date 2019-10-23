@@ -52,7 +52,8 @@ const Subactions = props => (
                 className="action-button copy-link-button"
                 onClick={props.onCopyProjectLink}
             >
-                <FormattedMessage id="general.copyLink" />
+                立即分享，为孩子赢得更多赞
+                {/* <FormattedMessage id="general.copyLink" /> */}
             </Button>
             {/* {(props.canReport) &&
             <React.Fragment>

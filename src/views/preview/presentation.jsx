@@ -273,6 +273,12 @@ class PreviewPresentation extends React.Component {
 
     return (
       <div className="preview">
+        <div className='goLearning'>
+          <a href='http://123.207.119.232:3200/'>
+            <img src={require('../../../static/images/goLearning.png')}></img>
+          </a>
+        </div>
+
         {showAdminPanel && (
           <AdminPanel
             className={classNames('project-admin-panel', {
@@ -381,7 +387,7 @@ class PreviewPresentation extends React.Component {
                       <a href='#'>
                         <Avatar
                           alt={projectInfo.author.username}
-                          //src={thumbnailUrl(projectInfo.author.id, 48)}
+                        //src={thumbnailUrl(projectInfo.author.id, 48)}
                         />
                       </a>
                       <div className="title">
@@ -610,7 +616,7 @@ class PreviewPresentation extends React.Component {
                     <a href='#'>
                       <Avatar
                         alt={projectInfo.author.username}
-                        //src={thumbnailUrl(projectInfo.author.id, 48)}
+                      //src={thumbnailUrl(projectInfo.author.id, 48)}
                       />
                     </a>
                     <div className="title">

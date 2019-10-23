@@ -244,6 +244,12 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         key="inner">
         <BackTop visibilityHeight={0}/>
 
+        <div className='goLearning'>
+          <a href='http://123.207.119.232:3200/'>
+            <img src={require('../../../static/images/goLearning.png')}></img>
+          </a>
+        </div>
+
         <Tabs type='card' onChange={this._handleTabChange}
           activeKey={activeKey}>
           <TabPane tab={<span><Icon type='clock-circle' />最新榜</span>} key="modified">

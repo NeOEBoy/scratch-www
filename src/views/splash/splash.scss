@@ -36,3 +36,35 @@
   white-space: nowrap;/*不换行*/
   text-overflow:ellipsis;/*超出部分文字以...显示*/
 }
+
+.goLearning{
+  width: 60px;
+  /* height: 15px; */
+  /* background: #31BAFB; */
+  position: fixed;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  animation:mymove .8s infinite;
+  animation-direction:alternate;
+  animation-timing-function: ease-in;
+  -webkit-animation:mymove .8s infinite; /*Safari and Chrome*/
+  -webkit-animation-direction:alternate;
+  -webkit-animation-timing-function: ease-in;
+  z-index: 100;
+}
+.goLearning img{width: 100%;}
+@keyframes mymove
+{
+0% {transform:rotate(-30deg);
+-ms-transform:rotate(-30deg); /* IE 9 */
+-webkit-transform:rotate(-30deg); /* Safari and Chrome */}
+
+100% {transform:rotate(30deg);
+-ms-transform:rotate(30deg); /* IE 9 */
+-webkit-transform:rotate(30deg); /* Safari and Chrome */}
+}

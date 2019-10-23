@@ -16,7 +16,7 @@ const Meta = props => {
 
     return (
         <Helmet>
-            <title>{`${title} on Scratch`}</title>
+            <title>{`${title}-${author.username}在儒越的编程作品`}</title>
             <meta
                 content={`${title} on Scratch by ${author.username}`}
                 name="description"
