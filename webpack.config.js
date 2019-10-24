@@ -21,8 +21,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 } else {
   // let www = 'http://123.207.119.232';
-  let www = 'http://scratch.ruyue.xyz';
-  // http://scratch.ruyue.xyz/apis 通过nginx代理为 http://127.0.0.1:3001
+  let www = 'https://scratch.ruyue.xyz';
+  // https://scratch.ruyue.xyz/apis 通过nginx代理为 http://127.0.0.1:3001
   process.env.API_HOST = process.env.API_HOST || www + '/apis/scratch/scratch-api'
   process.env.ASSET_HOST = process.env.ASSET_HOST || www + '/apis/scratch/scratch-assets'
   process.env.PROJECT_HOST = process.env.PROJECT_HOST || www + '/apis/scratch/scratch-projects'
