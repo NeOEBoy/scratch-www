@@ -255,6 +255,7 @@ class MyStuff extends React.Component {
         <div style={{ textAlign: "center" }}>空空如也</div>
       ) : null;
     }
+
     return (
       <div className='inner mystuff'>
         <BackTop visibilityHeight={0}/>
@@ -312,7 +313,7 @@ class MyStuff extends React.Component {
                               {
                                 <div style={{ width: 122, height: 92, border: '1px dotted' }}>
                                   <img
-                                    src={item.visibility === 'visible' ? item.image : ''}
+                                    src={item.visibility === 'visible' ? process.env.API_HOST + '/images/' + item.projectId : ''}
                                     alt={item.title}
                                     style={{ width: 120, height: 90 }}>
                                   </img>
@@ -368,7 +369,7 @@ class MyStuff extends React.Component {
                               {
                                 <div style={{ width: 122, height: 92, border: '1px dotted' }}>
                                   <img
-                                    src={item.visibility === 'trshbyusr' ? item.image : ''}
+                                    src={item.visibility === 'trshbyusr' ? process.env.API_HOST + '/images/' + item.projectId : ''}
                                     alt={item.title}
                                     style={{ width: 120, height: 90 }}>
                                   </img>

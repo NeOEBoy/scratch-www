@@ -207,6 +207,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
             }
           }
 
+          let imageSrc = process.env.API_HOST + '/images/' + item.projectId;
           return (
             <List.Item>
               <QueueAnim type={['scale']} duration='800'>
@@ -216,7 +217,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
                   onClick={() => { window.location.href = '/projects/' + item.projectId }}>
                   <div key='image' className='list-item-imgdiv'>
                     <img
-                      src={item.image}
+                      src={imageSrc}
                       alt={item.title}
                       style={{ width: '99.9%' }} />
                   </div>
