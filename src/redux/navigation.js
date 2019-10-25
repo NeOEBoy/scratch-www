@@ -147,6 +147,33 @@ module.exports.handleLogIn = (formData, callback) => (dispatch => {
   });
 });
 
+module.exports.handleOpenLogIn = (formData, callback) => (dispatch => {
+  api({
+    method: 'post',
+    // host: '',
+    uri: '/accounts/openlogin/',
+    json: formData,
+    useCsrf: true,
+    withCredentials: true
+  }, (err, body) => {
+    if (body) {
+      body = body[0];
+      if (body.success) {
+        callback({ success: true });
+      } else {
+        if (body.redirect) {
+          window.location = body.redirect;
+        }
+        // JS error already logged by api mixin
+        callback({ success: false });
+      }
+    } else {
+      // JS error already logged by api mixin
+      callback({ success: false });
+    }
+  });
+});
+
 module.exports.handleLogOut = () => (() => {
   // POST to /accounts/logout using a dummy form instead of XHR. This ensures
   // logout only happens AFTER onbeforeunload has the chance to prevent nagivation.

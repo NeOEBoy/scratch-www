@@ -14,6 +14,7 @@ const LoginDropdown = require('../../login/login-dropdown.jsx');
 const CanceledDeletionModal = require('../../login/canceled-deletion-modal.jsx');
 const NavigationBox = require('../base/navigation.jsx');
 const AccountNav = require('./accountnav.jsx');
+const urlParams = require('../../../lib/url-params');
 
 require('./navigation.scss');
 
@@ -40,6 +41,32 @@ class Navigation extends React.Component {
   }
   handleSearchSubmit(formData) {
     window.location.href = `/search/projects?q=${encodeURIComponent(formData.q)}`;
+  }
+
+  is_weixin() {
+    let ua = navigator.userAgent.toLowerCase();
+    return ua.match(/MicroMessenger/i) == "micromessenger";
+  }
+
+  handleSignIn(event) {
+    // 微信客户端里打开，则启用微信授权登录
+    if (this.is_weixin()) {
+      const weixinParamObject = {};
+      // 测试账号
+      // weixinParamObject.appid = 'wx6e6a95c96202787e';
+      // 正式账号
+      weixinParamObject.appid = 'wx66939686e6f3888e';
+      const redirectParamObject = {};
+      redirectParamObject.fromWhere = window.location.href;
+      weixinParamObject.redirect_uri = 'https://scratch.ruyue.xyz/wechat_login?' + urlParams(redirectParamObject);
+      weixinParamObject.response_type = 'code';
+      weixinParamObject.scope = 'snsapi_userinfo';
+      const weixinParamString = urlParams(weixinParamObject)
+      let weixinUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?' + weixinParamString + '#wechat_redirect';
+      document.location = weixinUrl;
+    } else {
+      this.props.handleToggleLoginOpen(event);
+    }
   }
 
   render() {
@@ -128,7 +155,7 @@ class Navigation extends React.Component {
                     className="ignore-react-onclickoutside"
                     href="#"
                     key="login-link"
-                    onClick={this.props.handleToggleLoginOpen}
+                    onClick={(evnet) => this.handleSignIn(evnet)}
                   >
                     <FormattedMessage id="general.signIn" />
                   </a>

@@ -14,6 +14,13 @@
         "title": "About"
     },
     {
+      "name": "wechat_login",
+      "pattern": "^/wechat_login/?$",
+      "routeAlias": "/wechat_login/?$",
+      "view": "wechat/login",
+      "title": "微信登录"
+    },
+    {
         "name": "explore",
         "pattern": "^/explore/:projects(projects|studios)/:all/?$",
         "routeAlias": "/explore(?!/ajax)",
