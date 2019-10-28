@@ -3,14 +3,51 @@ const React = require('react');
 const api = require('../../lib/api');
 
 import { converDateBy } from '../../lib/date-utils'
-import { List, Button, Tabs, Icon, BackTop } from 'antd';
+import {
+  List, Button, Tabs,
+  Icon, BackTop, Typography
+} from 'antd';
+const { Text } = Typography;
+
 const TabPane = Tabs.TabPane;
 import QueueAnim from 'rc-queue-anim';
 require('./splash.scss');
 
 const KSize = 12;
 
+// 标题组件，用于显示我的孩子的用户名
+class TitleSpan extends React.Component {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      title: '------'
+    };
+  }
+
+  // 加载完毕后根据userId获取用户名并显示
+  componentDidMount() {
+    api({
+      uri: '/accounts/profile',
+      params: {
+        userId: this.props.userId
+      },
+      withCredentials: true,
+    }, (err, res) => {
+      if (!err && res) {
+        this.setState({
+          title: res.name
+        })
+      }
+    });
+  }
+
+  render() {
+    return (
+      <span>{this.state.title}</span>
+    )
+  }
+}
 // Splash page
 class SplashPresentation extends React.Component { // eslint-disable-line react/no-multi-comp
   constructor(props) {
@@ -23,13 +60,16 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
       list4source: [],
       currentPage: 1,
       alreadyShowAll: true,
-      activeKey: 'modified'
+      activeKey: 'modified',
+      activeKey4Children: '-1'
     }
   }
 
   componentDidMount() {
+    // console.log('componentDidMount')
+
     setTimeout(() => {
-      this._reloadPage();      
+      this._reloadPage();
     }, 100);
     window.addEventListener('hashchange', this._reloadPage)
   }
@@ -56,6 +96,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
     } else if (this.state.activeKey) {
       sortKey = this.state.activeKey;
     }
+
     this.setState({
       activeKey: sortKey
     })
@@ -72,6 +113,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
       if (key === 'mystuff') {
         this._SearchArea = 'mystuff'
         this._SortKey = 'modified';
+        this._UserId = this.state.activeKey4Children;
       } else {
         this._SearchArea = 'allstuff'
         this._SortKey = key ? key : 'modified'
@@ -93,6 +135,15 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
   }
 
   _initState(stateChanged) {
+    // console.log('this.props.user.childrens = ' + this.props.user.childrens)
+    // 如果未初始化，初始化未第一个小孩
+    let defautlActiveKey4Children = this.state.activeKey4Children;
+    if (defautlActiveKey4Children === '-1' &&
+      this.props.user.childrens &&
+      this.props.user.childrens.length > 0) {
+      defautlActiveKey4Children = this.props.user.childrens[0].toString();
+    }
+
     this.setState({
       initLoading: false,
       nextLoading: false,
@@ -100,6 +151,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
       list4source: [],
       currentPage: 1,
       alreadyShowAll: true,
+      activeKey4Children: defautlActiveKey4Children
     }, stateChanged);
   }
 
@@ -111,7 +163,8 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         page: currentPage,
         size: KSize,
         sortArea: this._SearchArea,
-        sortKey: this._SortKey
+        sortKey: this._SortKey,
+        userId: this._UserId
       },
       withCredentials: true,
     }, (err, res) => {
@@ -160,7 +213,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
   }
 
   _handleTabChange = (key) => {
-    if(!key) return;
+    if (!key) return;
 
     // 触发hash事件从而刷新页面
     window.location.hash = '#' + key;
@@ -169,14 +222,24 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
     })
   }
 
+  _handleChildrenTabChange = (key) => {
+    if (!key) return;
+
+    this.setState({
+      activeKey4Children: key.toString()
+    }, () => {
+      this._reloadPage();
+    });
+  }
+
   render() {
-    const { initLoading, nextLoading, list4source, alreadyShowAll, activeKey } = this.state;
+    const { initLoading, nextLoading, list4source, alreadyShowAll, activeKey, activeKey4Children } = this.state;
     const loadMore = !initLoading && !nextLoading && !alreadyShowAll ? (
       <div style={{
         textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px',
       }}
       >
-        <Button onClick={this._handleLoadMore}>载入更多内容</Button>
+        <Button onClick={this._handleLoadMore}>查看更多作品</Button>
       </div>
     ) : null;
 
@@ -185,7 +248,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         rowKey={record => record._id}
         loading={initLoading}
         loadMore={loadMore}
-        locale={{emptyText: '空空如也'}}
+        locale={{ emptyText: '没有作品，快开始创作一个作品吧！！！' }}
         grid={{
           gutter: 12, xs: 2, sm: 2, md: 3, lg: 3, xl: 3, xxl: 4,
         }}
@@ -239,11 +302,32 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         }}
       />);
 
+    let myChildenCom;
+    if (this.props.user.username) {
+      let theChildren = this.props.user.childrens;
+      if (!theChildren || theChildren <= 0) {
+        myChildenCom = <Text type='warning'>您的账户还未关联孩子，无法展示您的孩子的作品，请联系儒越编程管理人员关联账户。</Text>
+      } else {
+        // console.log('theChildren = ' + theChildren.length)
+        myChildenCom =
+          <Tabs type='line' onChange={this._handleChildrenTabChange} activeKey={activeKey4Children}>
+            {theChildren.map((userId) =>
+              <TabPane tab={<TitleSpan userId={userId} />}
+                key={userId.toString()}>
+                {listTemplate}
+              </TabPane>
+            )}
+          </Tabs>
+      }
+    } else {
+      myChildenCom = <Text type='danger'>您还未登录，请点击右上角登录。</Text>;
+    }
+
     return (
       <div
         className="inner"
         key="inner">
-        <BackTop visibilityHeight={0}/>
+        <BackTop visibilityHeight={0} />
 
         <div className='goLearning'>
           {/* <a href='http://123.207.119.232:3200/'> */}
@@ -252,16 +336,15 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
           </a>
         </div>
 
-        <Tabs type='card' onChange={this._handleTabChange}
-          activeKey={activeKey}>
+        <Tabs type='card' onChange={this._handleTabChange} activeKey={activeKey}>
           <TabPane tab={<span><Icon type='clock-circle' />最新榜</span>} key="modified">
             {listTemplate}
           </TabPane>
           <TabPane tab={<span><Icon type="like" />点赞榜</span>} key="loves">
             {listTemplate}
           </TabPane>
-          <TabPane tab={<span><Icon type="smile" />我的宝宝</span>} key="mystuff">
-            {listTemplate}
+          <TabPane tab={<span><Icon type="smile" />我的孩子</span>} key="mystuff">
+            {myChildenCom}
           </TabPane>
         </Tabs>
       </div>

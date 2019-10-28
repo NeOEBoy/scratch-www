@@ -3,10 +3,14 @@ const render = require('../../lib/render.jsx');
 const navigationActions = require('../../redux/navigation.js');
 const connect = require('react-redux').connect;
 
-import { message } from 'antd';
+import { Typography } from 'antd';
+const { Text } = Typography;
 
 require('./login.scss');
 
+/**
+ * 用于显示微信登录的过渡页面，调用微信登录接口，成功后返回原来页面
+ */
 class Login extends React.Component { // eslint-disable-line react/no-multi-comp
   constructor(props) {
     super(props);
@@ -51,8 +55,8 @@ class Login extends React.Component { // eslint-disable-line react/no-multi-comp
 
   render() {
     return (
-      <div style={{ position: 'fixed', backgroundColor: 'gray', width: '100%', height: '100%' }}>
-        <h1 style={{}}>微信登录中</h1>
+      <div style={{ position: 'fixed', backgroundColor: 'white', width: '100%', height: '100%' }}>
+        <Text type='warning' style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>微信登录中...</Text>
       </div>
     );
   }

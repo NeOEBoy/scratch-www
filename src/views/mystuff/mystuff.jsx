@@ -252,7 +252,7 @@ class MyStuff extends React.Component {
       const theFilterSource = list4source.filter((element) => element.visibility === this._tabKey);
       const showNoData = !initLoading && !nextLoading && theFilterSource.length === 0
       noData = showNoData ? (
-        <div style={{ textAlign: "center" }}>空空如也</div>
+        <div style={{ textAlign: "center" }}>没有作品，快开始创作一个作品吧！！！</div>
       ) : null;
     }
 
@@ -286,7 +286,7 @@ class MyStuff extends React.Component {
                 itemLayout="horizontal"
                 loadMore={loadMore}
                 dataSource={list4source}
-                locale={{ emptyText: '空空如也' }}
+                locale={{ emptyText: '没有作品，快开始创作一个作品吧！！！' }}
                 renderItem={item => (
                   item.visibility === 'visible' ?
                     (
@@ -351,7 +351,7 @@ class MyStuff extends React.Component {
                 itemLayout="horizontal"
                 loadMore={loadMore}
                 dataSource={list4source}
-                locale={{ emptyText: '空空如也' }}
+                locale={{ emptyText: '没有作品，快开始创作一个作品吧！！！' }}
                 renderItem={item => (
                   item.visibility === 'trshbyusr' ?
                     (
