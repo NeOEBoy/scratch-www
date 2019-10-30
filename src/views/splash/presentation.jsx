@@ -2,7 +2,7 @@ const connect = require('react-redux').connect;
 const React = require('react');
 const api = require('../../lib/api');
 
-import { converDateBy } from '../../lib/date-utils'
+import { makeDateFormat, converDateBy } from '../../lib/date-utils'
 import {
   List, Button, Tabs,
   Icon, BackTop, Typography
@@ -61,7 +61,12 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
       currentPage: 1,
       alreadyShowAll: true,
       activeKey: 'modified',
-      activeKey4Children: '-1'
+      activeKey4Children: '-1',
+      alreadyGetConsumeInfo: false,
+      total: -1,
+      prepaid: -1,
+      consume: -1,
+      lastConsumeTime: '------'
     }
   }
 
@@ -89,6 +94,34 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
     }
   }
 
+  _reloadTraineeInfo = () => {
+    this.setState({
+      alreadyGetConsumeInfo: false,
+      total: -1,
+      prepaid: -1,
+      consume: -1,
+      lastConsumeTime: '------'
+    }, () => {
+      api({
+        uri: '/allstuff/traineeInfo',
+        params: {
+          userId: this._UserId
+        },
+        withCredentials: true,
+      }, (err, res) => {
+        if (!err && res) {
+          this.setState({
+            alreadyGetConsumeInfo: true,
+            total: res.total,
+            prepaid: res.prepaid,
+            consume: res.consume,
+            lastConsumeTime: res.lastConsumeTime
+          })
+        }
+      });
+    })
+  }
+
   _reloadPage = () => {
     let sortKey = 'modified';
     if (window.location.hash.indexOf('#') !== -1) {
@@ -114,6 +147,8 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         this._SearchArea = 'mystuff'
         this._SortKey = 'modified';
         this._UserId = this.state.activeKey4Children;
+
+        this._reloadTraineeInfo();
       } else {
         this._SearchArea = 'allstuff'
         this._SortKey = key ? key : 'modified'
@@ -124,7 +159,6 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
       });
       this._getNextPage((res) => {
         // console.log('MyStuff componentDidMount complete');
-
         this.setState({
           initLoading: false,
           list4Next: res && res.data || [],
@@ -233,7 +267,19 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
   }
 
   render() {
-    const { initLoading, nextLoading, list4source, alreadyShowAll, activeKey, activeKey4Children } = this.state;
+    const {
+      initLoading,
+      nextLoading,
+      list4source,
+      alreadyShowAll,
+      activeKey,
+      activeKey4Children,
+      alreadyGetConsumeInfo,
+      total,
+      prepaid,
+      consume,
+      lastConsumeTime
+    } = this.state;
     const loadMore = !initLoading && !nextLoading && !alreadyShowAll ? (
       <div style={{
         textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px',
@@ -310,11 +356,41 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
       } else {
         // console.log('theChildren = ' + theChildren.length)
         myChildenCom =
-          <Tabs type='line' onChange={this._handleChildrenTabChange} activeKey={activeKey4Children}>
+          <Tabs type='line' animated={false} onChange={this._handleChildrenTabChange} activeKey={activeKey4Children}
+            style={{ marginTop: -16 }}>
             {theChildren.map((userId) =>
               <TabPane tab={<TitleSpan userId={userId} />}
                 key={userId.toString()}>
-                {listTemplate}
+
+                {
+                  alreadyGetConsumeInfo ? (<ul style={{ display: 'inline-block', marginTop: -16 }}>
+                    <li>
+                      <Text type='danger'>{`已上: ${consume}节课`}</Text>
+                    </li>
+                    <li>
+                      <Text type='warning'>{`剩余: ${prepaid - consume}节课`}</Text>
+                    </li>
+                    <li>
+                      <Text type='secondary'>{`预购: ${prepaid}节课`}</Text>
+                    </li>
+                    <li>
+                      <Text type='secondary'>{`总共: ${total}节课`}</Text>
+                    </li>
+                    <li>
+                      <Text>
+                        上次签到:<span>  </span>
+                        {
+                          (lastConsumeTime && lastConsumeTime !== '------') ? makeDateFormat(new Date(lastConsumeTime), "yyyy-MM-dd hh:mm") +
+                            '(' + converDateBy(lastConsumeTime) + ')' : '------'
+                        }
+                      </Text>
+                    </li>
+                  </ul>) : null
+                }
+
+                <div>
+                  {listTemplate}
+                </div>
               </TabPane>
             )}
           </Tabs>
