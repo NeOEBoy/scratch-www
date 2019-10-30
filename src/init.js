@@ -98,7 +98,7 @@ const api = require('../src/lib/api');
               title: document.title, // 分享标题
               desc: location.href, // 分享描述
               link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: 'https://scratch.ruyue.xyz/images/儒.png', // 分享图标
+              imgUrl: 'https://scratch.ruyue.xyz/images/儒-白色背景.jpg', // 分享图标
               success: function () {
                 // 设置成功
                 // console.log('wx.updateAppMessageShareData success');
@@ -113,7 +113,7 @@ const api = require('../src/lib/api');
             wx.updateTimelineShareData({
               title: document.title, // 分享标题
               link: location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-              imgUrl: 'https://scratch.ruyue.xyz/images/儒.png', // 分享图标
+              imgUrl: 'https://scratch.ruyue.xyz/images/儒-白色背景.jpg', // 分享图标
               success: function () {
                 // 设置成功
                 // console.log('wx.updateTimelineShareData success');
