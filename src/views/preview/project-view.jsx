@@ -33,6 +33,10 @@ const frameless = require('../../lib/frameless');
 const GUI = require('scratch-gui');
 const IntlGUI = injectIntl(GUI.default);
 
+import {
+  message
+} from 'antd';
+
 const localStorageAvailable = 'localStorage' in window && window.localStorage !== null;
 
 const Sentry = require('@sentry/browser');
@@ -489,7 +493,11 @@ class Preview extends React.Component {
     );
   }
   handleLoveToggle() {
-    if (!this.props.lovedLoaded) return;
+    // love未加载表示账户为登录上，提示下登录
+    if (!this.props.lovedLoaded) {
+      message.info('您还未登录，请点击右上角登录后，再给孩子加油。')
+      return;
+    }
 
     this.props.setLovedStatus(
       !this.props.loved,

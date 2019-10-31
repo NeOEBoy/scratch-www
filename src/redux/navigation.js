@@ -185,8 +185,11 @@ module.exports.handleLogOut = () => (() => {
   form.setAttribute('method', 'POST');
   let logoutUrl = process.env.API_HOST + '/accounts/logout/';
 
-  /**增加sign begin -neo */
   const params = {};
+  params.redirectUrl = location.href;
+  // console.log('handleLogOut location.href = ' + location.href)
+  /**增加sign begin -neo */
+  
   params._timestamp = new Date().getTime();
   let tsString = params._timestamp + '';
   let rdString = Math.floor(Math.random() * 1000) + '';// 0-999

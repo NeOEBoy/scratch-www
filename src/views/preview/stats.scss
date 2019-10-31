@@ -59,6 +59,12 @@
         // background-image: url("/svgs/project/love-gray.svg");
         background-image: url("/svgs/project/like-1.svg");
         background-size: 24px 24px;
+
+        // 呼吸动效
+        -webkit-animation-name: scaleDraw; /*关键帧名称*/
+        -webkit-animation-timing-function: ease-in-out; /*动画的速度曲线*/
+        -webkit-animation-iteration-count: infinite;  /*动画播放的次数*/
+        -webkit-animation-duration: 3s; /*动画所花费的时间*/
     }
 }
 
@@ -103,6 +109,25 @@
     &:before {
         opacity: 1;
         background-image: url("/svgs/project/eye-1.svg");
-        background-size: 42px 32px;
+        background-size: 48 32px;
     }
 }
+
+@keyframes scaleDraw {  /*定义关键帧、scaleDrew是需要绑定到选择器的关键帧名称*/
+  0%{
+      transform: scale(0.9);  /*开始为原始大小*/
+  }
+  25%{
+      transform: scale(1.1); /*放大1.1倍*/
+  }
+  50%{
+      transform: scale(0.9);
+  }
+  75%{
+      transform: scale(1.1);
+  }
+  100%{
+    transform: scale(0.8);
+  }
+}
+
