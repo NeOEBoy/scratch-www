@@ -186,10 +186,20 @@ module.exports.handleLogOut = () => (() => {
   let logoutUrl = process.env.API_HOST + '/accounts/logout/';
 
   const params = {};
-  params.redirectUrl = location.href;
+  let currentURL = document.URL;
+
+  /// 增加个随机数参数 (todo-如果已经存在t参数，则修改t参数，而不是增加t参数)
+  let arrayUseHash = currentURL.split('#');
+  let currentURLWithoutHash = arrayUseHash[0];
+  currentURLWithoutHash += (currentURLWithoutHash.indexOf('?') === -1 ? '?' : '&');
+  currentURLWithoutHash = currentURLWithoutHash + 't=' + parseInt(new Date().getTime() / 1000);
+  currentURLWithoutHash += arrayUseHash[1] ? ('#' + arrayUseHash[1]) : '';
+
+  params.redirectUrl = currentURLWithoutHash;
+
   // console.log('handleLogOut location.href = ' + location.href)
   /**增加sign begin -neo */
-  
+
   params._timestamp = new Date().getTime();
   let tsString = params._timestamp + '';
   let rdString = Math.floor(Math.random() * 1000) + '';// 0-999
