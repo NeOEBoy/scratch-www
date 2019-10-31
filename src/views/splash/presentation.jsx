@@ -75,7 +75,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
 
     setTimeout(() => {
       this._reloadPage();
-    }, 100);
+    }, 300);
     window.addEventListener('hashchange', this._reloadPage)
   }
 
