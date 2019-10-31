@@ -148,7 +148,10 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         this._SortKey = 'modified';
         this._UserId = this.state.activeKey4Children;
 
-        this._reloadTraineeInfo();
+        // 有小孩信息，则更新下课时信息
+        if(this._UserId !== '-1') {
+          this._reloadTraineeInfo();
+        }
       } else {
         this._SearchArea = 'allstuff'
         this._SortKey = key ? key : 'modified'
