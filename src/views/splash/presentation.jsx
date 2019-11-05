@@ -149,7 +149,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         this._UserId = this.state.activeKey4Children;
 
         // 有小孩信息，则更新下课时信息
-        if(this._UserId !== '-1') {
+        if (this._UserId !== '-1') {
           this._reloadTraineeInfo();
         }
       } else {
@@ -305,6 +305,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         renderItem={(item, index) => {
           // 如果是学员，把extra信息显示一下
           let authorArea = '';
+          let authorAvatar = 'https://scratch.ruyue.xyz/images/avatars/lv0_boy.png';
           if (item.author) {
             authorArea = item.author.name;
             if (item.author.role === 'trainee' && item.author.extra) {
@@ -316,6 +317,12 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
               if (grade) {
                 authorArea = authorArea + '/' + grade;
               }
+            }
+
+            if(item.author.sex === 1) {
+              authorAvatar = 'https://scratch.ruyue.xyz/images/avatars/lv1_boy.png';
+            } else if(item.author.sex === 2) {
+              authorAvatar = 'https://scratch.ruyue.xyz/images/avatars/lv1_girl.png';
             }
           }
 
@@ -335,14 +342,21 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
                   </div>
 
                   <div className='list-item-title'>{item.title}</div>
+                  <div className='list-item-modified'>{converDateBy(item.modified)}</div>
+
+                  <div style={{position: 'absolute', marginLeft: 0, marginTop: 4}}>
+                    <img src={authorAvatar} style={{ width: 44, height: 44, borderRadius: '22px' }}/>
+                  </div>
+
                   <div className='list-item-author'>{authorArea}</div>
-                  <div className='list-item-modified'>
-                    <Icon type='like' />
-                    <span> {item.loves}&nbsp;&nbsp;</span>
-                    <Icon type='eye' />
+                  <div className='list-item-status'>
+                    <img src='https://scratch.ruyue.xyz/svgs/project/eye-1.svg' 
+                      style={{ width: 24, height: 24}}/>
                     <span> {item.views}&nbsp;&nbsp;</span>
-                    <Icon type='clock-circle' />
-                    <span> {converDateBy(item.modified)}</span>
+                    <img src={item.loves ? 'https://scratch.ruyue.xyz/svgs/project/like-2.svg' :
+                      'https://scratch.ruyue.xyz/svgs/project/like-1.svg'}
+                    style={{ width: 24, height: 24}}/>
+                    <span> {item.loves}&nbsp;&nbsp;</span>
                   </div>
                 </div>
               </QueueAnim>
