@@ -121,9 +121,9 @@
             background-size: 45%;
             // padding和antd冲突，这里设置为0
             padding: 0;
-            width: 50px;
+            width: 56px;
             overflow: hidden;
-            text-indent: 50px;
+            text-indent: 56px;
             white-space: nowrap;
 
             &:hover {
@@ -161,7 +161,7 @@
     .mystuff {
         > a {
             // background-image: url("/images/mystuff.png");
-            background-image: url("/images/backpack.png");
+            background-image: url("/images/backpack1.png");
         }
     }
 }
