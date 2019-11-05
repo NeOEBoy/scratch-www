@@ -424,8 +424,8 @@ class PreviewPresentation extends React.Component {
                               className="project-title no-edit"
                               title={projectInfo.title}
                             >{projectInfo.title}</div>
-                            {'by '}
-                            <a href={`/users/${projectInfo.author.username}`}>
+                            <span className="project-author">{'作者:  '}</span>
+                            <a className="project-author">
                               {projectInfo.author.username}
                             </a>
                           </React.Fragment>
@@ -479,7 +479,8 @@ class PreviewPresentation extends React.Component {
                   {showInstructions && (
                     <div className="description-block">
                       <div className="project-textlabel">
-                        <FormattedMessage id="project.instructionsLabel" />
+                        {/* <FormattedMessage id="project.instructionsLabel" /> */}
+                        作品介绍:
                       </div>
                       {editable ?
                         <FormsyProjectUpdater
@@ -499,9 +500,9 @@ class PreviewPresentation extends React.Component {
                                 )}
                                 handleUpdate={handleUpdate}
                                 name="instructions"
-                                placeholder={intl.formatMessage({
-                                  id: 'project.descriptionPlaceholder'
-                                })}
+                                placeholder= 
+                                '简单介绍下你的作品，以及如何使用你的作品，比如需要按那些按键。'
+                                /* { intl.formatMessage({ id: 'project.descriptionPlaceholder' }) } */
                                 type="textarea"
                                 validationErrors={{
                                   maxLength: intl.formatMessage({
@@ -529,7 +530,8 @@ class PreviewPresentation extends React.Component {
                   {showNotesAndCredits && (
                     <div className="description-block">
                       <div className="project-textlabel">
-                        <FormattedMessage id="project.notesAndCreditsLabel" />
+                        备注
+                        {/* <FormattedMessage id="project.notesAndCreditsLabel" /> */}
                       </div>
                       {editable ?
                         <FormsyProjectUpdater
@@ -653,8 +655,8 @@ class PreviewPresentation extends React.Component {
                             className="project-title no-edit"
                             title={projectInfo.title}
                           >{projectInfo.title}</div>
-                          {'by '}
-                          <a href={`/users/${projectInfo.author.username}`}>
+                          <span className="project-author">{'作者: '}</span>
+                          <a className="project-author">
                             {projectInfo.author.username}
                           </a>
                         </React.Fragment>

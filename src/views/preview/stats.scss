@@ -1,4 +1,5 @@
 @import "../../frameless";
+@import "../../colors";
 
 .stats {
     line-height: 2rem;
@@ -35,8 +36,9 @@
     display: flex;
     padding-right: 2rem;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: normal;
     align-items: center;
+    color: $ui-blue-dark;
 
     &:before {
         display: inline-block;
@@ -118,16 +120,16 @@
       transform: scale(0.9);  /*开始为原始大小*/
   }
   25%{
-      transform: scale(1.1); /*放大1.1倍*/
+      transform: scale(1.5); /*放大1.5倍*/
   }
   50%{
       transform: scale(0.9);
   }
   75%{
-      transform: scale(1.1);
+      transform: scale(1.5);
   }
   100%{
-    transform: scale(0.8);
+    transform: scale(0.9);
   }
 }
 
