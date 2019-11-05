@@ -92,6 +92,19 @@ module.exports.refreshSession = () => (dispatch => {
             window.location = '/classes/student_password_reset/';
             return;
         }
+
+        // 如果没有头像，根据性别设置一个
+        if(body.user && !body.user.thumbnailUrl) {
+          let avatarImageUrl = 'https://scratch.ruyue.xyz/images/avatars/lv0_boy.png';
+          if(body.user.sex === 1) {
+            avatarImageUrl = 'https://scratch.ruyue.xyz/images/avatars/lv1_boy.png';
+          } else if(body.user.sex === 2) {
+            avatarImageUrl = 'https://scratch.ruyue.xyz/images/avatars/lv1_girl.png';
+          }
+          body.user.thumbnailUrl = avatarImageUrl;
+        }
+        
+
         dispatch(module.exports.setSession(body));
         dispatch(module.exports.setStatus(module.exports.Status.FETCHED));
 

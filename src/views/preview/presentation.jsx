@@ -125,6 +125,7 @@ class PreviewPresentation extends React.Component {
   render() {
     // console.log('presentation render')
 
+
     const {
       addToStudioOpen,
       adminModalOpen,
@@ -194,6 +195,18 @@ class PreviewPresentation extends React.Component {
       userOwnsProject,
       visibilityInfo
     } = this.props;
+
+    console.log('presentation projectInfo = ' + JSON.stringify(projectInfo));
+    if (projectInfo.author && !projectInfo.author.thumbnailUrl) {
+      let avatarImageUrl = 'https://scratch.ruyue.xyz/images/avatars/lv0_boy.png';
+      if (projectInfo.author.sex === 1) {
+        avatarImageUrl = 'https://scratch.ruyue.xyz/images/avatars/lv1_boy.png';
+      } else if (projectInfo.author.sex === 2) {
+        avatarImageUrl = 'https://scratch.ruyue.xyz/images/avatars/lv1_girl.png';
+      }
+      projectInfo.author.thumbnailUrl = avatarImageUrl;
+    }
+
     const shareDate = ((projectInfo.history && projectInfo.history.shared)) ? projectInfo.history.shared : '';
     const revisedDate = ((projectInfo.history && projectInfo.history.modified)) ? projectInfo.history.modified : '';
     const showInstructions = editable || projectInfo.instructions ||
@@ -388,7 +401,8 @@ class PreviewPresentation extends React.Component {
                       <a href='#'>
                         <Avatar
                           alt={projectInfo.author.username}
-                        //src={thumbnailUrl(projectInfo.author.id, 48)}
+                          //src={thumbnailUrl(projectInfo.author.id, 48)}
+                          src={projectInfo.author.thumbnailUrl}
                         />
                       </a>
                       <div className="title">
@@ -500,7 +514,7 @@ class PreviewPresentation extends React.Component {
                                 )}
                                 handleUpdate={handleUpdate}
                                 name="instructions"
-                                placeholder= 
+                                placeholder=
                                 '简单介绍下你的作品，以及如何使用你的作品，比如需要按那些按键。'
                                 /* { intl.formatMessage({ id: 'project.descriptionPlaceholder' }) } */
                                 type="textarea"
@@ -619,7 +633,8 @@ class PreviewPresentation extends React.Component {
                     <a href='#'>
                       <Avatar
                         alt={projectInfo.author.username}
-                      //src={thumbnailUrl(projectInfo.author.id, 48)}
+                        //src={thumbnailUrl(projectInfo.author.id, 48)}
+                        src={projectInfo.author.thumbnailUrl}
                       />
                     </a>
                     <div className="title">

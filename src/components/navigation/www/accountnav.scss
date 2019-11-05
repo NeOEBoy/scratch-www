@@ -20,10 +20,17 @@
 
         .avatar {
             margin-right: 10px;
-            border-radius: 3px;
-            width: 24px;
-            height: 24px;
+            border-radius: 16px;
+            width: 32px;
+            height: 32px;
             vertical-align: middle;
+        }
+
+        .profile-name {
+          max-width: 120px;
+          overflow:hidden;
+          text-overflow:ellipsis;
+          white-space:nowrap
         }
 
         &:hover {
