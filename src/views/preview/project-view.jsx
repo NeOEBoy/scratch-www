@@ -208,6 +208,8 @@ class Preview extends React.Component {
     window.removeEventListener('message', this.handleMessage);
   }
   fetchCommunityData() {
+    this.props.getLovedStatus(this.state.projectId);
+
     if (this.props.userPresent) {
       const username = this.props.user.username;
       const token = this.props.user.token;
@@ -223,7 +225,7 @@ class Preview extends React.Component {
       // this.props.getProjectStudios(this.state.projectId, token);
       // this.props.getCuratedStudios(username);
       // this.props.getFavedStatus(this.state.projectId, username, token);
-      this.props.getLovedStatus(this.state.projectId, username, token);
+      // this.props.getLovedStatus(this.state.projectId, username, token);
     } else {
       if (this.state.singleCommentId) {
         // this.props.getCommentById(this.state.projectId, this.state.singleCommentId);
@@ -402,7 +404,7 @@ class Preview extends React.Component {
   }
   handleGreenFlag() {
     if (!this.state.greenFlagRecorded) {
-      this.props.logProjectView(this.props.projectInfo.id, this.props.authorUsername, this.props.user.token);
+      this.props.logProjectView(this.props.projectInfo.id, this.props.user.token);
     }
     this.setState({
       showUsernameBlockAlert: false,
@@ -493,17 +495,13 @@ class Preview extends React.Component {
     );
   }
   handleLoveToggle() {
-    // love未加载表示账户为登录上，提示下登录
     if (!this.props.lovedLoaded) {
-      message.info('您还未登录，请点击右上角登录后，再给孩子加油。')
       return;
     }
 
     this.props.setLovedStatus(
       !this.props.loved,
-      this.props.projectInfo.id,
-      this.props.user.username,
-      this.props.user.token
+      this.props.projectInfo.id
     );
     if (this.props.loved) {
       this.setState(state => ({
@@ -515,6 +513,8 @@ class Preview extends React.Component {
         clientLoved: true,
         loveCount: state.loveCount + 1
       }));
+
+      message.success(`${this.props.projectInfo.author.username}：非常感谢您的点赞。`)
     }
   }
   handleRemix() {
@@ -1036,8 +1036,8 @@ const mapDispatchToProps = dispatch => ({
   logProjectView: (id, authorUsername, token) => {
     dispatch(previewActions.logProjectView(id, authorUsername, token));
   },
-  setLovedStatus: (loved, id, username, token) => {
-    dispatch(previewActions.setLovedStatusViaProxy(loved, id, username, token));
+  setLovedStatus: (loved, id) => {
+    dispatch(previewActions.setLovedStatusViaProxy(loved, id));
   },
   shareProject: (id, token) => {
     dispatch(previewActions.shareProject(id, token));

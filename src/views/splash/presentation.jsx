@@ -309,11 +309,11 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
           if (item.author) {
             authorArea = item.author.name;
             if (item.author.role === 'trainee' && item.author.extra) {
-              const age = item.author.extra.age;
+              {/* const age = item.author.extra.age; */}
               const grade = item.author.extra.grade;
-              if (age) {
+              {/* if (age) {
                 authorArea = authorArea + '/' + age + '岁';
-              }
+              } */}
               if (grade) {
                 authorArea = authorArea + '/' + grade;
               }
