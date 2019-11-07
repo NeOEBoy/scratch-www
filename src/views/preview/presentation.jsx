@@ -196,7 +196,7 @@ class PreviewPresentation extends React.Component {
       visibilityInfo
     } = this.props;
 
-    console.log('presentation projectInfo = ' + JSON.stringify(projectInfo));
+    // console.log('presentation projectInfo = ' + JSON.stringify(projectInfo));
     if (projectInfo.author && !projectInfo.author.thumbnailUrl) {
       let avatarImageUrl = 'https://scratch.ruyue.xyz/images/avatars/lv0_boy.png';
       if (projectInfo.author.sex === 1) {

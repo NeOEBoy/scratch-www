@@ -636,13 +636,16 @@ module.exports.setFavedStatusViaProxy = (faved, id, username, token) => (dispatc
 
 module.exports.getLovedStatus = (id) => (dispatch => {
   dispatch(module.exports.setFetchStatus('loved', module.exports.Status.FETCHING));
+
+  let params = {};
+  if(window.scratchGlobal && window.scratchGlobal.returnCitySN) {
+    params.ip = window.scratchGlobal.returnCitySN.ip;
+    params.address = window.scratchGlobal.returnCitySN.address;
+  }
   api({
     // uri: `/projects/${id}/loves/user/${username}`,
     uri: `/projects/${id}/loves`,
-    params: {
-      ip: window.scratchGlobal.returnCitySN.ip,
-      address: window.scratchGlobal.returnCitySN.address
-    },
+    params: params,
     withCredentials: true
   }, (err, body) => {
     if (err) {

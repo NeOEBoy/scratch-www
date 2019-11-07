@@ -13,7 +13,7 @@ const templateConfig = require('./src/template-config.js'); // eslint-disable-li
 if (process.env.NODE_ENV !== 'production') {
   routes = routes.concat(require('./src/routes-dev.json')); // eslint-disable-line global-require
 
-  let www = 'http://192.168.81.1:3001';
+  let www = 'http://localhost:3001';
   process.env.API_HOST = process.env.API_HOST || www + '/scratch/scratch-api'
   process.env.ASSET_HOST = process.env.ASSET_HOST || www + '/scratch/scratch-assets'
   process.env.PROJECT_HOST = process.env.PROJECT_HOST || www + '/scratch/scratch-projects'

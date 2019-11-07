@@ -47,11 +47,11 @@
   <script src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
 
   <!-- 搜狐接口获取本地ip存入全局变量 -->
-  <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+  <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
   <script type="text/javascript">
     window.scratchGlobal = {};
-    window.scratchGlobal.returnCitySN = {};
     if (returnCitySN) {
+      window.scratchGlobal.returnCitySN = {};
       window.scratchGlobal.returnCitySN.ip = returnCitySN.cip;
       window.scratchGlobal.returnCitySN.address = returnCitySN.cname;
     }
