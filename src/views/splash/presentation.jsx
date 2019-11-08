@@ -345,7 +345,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
                   <div className='list-item-modified'>{converDateBy(item.modified)}</div>
 
                   <div style={{position: 'absolute', marginLeft: 0, marginTop: 4}}>
-                    <img src={authorAvatar} style={{ width: 44, height: 44, borderRadius: '22px' }}/>
+                    <img src={authorAvatar} style={{ width: 44, height: 44, borderRadius: '22px', border:'1px solid' }}/>
                   </div>
 
                   <div className='list-item-author'>{authorArea}</div>
@@ -425,7 +425,7 @@ class SplashPresentation extends React.Component { // eslint-disable-line react/
         <div className='goLearning'>
           {/* <a href='http://123.207.119.232:3200/'> */}
           <a href='http://landing.ruyue.xyz/'>
-            <img src={require('../../../static/images/goLearning.png')}></img>
+            <img src='/images/goLearning.png'></img>
           </a>
         </div>
 

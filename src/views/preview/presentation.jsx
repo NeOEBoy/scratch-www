@@ -289,11 +289,11 @@ class PreviewPresentation extends React.Component {
         <div className='goLearning'>
           {/* <a href='http://123.207.119.232:3200/'> */}
           <a href='http://landing.ruyue.xyz/'>
-            <img src={require('../../../static/images/goLearning.png')}></img>
+            <img src='/images/goLearning.png'></img>
           </a>
         </div>
 
-        {showAdminPanel && (
+        {/* {showAdminPanel && (
           <AdminPanel
             className={classNames('project-admin-panel', {
               'admin-panel-open': adminPanelOpen,
@@ -310,7 +310,7 @@ class PreviewPresentation extends React.Component {
               src={`/scratch2/${projectId}/adminpanel/`}
             />
           </AdminPanel>
-        )}
+        )} */}
         {projectInfo && projectInfo.author && projectInfo.author.id && (
           <React.Fragment>
             {banner}
@@ -480,8 +480,8 @@ class PreviewPresentation extends React.Component {
                   </FlexRow>
                 </MediaQuery>
                 <FlexRow className="project-notes">
-                  <RemixCredit projectInfo={parentInfo} />
-                  <RemixCredit projectInfo={originalInfo} />
+                  {/* <RemixCredit projectInfo={parentInfo} />
+                  <RemixCredit projectInfo={originalInfo} /> */}
                   {/*  eslint-disable max-len */}
                   <MediaQuery maxWidth={frameless.tabletPortrait - 1}>
                     {(extensions && extensions.length) ? (
