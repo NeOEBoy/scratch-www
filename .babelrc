@@ -6,7 +6,16 @@
           "libraryDirectory": "es",
           "style": "css" // `style: true` 会加载 less 文件
         }],
-        "transform-class-properties"
+        "transform-class-properties",
+        [
+          "transform-runtime",
+          {
+            "helpers": false,
+            "polyfill": false,
+            "regenerator": true,
+            "moduleName": "babel-runtime"
+          }
+        ]
     ],
     "presets": ["react", "es2015", "stage-0"],
 }

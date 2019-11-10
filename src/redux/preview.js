@@ -637,8 +637,12 @@ module.exports.setFavedStatusViaProxy = (faved, id, username, token) => (dispatc
 module.exports.getLovedStatus = (id) => (dispatch => {
   dispatch(module.exports.setFetchStatus('loved', module.exports.Status.FETCHING));
 
+  alert('getLovedStatus');
+
   let params = {};
   if(window.scratchGlobal && window.scratchGlobal.returnCitySN) {
+    alert('getLovedStatus存在window.scratchGlobal');
+
     params.ip = window.scratchGlobal.returnCitySN.ip;
     params.address = window.scratchGlobal.returnCitySN.address;
   }
