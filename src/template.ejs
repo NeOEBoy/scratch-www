@@ -42,14 +42,12 @@
   <script src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
 
   <!-- 搜狐接口获取本地ip存入全局变量 -->
-  <script src="https://pv.sohu.com/cityjson?ie=utf-8">
-    alert('搜狐接口获取ip地址');
-  </script>
+  <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
   <script type="text/javascript">
     window.scratchGlobal = {};
     let theReturnCitySN = returnCitySN;
     if (theReturnCitySN) {
-      alert('搜狐接口获取到returnCitySN了');
+      // alert('搜狐接口获取到returnCitySN了');
       window.scratchGlobal.returnCitySN = {};
       window.scratchGlobal.returnCitySN.ip = theReturnCitySN.cip;
       window.scratchGlobal.returnCitySN.address = theReturnCitySN.cname;
